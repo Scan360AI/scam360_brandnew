@@ -1,0 +1,318 @@
+{
+  "company": {
+    "name": "RELIVE COMMUNICATION S.R.L.",
+    "shortName": "RC",
+    "lastUpdate": "23 Apr 2025",
+    "fiscalYear": "2024"
+  },
+  "irp": {
+    "score": 78.50,
+    "maxScore": 100,
+    "category": "B",
+    "categoryText": "Rischio Moderato-Basso",
+    "description": "Profilo di rischio solido con solidità patrimoniale eccellente ma criticità nella gestione del circolante. L'azienda mostra un miglioramento costante nel trend triennale.",
+    "scoreCircleClass": "irp-score-circle",
+    "categoryClass": "irp-category",
+    "badgeClass": "badge badge-success",
+    "indicators": {
+      "leanusScore": {
+        "value": "10,03",
+        "label": "Leanus Score"
+      },
+      "roe": {
+        "value": "40,91%",
+        "label": "ROE"
+      },
+      "netCash": {
+        "value": "€57k",
+        "label": "Cassa Netta"
+      }
+    }
+  },
+  "alerts": [
+    {
+      "type": "warning",
+      "title": "Ciclo del Circolante",
+      "message": "DSO elevato (262 giorni) richiede ottimizzazione gestione crediti",
+      "alertClass": "alert alert-warning",
+      "iconClass": "alert-icon"
+    },
+    {
+      "type": "success",
+      "title": "Solidità Patrimoniale",
+      "message": "Assenza totale di debito finanziario - posizione conservativa",
+      "alertClass": "alert alert-success",
+      "iconClass": "alert-icon"
+    }
+  ],
+  "kpis": [
+    {
+      "id": "revenues",
+      "label": "Ricavi",
+      "value": "€ 1,03 M",
+      "cardClass": "kpi-card info",
+      "iconClass": "kpi-icon info",
+      "labelClass": "kpi-label",
+      "valueClass": "kpi-value",
+      "trend": {
+        "direction": "up",
+        "value": "+1,64%",
+        "vs": "vs 2023",
+        "trendClass": "trend-up"
+      },
+      "description": "Crescita limitata ma stabile",
+      "descriptionClass": "kpi-description"
+    },
+    {
+      "id": "ebitda-margin",
+      "label": "EBITDA Margin",
+      "value": "9,91%",
+      "cardClass": "kpi-card success",
+      "iconClass": "kpi-icon success",
+      "labelClass": "kpi-label",
+      "valueClass": "kpi-value",
+      "trend": {
+        "direction": "down",
+        "value": "-0,39 p.p.",
+        "vs": "vs 2023",
+        "trendClass": "trend-down"
+      },
+      "description": "Marginalità ancora buona (benchmark 8-12%)",
+      "descriptionClass": "kpi-description"
+    },
+    {
+      "id": "pfn-ebitda",
+      "label": "PFN / EBITDA",
+      "value": "-0,56",
+      "cardClass": "kpi-card success",
+      "iconClass": "kpi-icon success",
+      "labelClass": "kpi-label",
+      "valueClass": "kpi-value",
+      "trend": {
+        "direction": "up",
+        "value": "Eccellente",
+        "vs": "PFN Negativa",
+        "trendClass": "trend-up"
+      },
+      "description": "Surplus di cassa (benchmark <3x)",
+      "descriptionClass": "kpi-description"
+    },
+    {
+      "id": "dso",
+      "label": "Giorni Incasso Clienti",
+      "value": "262 gg",
+      "cardClass": "kpi-card danger",
+      "iconClass": "kpi-icon danger",
+      "labelClass": "kpi-label",
+      "valueClass": "kpi-value",
+      "trend": {
+        "direction": "down",
+        "value": "+43 gg",
+        "vs": "vs 2023",
+        "trendClass": "trend-down"
+      },
+      "description": "Criticità significativa (benchmark 90-120gg)",
+      "descriptionClass": "kpi-description"
+    },
+    {
+      "id": "operating-cash-flow",
+      "label": "Cash Flow Operativo",
+      "value": "€ 63,85 K",
+      "cardClass": "kpi-card success",
+      "iconClass": "kpi-icon success",
+      "labelClass": "kpi-label",
+      "valueClass": "kpi-value",
+      "trend": {
+        "direction": "up",
+        "value": "6,19%",
+        "vs": "dei Ricavi",
+        "trendClass": "trend-up"
+      },
+      "description": "Buona generazione di cassa (benchmark >5%)",
+      "descriptionClass": "kpi-description"
+    },
+    {
+      "id": "leanus-score",
+      "label": "Leanus Score / Categoria",
+      "value": "10,03",
+      "cardClass": "kpi-card success",
+      "iconClass": "kpi-icon success",
+      "labelClass": "kpi-label",
+      "valueClass": "kpi-value",
+      "trend": {
+        "badges": [
+          {
+            "text": "Buono (2)",
+            "class": "badge badge-success"
+          },
+          {
+            "text": "Miglioramento",
+            "class": "badge badge-info"
+          }
+        ]
+      },
+      "description": "Profilo creditizio solido e affidabile",
+      "descriptionClass": "kpi-description"
+    },
+    {
+      "id": "priority-action",
+      "label": "Azione Prioritaria",
+      "value": "Gestione Crediti",
+      "valueStyle": "font-size: 20px;",
+      "cardClass": "kpi-card warning",
+      "iconClass": "kpi-icon warning",
+      "labelClass": "kpi-label",
+      "valueClass": "kpi-value",
+      "trend": {
+        "badges": [
+          {
+            "text": "Alta Priorità",
+            "class": "badge badge-warning"
+          }
+        ]
+      },
+      "description": "Riduzione DSO da 262 a 180 giorni",
+      "descriptionClass": "kpi-description"
+    },
+    {
+      "id": "equity",
+      "label": "Patrimonio Netto",
+      "value": "€ 233 K",
+      "cardClass": "kpi-card info",
+      "iconClass": "kpi-icon info",
+      "labelClass": "kpi-label",
+      "valueClass": "kpi-value",
+      "trend": {
+        "direction": "up",
+        "value": "+69,3%",
+        "vs": "vs 2023",
+        "trendClass": "trend-up"
+      },
+      "description": "Crescita significativa per utili reinvestiti",
+      "descriptionClass": "kpi-description"
+    }
+  ],
+  "charts": {
+    "trendEconomico": {
+      "id": "trendRicaviEbitdaChart",
+      "title": "Trend Economico e Margine",
+      "cardClass": "card",
+      "data": {
+        "labels": ["2022", "2023", "2024"],
+        "revenues": [572, 1014, 1031],
+        "ebitda": [40.5, 104.3, 102.1],
+        "ebitdaMargin": [7.1, 10.3, 9.9]
+      }
+    },
+    "sostenibilitaDebito": {
+      "id": "trendPfnEbitdaChart",
+      "title": "Sostenibilità Debito (PFN/EBITDA)",
+      "cardClass": "card",
+      "data": {
+        "labels": ["2022", "2023", "2024"],
+        "pfnEbitda": [-0.44, -0.33, -0.56],
+        "criticalThreshold": [3, 3, 3]
+      }
+    },
+    "composizioneIrp": {
+      "id": "irpCompositionChart",
+      "title": "Composizione IRP",
+      "cardClass": "card",
+      "data": {
+        "labels": ["Redditività", "Liquidità", "Solidità", "Efficienza", "Crescita", "Bancabilità"],
+        "relive": [90, 60, 100, 70, 65, 70],
+        "benchmark": [70, 75, 65, 70, 80, 75]
+      }
+    }
+  },
+  "priorityActions": {
+    "title": "Azioni Prioritarie",
+    "cardClass": "priority-card",
+    "headerClass": "priority-header",
+    "iconClass": "priority-icon",
+    "titleClass": "priority-title",
+    "listClass": "priority-list",
+    "actions": [
+      {
+        "number": "1",
+        "title": "Ottimizzazione Gestione Crediti",
+        "description": "Implementare sistema di credit scoring e incentivi pagamenti anticipati per ridurre DSO a 180 giorni",
+        "itemClass": "priority-item",
+        "numberClass": "priority-number",
+        "contentClass": "priority-content"
+      },
+      {
+        "number": "2",
+        "title": "Accelerazione Crescita Ricavi",
+        "description": "Diversificare portfolio clienti e sviluppare servizi digitali innovativi per raggiungere +5% annuo",
+        "itemClass": "priority-item",
+        "numberClass": "priority-number",
+        "contentClass": "priority-content"
+      },
+      {
+        "number": "3",
+        "title": "Ottimizzazione Struttura Finanziaria",
+        "description": "Valutare introduzione moderata leva finanziaria per supportare investimenti in crescita",
+        "itemClass": "priority-item",
+        "numberClass": "priority-number",
+        "contentClass": "priority-content"
+      }
+    ]
+  },
+  "navigation": [
+    {
+      "section": "main",
+      "title": "Menu Principale",
+      "items": [
+        {
+          "id": "dashboard",
+          "label": "Dashboard",
+          "active": true,
+          "itemClass": "nav-item active"
+        },
+        {
+          "id": "sintesi",
+          "label": "Sintesi e Profilo",
+          "active": false,
+          "itemClass": "nav-item"
+        }
+      ]
+    },
+    {
+      "section": "detailed",
+      "title": "Analisi Dettagliata",
+      "items": [
+        {
+          "id": "economico",
+          "label": "Analisi Economica",
+          "itemClass": "nav-item"
+        },
+        {
+          "id": "patrimoniale",
+          "label": "Analisi Patrimoniale",
+          "itemClass": "nav-item"
+        },
+        {
+          "id": "bancabilita",
+          "label": "Bancabilità",
+          "itemClass": "nav-item"
+        },
+        {
+          "id": "circolante",
+          "label": "Circolante e Flussi",
+          "itemClass": "nav-item"
+        },
+        {
+          "id": "rischi",
+          "label": "Rischi e Azioni",
+          "itemClass": "nav-item"
+        },
+        {
+          "id": "irp-detail",
+          "label": "Dettaglio IRP",
+          "itemClass": "nav-item"
+        }
+      ]
+    }
+  ]
+}
