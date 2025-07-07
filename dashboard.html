@@ -7,8 +7,30 @@
     <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
-
- <div class="sidebar-backdrop" onclick="toggleSidebar()"></div>
+    <header class="header">
+        <div class="header-content">
+            <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <div class="logo">
+                <div class="logo-placeholder">RC</div>
+                <div class="logo-text">SCAN360 Report</div>
+            </div>
+            <div class="header-info">
+                <span>RELIVE COMMUNICATION S.R.L.</span>
+                <span>•</span>
+                <span>Report: Sintesi e Profilo</span>
+                <span>•</span>
+                <span id="report-date"></span>
+            </div>
+        </div>
+    </header>
+    
+    <div class="sidebar-backdrop" onclick="toggleSidebar()"></div>
     
     <div class="main-container">
         <nav class="sidebar">
@@ -100,28 +122,16 @@
                 </a>
             </div>
         </nav>
-
-    
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <div class="logo-placeholder" id="companyLogo"></div>
-                <div class="logo-text">SCAN360 Dashboard</div>
-            </div>
-            <div class="header-info" id="headerInfo"></div>
-        </div>
-    </header>
-    
-    <div class="main-container">
-        <nav class="sidebar">
-            <div id="navigationMenu"></div>
-        </nav>
         
         <main class="content">
             <div class="page-header">
-                <h1 class="page-title">Dashboard Esecutiva</h1>
-                <p class="page-subtitle">Panoramica completa degli indicatori chiave e del profilo di rischio aziendale</p>
+                <h1 class="page-title" id="page-title"></h1>
+                <p class="page-subtitle" id="page-subtitle"></p>
             </div>
+
+
+    
+
             
             <!-- IRP Section -->
             <div id="irpSection"></div>
