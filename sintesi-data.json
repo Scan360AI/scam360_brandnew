@@ -1,0 +1,339 @@
+{
+  "pageInfo": {
+    "title": "Sintesi e Profilo Aziendale",
+    "subtitle": "Analisi completa del profilo di rischio e degli indicatori principali",
+    "reportDate": "28 Aprile 2025"
+  },
+  "irpData": {
+    "score": 78.50,
+    "maxScore": 100,
+    "category": "B",
+    "categoryText": "Rischio Moderato-Basso",
+    "categoryClass": "success",
+    "circleClass": "risk-low",
+    "description": "Profilo di rischio <strong>Moderato-Basso</strong>. L'azienda presenta una solidità patrimoniale eccellente con assenza totale di debito finanziario e una redditività molto superiore alla media di settore. Le principali aree di attenzione riguardano la gestione del circolante (DSO elevato) e la crescita limitata dei ricavi.",
+    "highlights": [
+      {
+        "icon": "check",
+        "value": "Zero Debt",
+        "label": "Nessun debito finanziario",
+        "highlightClass": "success"
+      },
+      {
+        "icon": "money",
+        "value": "€57,2K",
+        "label": "Cassa netta positiva",
+        "highlightClass": "success"
+      },
+      {
+        "icon": "trending-up",
+        "value": "40,91%",
+        "label": "ROE eccellente",
+        "highlightClass": "success"
+      },
+      {
+        "icon": "alert",
+        "value": "262 gg",
+        "label": "DSO critico",
+        "highlightClass": "danger"
+      }
+    ]
+  },
+  "mainKPIs": [
+    {
+      "icon": "shield",
+      "iconClass": "success",
+      "value": "10,03",
+      "label": "Leanus Score",
+      "trend": {
+        "text": "Buono (2)",
+        "direction": "up",
+        "class": "trend-up"
+      },
+      "cardClass": "success"
+    },
+    {
+      "icon": "chart",
+      "iconClass": "warning",
+      "value": "+1,64%",
+      "label": "Crescita Ricavi",
+      "trend": {
+        "text": "vs settore +5%",
+        "direction": "down",
+        "class": "trend-down"
+      },
+      "cardClass": "warning"
+    },
+    {
+      "icon": "percent",
+      "iconClass": "info",
+      "value": "9,91%",
+      "label": "EBITDA Margin",
+      "trend": {
+        "text": "In linea settore",
+        "direction": "neutral",
+        "class": "trend-neutral"
+      },
+      "cardClass": "info"
+    },
+    {
+      "icon": "layers",
+      "iconClass": "success",
+      "value": "-0,56x",
+      "label": "PFN/EBITDA",
+      "trend": {
+        "text": "Eccellente",
+        "direction": "up",
+        "class": "trend-up"
+      },
+      "cardClass": "success"
+    }
+  ],
+  "trendTable": {
+    "headers": ["Indicatore", "2022", "2023", "2024", "Var. 23-24", "Valutazione"],
+    "rows": [
+      {
+        "indicator": "Ricavi (€K)",
+        "values": ["571,7", "1.014,0", "1.030,6"],
+        "variation": {
+          "value": "+1,64%",
+          "direction": "up",
+          "class": "trend-up"
+        },
+        "evaluation": {
+          "text": "Modesta",
+          "class": "warning",
+          "badgeClass": "badge-warning"
+        }
+      },
+      {
+        "indicator": "EBITDA (€K)",
+        "values": ["40,5", "104,3", "102,1"],
+        "variation": {
+          "value": "-2,11%",
+          "direction": "down",
+          "class": "trend-down"
+        },
+        "evaluation": {
+          "text": "Stabile",
+          "class": "info",
+          "badgeClass": "badge-info"
+        }
+      },
+      {
+        "indicator": "EBITDA Margin (%)",
+        "values": ["7,08%", "10,29%", "9,91%"],
+        "variation": {
+          "value": "-0,38 p.p.",
+          "direction": "down",
+          "class": "trend-down"
+        },
+        "evaluation": {
+          "text": "Buona",
+          "class": "success",
+          "badgeClass": "badge-success"
+        }
+      },
+      {
+        "indicator": "Utile Netto (€K)",
+        "values": ["12,5", "41,3", "95,5"],
+        "variation": {
+          "value": "+131,2%",
+          "direction": "up",
+          "class": "trend-up"
+        },
+        "evaluation": {
+          "text": "Eccellente",
+          "class": "success",
+          "badgeClass": "badge-success"
+        }
+      },
+      {
+        "indicator": "Patrimonio Netto (€K)",
+        "values": ["66,1", "137,8", "233,3"],
+        "variation": {
+          "value": "+69,3%",
+          "direction": "up",
+          "class": "trend-up"
+        },
+        "evaluation": {
+          "text": "Rafforzamento",
+          "class": "success",
+          "badgeClass": "badge-success"
+        }
+      },
+      {
+        "indicator": "PFN (€K)",
+        "values": ["-17,7", "-34,4", "-57,2"],
+        "variation": {
+          "value": "+66,3%",
+          "direction": "up",
+          "class": "trend-up"
+        },
+        "evaluation": {
+          "text": "Cassa positiva",
+          "class": "success",
+          "badgeClass": "badge-success"
+        }
+      },
+      {
+        "indicator": "DSO (giorni)",
+        "values": ["0", "50", "262"],
+        "variation": {
+          "value": "+424%",
+          "direction": "down",
+          "class": "trend-down"
+        },
+        "evaluation": {
+          "text": "Critico",
+          "class": "danger",
+          "badgeClass": "badge-danger"
+        }
+      }
+    ]
+  },
+  "chartsData": {
+    "revenueMargin": {
+      "labels": ["2022", "2023", "2024"],
+      "revenues": [572, 1014, 1031],
+      "ebitdaMargin": [7.1, 10.3, 9.9]
+    },
+    "equityComposition": {
+      "labels": ["Patrimonio Netto", "Attivo Circolante", "Immobilizzazioni", "Liquidità"],
+      "values": [233.3, 216.2, 18.2, 57.2]
+    },
+    "dso": {
+      "labels": ["2022", "2023", "2024"],
+      "values": [0, 50, 262],
+      "thresholds": {
+        "warning": 120,
+        "critical": 180
+      }
+    }
+  },
+  "swotAnalysis": {
+    "strengths": {
+      "items": [
+        "Solidità patrimoniale eccezionale (zero debiti)",
+        "Redditività molto superiore al settore (ROE 40,91%)",
+        "Cassa netta positiva (€57,2K)",
+        "Marginalità operativa in linea con benchmark",
+        "Alta efficienza degli asset (turnover 5,82x)"
+      ],
+      "headerClass": "strengths",
+      "iconClass": "success"
+    },
+    "weaknesses": {
+      "items": [
+        "Gestione crediti critica (DSO 262 giorni)",
+        "Crescita ricavi limitata (+1,64%)",
+        "Dimensione aziendale ridotta (6 dipendenti)",
+        "Possibile concentrazione clienti",
+        "Assenza totale di leva finanziaria"
+      ],
+      "headerClass": "weaknesses",
+      "iconClass": "danger"
+    },
+    "opportunities": {
+      "items": [
+        "Mercato digitale in forte espansione",
+        "Possibilità di leva finanziaria per crescita",
+        "Diversificazione servizi e clienti",
+        "Acquisizioni strategiche di competitor",
+        "Espansione geografica"
+      ],
+      "headerClass": "opportunities",
+      "iconClass": "info"
+    },
+    "threats": {
+      "items": [
+        "Alta competitività del settore pubblicitario",
+        "Pressione sui margini da big tech",
+        "Rischio insolvenza clienti (DSO elevato)",
+        "Dipendenza da pochi clienti chiave",
+        "Evoluzione tecnologica rapida"
+      ],
+      "headerClass": "threats",
+      "iconClass": "warning"
+    }
+  },
+  "companyProfile": {
+    "general": {
+      "name": "RELIVE COMMUNICATION S.R.L.",
+      "vatNumber": "03470680921",
+      "sector": "73.11 - Attività di agenzie pubblicitarie",
+      "location": "Italia"
+    },
+    "operational": {
+      "employees": 6,
+      "classification": "Micro impresa",
+      "personnelCost": "€242.750 (23,6% dei ricavi)",
+      "fiscalYear": "2024"
+    }
+  },
+  "crisisCode": {
+    "indicators": [
+      {
+        "name": "Patrimonio Netto",
+        "companyValue": "€233.257 (Positivo)",
+        "alertThreshold": "< 0 (Negativo)",
+        "status": "Nessuna allerta",
+        "statusClass": "success",
+        "badgeClass": "badge-success"
+      },
+      {
+        "name": "DSCR",
+        "subtitle": "Debt Service Coverage Ratio",
+        "companyValue": "N/A (no debiti)",
+        "alertThreshold": "< 1",
+        "status": "Non applicabile",
+        "statusClass": "success",
+        "badgeClass": "badge-success"
+      },
+      {
+        "name": "Indice di sostenibilità degli oneri finanziari",
+        "companyValue": "1,8% (OF/Ricavi)",
+        "alertThreshold": "> 5%",
+        "status": "Nessuna allerta",
+        "statusClass": "success",
+        "badgeClass": "badge-success"
+      },
+      {
+        "name": "Indice di adeguatezza patrimoniale",
+        "companyValue": "99,50% (PN/Totale debiti)",
+        "alertThreshold": "< 5%",
+        "status": "Nessuna allerta",
+        "statusClass": "success",
+        "badgeClass": "badge-success"
+      },
+      {
+        "name": "Indice di ritorno liquido dell'attivo",
+        "companyValue": "27,24% (CF/Attivo)",
+        "alertThreshold": "< 1%",
+        "status": "Nessuna allerta",
+        "statusClass": "success",
+        "badgeClass": "badge-success"
+      }
+    ],
+    "summary": {
+      "title": "Valutazione Complessiva",
+      "text": "L'azienda <strong>NON presenta alcun indicatore di allerta</strong> ai sensi dell'art. 13 del Codice della Crisi d'Impresa. La solidità patrimoniale e l'assenza di indebitamento finanziario garantiscono il pieno rispetto di tutti i parametri di legge.",
+      "boxClass": "success",
+      "iconClass": "success"
+    },
+    "organizationalAssets": {
+      "existing": [
+        "Sistema di controllo di gestione operativo",
+        "Monitoraggio mensile dei flussi di cassa",
+        "Reportistica trimestrale al CdA",
+        "Sistema di alert automatici su KPI critici"
+      ],
+      "recommendations": [
+        "Implementare sistema strutturato di credit management",
+        "Formalizzare procedure di monitoraggio clienti",
+        "Introdurre budget previsionale rolling a 12 mesi",
+        "Valutare nomina risk manager per DSO"
+      ]
+    }
+  }
+}

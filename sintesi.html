@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sintesi e Profilo - RELIVE COMMUNICATION | SCAN360</title>
+    <link rel="stylesheet" href="sintesi.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <div class="logo">
+                <div class="logo-placeholder">RC</div>
+                <div class="logo-text">SCAN360 Report</div>
+            </div>
+            <div class="header-info">
+                <span>RELIVE COMMUNICATION S.R.L.</span>
+                <span>•</span>
+                <span>Report: Sintesi e Profilo</span>
+                <span>•</span>
+                <span id="report-date"></span>
+            </div>
+        </div>
+    </header>
+    
+    <div class="sidebar-backdrop" onclick="toggleSidebar()"></div>
+    
+    <div class="main-container">
+        <nav class="sidebar">
+            <div class="nav-section">
+                <div class="nav-title">Menu Principale</div>
+                <a class="nav-item" href="dashboard.html">
+                    <span class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                    </span>
+                    <span>Dashboard</span>
+                </a>
+                <a class="nav-item active">
+                    <span class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                    </span>
+                    <span>Sintesi e Profilo</span>
+                </a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-title">Analisi Dettagliata</div>
+                <a class="nav-item" href="economico.html">
+                    <span class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </span>
+                    <span>Analisi Economica</span>
+                </a>
+                <a class="nav-item" href="patrimoniale.html">
+                    <span class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 21h18"></path>
+                            <path d="M4 21V7l8-4v18"></path>
+                            <path d="M12 21V3l8 4v14"></path>
+                        </svg>
+                    </span>
+                    <span>Analisi Patrimoniale</span>
+                </a>
+                <a class="nav-item" href="bancabilita.html">
+                    <span class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </span>
+                    <span>Bancabilità</span>
+                </a>
+                <a class="nav-item" href="circolante.html">
+                    <span class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="23 4 23 10 17 10"></polyline>
+                            <polyline points="1 20 1 14 7 14"></polyline>
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                        </svg>
+                    </span>
+                    <span>Circolante e Flussi</span>
+                </a>
+                <a class="nav-item" href="rischi.html">
+                    <span class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    </span>
+                    <span>Rischi e Azioni</span>
+                </a>
+                <a class="nav-item" href="irp.html">
+                    <span class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </span>
+                    <span>Dettaglio IRP</span>
+                </a>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <div class="page-header">
+                <h1 class="page-title" id="page-title"></h1>
+                <p class="page-subtitle" id="page-subtitle"></p>
+            </div>
+            
+            <!-- Section 1.1: Sintesi Analisi Finanziaria -->
+            <div class="section-header">
+                <svg class="section-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+                <h2 class="section-title">1.1 SINTESI DELL'ANALISI FINANZIARIA</h2>
+            </div>
+            
+            <!-- IRP Visual Section -->
+            <div class="irp-visual-section">
+                <div class="irp-content">
+                    <div class="irp-left">
+                        <h6 style="font-size: 14px; color: #8b95a2; margin-bottom: 16px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 4px;">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                            Indice Rischio Ponderato
+                        </h6>
+                        <div class="irp-score-circle">
+                            <span class="irp-score-value" id="irp-score"></span>
+                            <span class="irp-score-max" id="irp-max"></span>
+                        </div>
+                        <div class="irp-category-text" id="irp-category"></div>
+                        <a href="irp.html" style="color: #00d9ff; font-size: 14px; text-decoration: none;">Vedi Dettaglio IRP →</a>
+                    </div>
+                    
+                    <div class="irp-right">
+                        <h4>Valutazione Generale</h4>
+                        <p id="irp-description"></p>
+                        <div class="irp-highlights" id="irp-highlights"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- KPI Principali -->
+            <div class="grid grid-4" id="main-kpis" style="margin-bottom: 32px;"></div>
+            
+            <!-- Section 1.2: Indicatori Principali -->
+            <div class="section-header">
+                <svg class="section-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <h2 class="section-title">1.2 INDICATORI PRINCIPALI</h2>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 3v18h18"></path>
+                            <path d="m19 9-5 5-4-4-3 3"></path>
+                        </svg>
+                        Trend Triennale Indicatori Chiave
+                    </h3>
+                </div>
+                <div class="table-wrapper" style="overflow-x: auto;">
+                    <table class="data-table" id="trend-table">
+                        <thead id="trend-table-head"></thead>
+                        <tbody id="trend-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Grafici -->
+            <div class="grid grid-3" style="margin-bottom: 32px;">
+                <div class="card">
+                    <h3 class="card-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                        </svg>
+                        Evoluzione Ricavi e Marginalità
+                    </h3>
+                    <div class="chart-container">
+                        <div class="chart-wrapper">
+                            <canvas id="revenueMarginChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        </svg>
+                        Composizione Patrimonio
+                    </h3>
+                    <div class="chart-container">
+                        <div class="chart-wrapper">
+                            <canvas id="equityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        Andamento DSO
+                    </h3>
+                    <div class="chart-container">
+                        <div class="chart-wrapper">
+                            <canvas id="dsoChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section 1.3: Analisi SWOT -->
+            <div class="section-header">
+                <svg class="section-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="12" y1="3" x2="12" y2="21"></line>
+                </svg>
+                <h2 class="section-title">1.3 ANALISI SWOT</h2>
+            </div>
+            
+            <div class="swot-grid" id="swot-analysis"></div>
+            
+            <!-- Section 1.4: Profilo Aziendale -->
+            <div class="section-header">
+                <svg class="section-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <h2 class="section-title">1.4 PROFILO AZIENDALE</h2>
+            </div>
+            
+            <div class="card">
+                <div class="info-grid" id="company-profile"></div>
+            </div>
+            
+            <!-- Section 1.5: Codice della Crisi e Adeguati Assetti -->
+            <div class="section-header">
+                <svg class="section-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"></path>
+                    <path d="M9 12l2 2 4-4"></path>
+                </svg>
+                <h2 class="section-title">1.5 CODICE DELLA CRISI E ADEGUATI ASSETTI</h2>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="12" y1="18" x2="12" y2="12"></line>
+                            <line x1="9" y1="15" x2="15" y2="15"></line>
+                        </svg>
+                        Indicatori di Allerta (art. 13 CCI)
+                    </h3>
+                </div>
+                
+                <div class="table-wrapper" style="overflow-x: auto; margin-bottom: 24px;">
+                    <table class="data-table" id="crisis-indicators-table">
+                        <thead>
+                            <tr>
+                                <th>Indicatore</th>
+                                <th>Valore Aziendale</th>
+                                <th>Soglia di Allerta</th>
+                                <th>Stato</th>
+                            </tr>
+                        </thead>
+                        <tbody id="crisis-indicators-body"></tbody>
+                    </table>
+                </div>
+                
+                <div id="crisis-summary" style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.2); border-radius: 8px; padding: 20px; margin-bottom: 24px;"></div>
+                
+                <h4 style="font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 16px; margin-top: 32px;">Adeguatezza degli Assetti Organizzativi</h4>
+                
+                <div class="grid grid-2" id="organizational-assets" style="gap: 20px;"></div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Application JavaScript -->
+    <script>
+        // Global variables
+        let pageData = null;
+        let charts = {};
+        
+        // Load data from JSON
+        async function loadData() {
+            try {
+                const response = await fetch('sintesi-data.json');
+                pageData = await response.json();
+                initializePage();
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+        
+        // Initialize page with data
+        function initializePage() {
+            // Set page info
+            document.getElementById('page-title').textContent = pageData.pageInfo.title;
+            document.getElementById('page-subtitle').textContent = pageData.pageInfo.subtitle;
+            document.getElementById('report-date').textContent = pageData.pageInfo.reportDate;
+            
+            // Render IRP section
+            renderIRPSection();
+            
+            // Render Main KPIs
+            renderMainKPIs();
+            
+            // Render Trend Table
+            renderTrendTable();
+            
+            // Initialize Charts
+            initializeCharts();
+            
+            // Render SWOT Analysis
+            renderSWOT();
+            
+            // Render Company Profile
+            renderCompanyProfile();
+            
+            // Render Crisis Code section
+            renderCrisisCode();
+        }
+        
+        // Render IRP Section
+        function renderIRPSection() {
+            const irp = pageData.irpData;
+            
+            // Add risk class to IRP circle
+            const circleElement = document.querySelector('.irp-score-circle');
+            if (circleElement && irp.circleClass) {
+                circleElement.classList.add(irp.circleClass);
+            }
+            
+            document.getElementById('irp-score').textContent = irp.score.toFixed(2).replace('.', ',');
+            document.getElementById('irp-max').textContent = `/ ${irp.maxScore}`;
+            document.getElementById('irp-category').innerHTML = `${irp.categoryText} <span class="badge badge-${irp.categoryClass}">${irp.category}</span>`;
+            document.getElementById('irp-description').innerHTML = irp.description;
+            
+            // Render highlights
+            const highlightsContainer = document.getElementById('irp-highlights');
+            irp.highlights.forEach(highlight => {
+                const highlightDiv = document.createElement('div');
+                highlightDiv.className = 'irp-highlight';
+                if (highlight.highlightClass) {
+                    highlightDiv.classList.add(`highlight-${highlight.highlightClass}`);
+                }
+                highlightDiv.innerHTML = `
+                    ${getHighlightIcon(highlight.icon)}
+                    <div class="irp-highlight-value">${highlight.value}</div>
+                    <div class="irp-highlight-label">${highlight.label}</div>
+                `;
+                highlightsContainer.appendChild(highlightDiv);
+            });
+        }
+        
+        // Get highlight icon SVG
+        function getHighlightIcon(type) {
+            const icons = {
+                'check': '<svg class="irp-highlight-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>',
+                'money': '<svg class="irp-highlight-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>',
+                'trending-up': '<svg class="irp-highlight-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>',
+                'alert': '<svg class="irp-highlight-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line></svg>'
+            };
+            return icons[type] || '';
+        }
+        
+        // Render Main KPIs
+        function renderMainKPIs() {
+            const container = document.getElementById('main-kpis');
+            
+            pageData.mainKPIs.forEach(kpi => {
+                const kpiBox = document.createElement('div');
+                kpiBox.className = 'kpi-box';
+                kpiBox.innerHTML = `
+                    <div class="kpi-box-icon ${kpi.iconClass}">
+                        ${getKPIIcon(kpi.icon)}
+                    </div>
+                    <div class="kpi-box-value">${kpi.value}</div>
+                    <div class="kpi-box-label">${kpi.label}</div>
+                    <div class="trend-value trend-${kpi.trend.direction}">
+                        ${kpi.trend.text}
+                    </div>
+                `;
+                container.appendChild(kpiBox);
+            });
+        }
+        
+        // Get KPI icon SVG
+        function getKPIIcon(type) {
+            const icons = {
+                'shield': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>',
+                'chart': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>',
+                'percent': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>',
+                'layers': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>'
+            };
+            return icons[type] || '';
+        }
+        
+        // Render Trend Table
+        function renderTrendTable() {
+            const table = pageData.trendTable;
+            const thead = document.getElementById('trend-table-head');
+            const tbody = document.getElementById('trend-table-body');
+            
+            // Create header
+            const headerRow = document.createElement('tr');
+            table.headers.forEach(header => {
+                const th = document.createElement('th');
+                th.textContent = header;
+                if (header !== 'Indicatore' && header !== 'Valutazione') {
+                    th.className = 'text-end';
+                }
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+            
+            // Create rows
+            table.rows.forEach(row => {
+                const tr = document.createElement('tr');
+                
+                // Indicator
+                const tdIndicator = document.createElement('td');
+                tdIndicator.innerHTML = `<strong>${row.indicator}</strong>`;
+                tr.appendChild(tdIndicator);
+                
+                // Values
+                row.values.forEach(value => {
+                    const td = document.createElement('td');
+                    td.className = 'text-end';
+                    td.textContent = value;
+                    tr.appendChild(td);
+                });
+                
+                // Variation
+                const tdVariation = document.createElement('td');
+                tdVariation.className = 'text-end';
+                tdVariation.innerHTML = `
+                    <span class="trend-value trend-${row.variation.direction}">
+                        ${row.variation.direction !== 'down' ? getTrendIcon(row.variation.direction) : getTrendIcon('down')}
+                        ${row.variation.value}
+                    </span>
+                `;
+                tr.appendChild(tdVariation);
+                
+                // Evaluation
+                const tdEvaluation = document.createElement('td');
+                tdEvaluation.innerHTML = `<span class="badge ${row.evaluation.badgeClass}">${row.evaluation.text}</span>`;
+                tr.appendChild(tdEvaluation);
+                
+                tbody.appendChild(tr);
+            });
+        }
+        
+        // Get trend icon
+        function getTrendIcon(direction) {
+            if (direction === 'up') {
+                return '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline></svg>';
+            } else if (direction === 'down') {
+                return '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline></svg>';
+            }
+            return '';
+        }
+        
+        // Initialize Charts
+        function initializeCharts() {
+            // Chart configuration
+            const chartColors = {
+                primary: '#00d9ff',
+                secondary: '#5a67d8',
+                success: '#22c55e',
+                warning: '#f59e0b',
+                danger: '#ef4444',
+                light: '#c1c9d2',
+                dark: '#1e3a47'
+            };
+            
+            const gridColor = 'rgba(193, 201, 210, 0.1)';
+            const fontColor = '#c1c9d2';
+            
+            // Chart defaults
+            Chart.defaults.color = fontColor;
+            Chart.defaults.borderColor = gridColor;
+            Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif';
+            
+            // 1. Revenue & Margin Chart
+            const revenueMarginCtx = document.getElementById('revenueMarginChart').getContext('2d');
+            charts.revenueMargin = new Chart(revenueMarginCtx, {
+                type: 'line',
+                data: {
+                    labels: pageData.chartsData.revenueMargin.labels,
+                    datasets: [{
+                        label: 'Ricavi (€K)',
+                        data: pageData.chartsData.revenueMargin.revenues,
+                        borderColor: chartColors.primary,
+                        backgroundColor: 'transparent',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        yAxisID: 'y',
+                        pointRadius: 6,
+                        pointBackgroundColor: chartColors.primary,
+                        pointBorderColor: '#0e1e25',
+                        pointBorderWidth: 2
+                    }, {
+                        label: 'EBITDA Margin (%)',
+                        data: pageData.chartsData.revenueMargin.ebitdaMargin,
+                        borderColor: chartColors.warning,
+                        backgroundColor: 'transparent',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        yAxisID: 'y1',
+                        pointRadius: 6,
+                        pointBackgroundColor: chartColors.warning,
+                        pointBorderColor: '#0e1e25',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                padding: 15,
+                                usePointStyle: true,
+                                font: { size: 11 },
+                                color: fontColor,
+                                boxWidth: 20
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { 
+                                color: fontColor,
+                                maxRotation: 0,
+                                minRotation: 0
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Ricavi (€K)',
+                                color: fontColor,
+                                font: { size: 11 }
+                            },
+                            grid: { color: gridColor },
+                            ticks: { 
+                                color: fontColor,
+                                font: { size: 10 }
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'EBITDA Margin (%)',
+                                color: fontColor,
+                                font: { size: 11 }
+                            },
+                            grid: { drawOnChartArea: false },
+                            ticks: { 
+                                color: fontColor,
+                                font: { size: 10 },
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            },
+                            min: 0,
+                            max: 12
+                        }
+                    }
+                }
+            });
+            
+            // 2. Equity Composition Chart
+            const equityCtx = document.getElementById('equityChart').getContext('2d');
+            charts.equity = new Chart(equityCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: pageData.chartsData.equityComposition.labels,
+                    datasets: [{
+                        data: pageData.chartsData.equityComposition.values,
+                        backgroundColor: [
+                            chartColors.success,
+                            chartColors.primary,
+                            chartColors.secondary,
+                            chartColors.warning
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#0e1e25'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 10,
+                                usePointStyle: true,
+                                font: { size: 11 },
+                                color: fontColor,
+                                boxWidth: 15
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.parsed;
+                                    return label + ': €' + value.toFixed(1) + 'K';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // 3. DSO Chart
+            const dsoCtx = document.getElementById('dsoChart').getContext('2d');
+            charts.dso = new Chart(dsoCtx, {
+                type: 'bar',
+                data: {
+                    labels: pageData.chartsData.dso.labels,
+                    datasets: [{
+                        label: 'DSO (giorni)',
+                        data: pageData.chartsData.dso.values,
+                        backgroundColor: function(context) {
+                            const value = context.parsed.y;
+                            if (value > pageData.chartsData.dso.thresholds.critical) return chartColors.danger;
+                            if (value > pageData.chartsData.dso.thresholds.warning) return chartColors.warning;
+                            return chartColors.success;
+                        },
+                        borderRadius: 4,
+                        barPercentage: 0.6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(22, 36, 42, 0.95)',
+                            borderColor: '#1e3a47',
+                            borderWidth: 1,
+                            titleColor: '#fff',
+                            bodyColor: '#c1c9d2',
+                            padding: 12,
+                            cornerRadius: 6
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { 
+                                color: fontColor,
+                                font: { size: 11 }
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            max: 300,
+                            title: {
+                                display: true,
+                                text: 'Giorni',
+                                color: fontColor,
+                                font: { size: 11 }
+                            },
+                            grid: { color: gridColor },
+                            ticks: { 
+                                color: fontColor,
+                                font: { size: 10 }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Render SWOT Analysis
+        function renderSWOT() {
+            const container = document.getElementById('swot-analysis');
+            const swot = pageData.swotAnalysis;
+            
+            const categories = [
+                { key: 'strengths', title: 'Punti di Forza', icon: 'check' },
+                { key: 'weaknesses', title: 'Punti di Debolezza', icon: 'x' },
+                { key: 'opportunities', title: 'Opportunità', icon: 'sun' },
+                { key: 'threats', title: 'Minacce', icon: 'alert' }
+            ];
+            
+            categories.forEach(category => {
+                const categoryData = swot[category.key];
+                const card = document.createElement('div');
+                card.className = 'swot-card';
+                
+                const header = document.createElement('div');
+                header.className = `swot-header ${categoryData.headerClass}`;
+                header.innerHTML = `
+                    ${getSWOTIcon(category.icon)}
+                    ${category.title}
+                `;
+                
+                const content = document.createElement('div');
+                content.className = 'swot-content';
+                
+                const list = document.createElement('ul');
+                list.className = 'swot-list';
+                
+                categoryData.items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = 'swot-item';
+                    li.textContent = item;
+                    list.appendChild(li);
+                });
+                
+                content.appendChild(list);
+                card.appendChild(header);
+                card.appendChild(content);
+                container.appendChild(card);
+            });
+        }
+        
+        // Get SWOT icon
+        function getSWOTIcon(type) {
+            const icons = {
+                'check': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"></path></svg>',
+                'x': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>',
+                'sun': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>',
+                'alert': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>'
+            };
+            return icons[type] || '';
+        }
+        
+        // Render Company Profile
+        function renderCompanyProfile() {
+            const container = document.getElementById('company-profile');
+            const profile = pageData.companyProfile;
+            
+            // General Info
+            const generalDiv = document.createElement('div');
+            generalDiv.innerHTML = '<h4 style="font-size: 16px; font-weight: 600; color: #00d9ff; margin-bottom: 16px;">Informazioni Generali</h4>';
+            
+            const generalItems = [
+                { icon: 'bookmark', label: 'Ragione Sociale', value: profile.general.name },
+                { icon: 'credit-card', label: 'P.IVA / C.F.', value: profile.general.vatNumber },
+                { icon: 'building', label: 'Settore', value: profile.general.sector },
+                { icon: 'map-pin', label: 'Sede', value: profile.general.location }
+            ];
+            
+            generalItems.forEach(item => {
+                const itemDiv = createInfoItem(item);
+                generalDiv.appendChild(itemDiv);
+            });
+            
+            // Operational Info
+            const operationalDiv = document.createElement('div');
+            operationalDiv.innerHTML = '<h4 style="font-size: 16px; font-weight: 600; color: #00d9ff; margin-bottom: 16px;">Dati Operativi</h4>';
+            
+            const operationalItems = [
+                { icon: 'users', label: 'Dipendenti', value: profile.operational.employees },
+                { icon: 'clock', label: 'Classificazione', value: profile.operational.classification },
+                { icon: 'dollar', label: 'Costo Personale', value: profile.operational.personnelCost },
+                { icon: 'calendar', label: 'Esercizio Analizzato', value: profile.operational.fiscalYear }
+            ];
+            
+            operationalItems.forEach(item => {
+                const itemDiv = createInfoItem(item);
+                operationalDiv.appendChild(itemDiv);
+            });
+            
+            container.appendChild(generalDiv);
+            container.appendChild(operationalDiv);
+        }
+        
+        // Create info item
+        function createInfoItem(item) {
+            const div = document.createElement('div');
+            div.className = 'info-item';
+            div.innerHTML = `
+                ${getInfoIcon(item.icon)}
+                <div class="info-content">
+                    <div class="info-label">${item.label}</div>
+                    <div class="info-value">${item.value}</div>
+                </div>
+            `;
+            return div;
+        }
+        
+        // Get info icon
+        function getInfoIcon(type) {
+            const icons = {
+                'bookmark': '<svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>',
+                'credit-card': '<svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>',
+                'building': '<svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"></path><path d="M9 8h1"></path><path d="M9 12h1"></path><path d="M9 16h1"></path><path d="M14 8h1"></path><path d="M14 12h1"></path><path d="M14 16h1"></path><path d="M5 21V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v14"></path></svg>',
+                'map-pin': '<svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>',
+                'users': '<svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>',
+                'clock': '<svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>',
+                'dollar': '<svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>',
+                'calendar': '<svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>'
+            };
+            return icons[type] || '';
+        }
+        
+        // Render Crisis Code section
+        function renderCrisisCode() {
+            const crisis = pageData.crisisCode;
+            
+            // Render indicators table
+            const tbody = document.getElementById('crisis-indicators-body');
+            crisis.indicators.forEach(indicator => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${indicator.name}</strong>${indicator.subtitle ? ' (' + indicator.subtitle + ')' : ''}</td>
+                    <td>${indicator.companyValue}</td>
+                    <td>${indicator.alertThreshold}</td>
+                    <td><span class="badge ${indicator.badgeClass}">${indicator.status}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+            
+            // Render summary
+            const summaryDiv = document.getElementById('crisis-summary');
+            summaryDiv.innerHTML = `
+                <h4 style="color: #22c55e; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    ${crisis.summary.title}
+                </h4>
+                <p style="margin-bottom: 0;">${crisis.summary.text}</p>
+            `;
+            
+            // Render organizational assets
+            const assetsContainer = document.getElementById('organizational-assets');
+            
+            // Existing assets
+            const existingDiv = document.createElement('div');
+            existingDiv.style.cssText = 'background: #1e3a47; border-radius: 8px; padding: 20px;';
+            existingDiv.innerHTML = `
+                <h5 style="color: #00d9ff; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 11l3 3L22 4"></path>
+                        <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
+                    </svg>
+                    Assetti in essere
+                </h5>
+                <ul style="list-style: none; padding: 0;">
+                    ${crisis.organizationalAssets.existing.map(item => `
+                        <li style="padding: 8px 0; display: flex; align-items: start; gap: 8px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span>${item}</span>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+            
+            // Recommendations
+            const recommendationsDiv = document.createElement('div');
+            recommendationsDiv.style.cssText = 'background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 8px; padding: 20px;';
+            recommendationsDiv.innerHTML = `
+                <h5 style="color: #f59e0b; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    Raccomandazioni
+                </h5>
+                <ul style="list-style: none; padding: 0;">
+                    ${crisis.organizationalAssets.recommendations.map(item => `
+                        <li style="padding: 8px 0; display: flex; align-items: start; gap: 8px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
+                                <polyline points="9 11 12 14 22 4"></polyline>
+                            </svg>
+                            <span>${item}</span>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+            
+            assetsContainer.appendChild(existingDiv);
+            assetsContainer.appendChild(recommendationsDiv);
+        }
+        
+        // Toggle sidebar function
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const backdrop = document.querySelector('.sidebar-backdrop');
+            sidebar.classList.toggle('active');
+            backdrop.classList.toggle('active');
+        }
+        
+        // Initialize on DOM load
+        document.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>
