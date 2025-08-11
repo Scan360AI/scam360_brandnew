@@ -1,0 +1,657 @@
+{
+  "company": {
+    "name": "RELIVE COMMUNICATION S.R.L.",
+    "shortName": "RC",
+    "reportType": "Analisi Patrimoniale",
+    "lastUpdate": "28 Aprile 2025"
+  },
+  "navigation": [
+    {
+      "section": "main",
+      "title": "Menu Principale",
+      "items": [
+        {
+          "id": "dashboard",
+          "label": "Dashboard",
+          "href": "dashboard.html",
+          "icon": "dashboard"
+        },
+        {
+          "id": "sintesi",
+          "label": "Sintesi e Profilo",
+          "href": "sintesi.html",
+          "icon": "document"
+        }
+      ]
+    },
+    {
+      "section": "detailed",
+      "title": "Analisi Dettagliata",
+      "items": [
+        {
+          "id": "economico",
+          "label": "Analisi Economica",
+          "href": "economico.html",
+          "icon": "currency"
+        },
+        {
+          "id": "patrimoniale",
+          "label": "Analisi Patrimoniale",
+          "href": "patrimoniale.html",
+          "icon": "building",
+          "active": true
+        },
+        {
+          "id": "bancabilita",
+          "label": "Bancabilità",
+          "href": "bancabilita.html",
+          "icon": "bank"
+        },
+        {
+          "id": "circolante",
+          "label": "Circolante e Flussi",
+          "href": "circolante.html",
+          "icon": "cycle"
+        },
+        {
+          "id": "rischi",
+          "label": "Rischi e Azioni",
+          "href": "rischi.html",
+          "icon": "warning"
+        },
+        {
+          "id": "irp",
+          "label": "Dettaglio IRP",
+          "href": "irp.html",
+          "icon": "shield"
+        }
+      ]
+    }
+  ],
+  "sections": {
+    "overview": {
+      "title": "3.1 Analisi Patrimoniale Complessiva",
+      "description": "L'analisi patrimoniale di RELIVE COMMUNICATION S.R.L. evidenzia una struttura caratterizzata da un'elevata incidenza dei crediti verso clienti (87,3% del totale attivo al 31/12/2024) e immobilizzazioni nette contenute (2,6%), elementi tipici di una società di servizi nel settore delle agenzie pubblicitarie che riflettono la limitata necessità di investimenti in strutture fisiche e l'elevata esposizione verso la clientela.",
+      "trends": {
+        "title": "Trend Evolutivo 2022-2024",
+        "description": "L'evoluzione patrimoniale dell'ultimo triennio mostra:",
+        "points": [
+          {
+            "label": "Crescita contenuta dell'attivo",
+            "description": "da €649.680 nel 2022 a €857.254 nel 2024 (+31,9%)"
+          },
+          {
+            "label": "Significativo rafforzamento del patrimonio netto",
+            "description": "da €96.884 nel 2022 a €234.134 nel 2024 (+141,7%)"
+          },
+          {
+            "label": "Completo azzeramento dell'indebitamento finanziario",
+            "description": "da €21.599 nel 2022 a €0 nel 2024 (-100%)"
+          },
+          {
+            "label": "Miglioramento della posizione di liquidità",
+            "description": "da €72.409 nel 2022 a €56.948 nel 2024 (-21,3%)"
+          }
+        ],
+        "conclusion": "Questa evoluzione suggerisce un percorso di consolidamento patrimoniale e riduzione della leva finanziaria, con una migliore gestione della liquidità aziendale che rafforza la resilienza finanziaria e conferma una gestione prudente delle risorse aziendali."
+      }
+    },
+    "balanceSheet": {
+      "title": "3.2 Stato Patrimoniale Riclassificato (triennio)",
+      "data": {
+        "years": ["31/12/2022", "31/12/2023", "31/12/2024"],
+        "assets": [
+          {
+            "label": "IMPIEGHI",
+            "isSectionHeader": true
+          },
+          {
+            "label": "Attivo Fisso Netto",
+            "values": [16377, 25861, 21936],
+            "percentages": [2.5, 3.8, 2.6]
+          },
+          {
+            "label": "Crediti Clienti",
+            "values": [486142, 614165, 748028],
+            "percentages": [74.9, 89.4, 87.3]
+          },
+          {
+            "label": "Rimanenze",
+            "values": [10100, 0, 1883],
+            "percentages": [1.6, 0.0, 0.2]
+          },
+          {
+            "label": "Altri Crediti",
+            "values": [64361, 6675, 28459],
+            "percentages": [9.9, 1.0, 3.3]
+          },
+          {
+            "label": "Liquidità",
+            "values": [72409, 40471, 56948],
+            "percentages": [11.2, 5.9, 6.6]
+          },
+          {
+            "label": "Totale Attivo",
+            "values": [649389, 687172, 857254],
+            "percentages": [100.0, 100.0, 100.0],
+            "isTotalRow": true
+          }
+        ],
+        "liabilities": [
+          {
+            "label": "FONTI",
+            "isSectionHeader": true
+          },
+          {
+            "label": "Debiti Fornitori",
+            "values": [344889, 290742, 421125],
+            "percentages": [53.1, 42.3, 49.1]
+          },
+          {
+            "label": "Altri Debiti",
+            "values": [150151, 168423, 143318],
+            "percentages": [23.1, 24.5, 16.7]
+          },
+          {
+            "label": "Fondi",
+            "values": [35866, 46086, 58677],
+            "percentages": [5.5, 6.7, 6.8]
+          },
+          {
+            "label": "Debiti Finanziari",
+            "values": [21599, 43570, 0],
+            "percentages": [3.3, 6.3, 0.0]
+          },
+          {
+            "label": "Patrimonio Netto",
+            "values": [96884, 138351, 234134],
+            "percentages": [14.9, 20.1, 27.3]
+          },
+          {
+            "label": "Totale Passivo",
+            "values": [649389, 687172, 857254],
+            "percentages": [100.0, 100.0, 100.0],
+            "isTotalRow": true
+          }
+        ]
+      }
+    },
+    "investmentStructure": {
+      "title": "3.3 Struttura degli Investimenti",
+      "composition": {
+        "title": "Composizione e Trend",
+        "description": "La struttura degli investimenti di RELIVE COMMUNICATION è caratterizzata da un rilevante peso dei crediti commerciali e una limitata incidenza delle immobilizzazioni, coerente con la tipologia di attività svolta nel settore dei servizi di comunicazione:",
+        "points": [
+          {
+            "label": "Crediti commerciali",
+            "value": "€748.028 al 31/12/2024, pari all'87,3% del totale attivo"
+          },
+          {
+            "label": "Immobilizzazioni nette",
+            "value": "€21.936 al 31/12/2024, pari al 2,6% del totale attivo"
+          },
+          {
+            "label": "Liquidità",
+            "value": "€56.948 al 31/12/2024, pari al 6,6% del totale attivo"
+          }
+        ]
+      },
+      "fixedAssets": {
+        "description": "L'analisi delle immobilizzazioni evidenzia un valore in diminuzione rispetto al 2023 (-15,2%) e comprende principalmente:",
+        "breakdown": [
+          {
+            "type": "Immobilizzazioni materiali",
+            "value": 10735,
+            "percentage": 48.9
+          },
+          {
+            "type": "Immobilizzazioni immateriali",
+            "value": 9001,
+            "percentage": 41.0
+          },
+          {
+            "type": "Immobilizzazioni finanziarie",
+            "value": 2200,
+            "percentage": 10.1
+          }
+        ]
+      },
+      "rotations": {
+        "title": "Analisi delle Rotazioni",
+        "description": "Un elemento critico è rappresentato dall'elevata rotazione dei crediti commerciali, con 262 giorni nel 2024, in peggioramento rispetto ai 219 giorni del 2023 e ai 209 giorni del 2022. Questo valore risulta significativamente superiore ai benchmark di settore e rappresenta un'area di prioritario intervento per l'ottimizzazione della struttura degli investimenti."
+      },
+      "currentAssets": [
+        {
+          "icon": "coins",
+          "iconColor": "primary",
+          "label": "Liquidità (€56.948)",
+          "description": "6,6% del Tot. Impieghi, in crescita (+40,7% vs 2023)."
+        },
+        {
+          "icon": "invoice",
+          "iconColor": "info",
+          "label": "Crediti Clienti (€748.028)",
+          "description": "87,3% del Tot. Impieghi, in aumento (+21,8% vs 2023)."
+        },
+        {
+          "icon": "boxes",
+          "iconColor": "warning",
+          "label": "Rimanenze (€1.883)",
+          "description": "0,2% del Tot. Impieghi, in aumento dal valore nullo del 2023."
+        },
+        {
+          "icon": "sync",
+          "iconColor": "secondary",
+          "label": "Attivo Circolante (€834.741)",
+          "description": "97,4% del Tot. Impieghi. Incremento significativo nel triennio (+32,9%)."
+        }
+      ]
+    },
+    "fundingStructure": {
+      "title": "3.4 Struttura delle Fonti",
+      "composition": {
+        "title": "Composizione e Trend",
+        "description": "La struttura delle fonti di finanziamento ha mostrato una progressiva evoluzione nel triennio:",
+        "points": [
+          {
+            "label": "Patrimonio netto",
+            "value": "crescita da €96.884 (14,9%) nel 2022 a €234.134 (27,3%) nel 2024"
+          },
+          {
+            "label": "Debiti finanziari",
+            "value": "completo azzeramento da €21.599 (3,3%) nel 2022 a €0 (0,0%) nel 2024"
+          },
+          {
+            "label": "Rapporto D/E (Debt/Equity)",
+            "value": "azzeramento da 0,22 nel 2022 a 0,00 nel 2024"
+          }
+        ],
+        "equityGrowth": "L'incremento del patrimonio netto è principalmente dovuto all'accantonamento degli utili a riserva, passati da €58.525 nel 2022 a €118.351 nel 2024, e all'eccezionale utile di esercizio realizzato nel 2024 (€95.783)."
+      },
+      "quality": {
+        "title": "Qualità delle Fonti di Finanziamento",
+        "description": "La struttura delle fonti presenta diversi punti di forza e alcune aree di attenzione:",
+        "points": [
+          {
+            "label": "Autonomia finanziaria",
+            "value": "il patrimonio netto finanzia il 27,3% del totale attivo, un valore in significativo miglioramento rispetto al 14,9% del 2022"
+          },
+          {
+            "label": "Copertura delle immobilizzazioni",
+            "value": "indice pari a 10,67, in miglioramento rispetto al 5,92 del 2022 e ampiamente superiore alla soglia ottimale di 1"
+          },
+          {
+            "label": "Composizione dei debiti",
+            "value": "prevalenza di debiti commerciali (49,1% del totale passivo) con assenza di debiti finanziari"
+          }
+        ]
+      },
+      "equityAnalysis": {
+        "title": "Analisi Patrimonio Netto (€234.134, +69,23%):",
+        "points": [
+          {
+            "icon": "arrow-up",
+            "type": "success",
+            "text": "Crescita significativa rispetto al 2023, eccezionale nel triennio (+141,7%)."
+          },
+          {
+            "icon": "check",
+            "type": "success",
+            "text": "Utile d'esercizio rilevante: €95.783 (40,9% del PN)."
+          },
+          {
+            "icon": "exclamation-triangle",
+            "type": "success",
+            "text": "Incidenza su Fonti: 27,3% (vs 14,9% 2022)",
+            "badge": "Ottima"
+          }
+        ]
+      },
+      "debtAnalysis": {
+        "title": "Analisi Debiti Finanziari (€0, -100%):",
+        "points": [
+          {
+            "icon": "arrow-down",
+            "type": "success",
+            "text": "Completo azzeramento dei Debiti Finanziari (-100% vs 2023)."
+          },
+          {
+            "icon": "check",
+            "type": "success",
+            "text": "Eliminazione della dipendenza da fonti finanziarie esterne, con significativa riduzione degli oneri finanziari."
+          },
+          {
+            "icon": "exclamation-triangle",
+            "type": "success",
+            "text": "Incidenza Debiti Finanziari su Fonti nulla (0,0%)",
+            "badge": "Eccellente"
+          },
+          {
+            "icon": "exclamation-circle",
+            "type": "warning",
+            "text": "Oneri finanziari residui (€1.439) nonostante l'azzeramento dei debiti."
+          }
+        ]
+      }
+    },
+    "pfn": {
+      "title": "3.5 Posizione Finanziaria Netta",
+      "analysis": {
+        "title": "Analisi della PFN",
+        "description": "La Posizione Finanziaria Netta presenta un miglioramento significativo nel triennio, con il raggiungimento di una posizione di liquidità netta senza debiti finanziari:"
+      },
+      "table": {
+        "title": "Tabella 3.5: Analisi PFN 2022-2024 (€)",
+        "data": [
+          {
+            "component": "Debiti Finanziari",
+            "values": [21599, 43570, 0]
+          },
+          {
+            "component": "Liquidità",
+            "values": [-72409, -40471, -56948]
+          },
+          {
+            "component": "PFN",
+            "values": [-50810, 3099, -56948],
+            "isTotalRow": true
+          }
+        ]
+      },
+      "ratioAnalysis": {
+        "title": "Rapporto PFN/EBITDA",
+        "description": "Il rapporto PFN/EBITDA evidenzia un'eccellente situazione, con PFN negativa (eccedenza di liquidità) ed EBITDA positivo:",
+        "points": [
+          "2022: PFN negativa, EBITDA positivo (€59.227) → situazione \"cash positive\"",
+          "2023: 0,03x - eccellente",
+          "2024: PFN negativa, EBITDA positivo (€102.108) → situazione \"cash positive\""
+        ],
+        "conclusion": "Questo valore è estremamente positivo e ampiamente sotto la soglia di sicurezza generalmente considerata di 3x, indicando un'eccellente capacità di generazione di liquidità operativa in assenza di indebitamento finanziario."
+      },
+      "debtCost": {
+        "title": "Costo del Debito",
+        "description": "Gli oneri finanziari sostenuti nel 2024 ammontano a €1.439, riferiti a debiti estinti in corso d'anno, con un'incidenza sui debiti finanziari medi del 6,61%, un valore relativamente contenuto che ha avuto impatto marginale sulla redditività aziendale."
+      },
+      "highlights": [
+        {
+          "icon": "arrow-down",
+          "type": "success",
+          "text": "Ritorno a PFN negativa (cash positive) per €56.948."
+        },
+        {
+          "icon": "check-circle",
+          "type": "success",
+          "text": "Significativo miglioramento della liquidità (+40,7% vs 2023)."
+        },
+        {
+          "icon": "exclamation-triangle",
+          "type": "success",
+          "text": "PFN/EBITDA eccellente (situazione ottimale con PFN negativa e EBITDA positivo)."
+        },
+        {
+          "icon": "exclamation-circle",
+          "type": "success",
+          "text": "Azzeramento completo di tutti i debiti finanziari."
+        }
+      ]
+    },
+    "solidityIndices": {
+      "title": "3.6 Indici di Solidità Patrimoniale",
+      "data": [
+        {
+          "index": "Indice di Autonomia Finanziaria",
+          "formula": "PN / Totale Passivo",
+          "values": ["14,9%", "20,1%", "27,3%"],
+          "evaluation": "Buona",
+          "evalType": "success"
+        },
+        {
+          "index": "Copertura Immobilizzazioni",
+          "formula": "PN / Immobilizzazioni",
+          "values": ["5,92", "5,35", "10,67"],
+          "evaluation": "Eccellente",
+          "evalType": "success"
+        },
+        {
+          "index": "Leva Finanziaria (D/E)",
+          "formula": "Debiti Finanziari / PN",
+          "values": ["0,22", "0,31", "0,00"],
+          "evaluation": "Eccellente",
+          "evalType": "success"
+        },
+        {
+          "index": "Quoziente di Liquidità",
+          "formula": "Liquidità / Ricavi",
+          "values": ["8,6%", "4,0%", "5,5%"],
+          "evaluation": "Adeguata",
+          "evalType": "success"
+        }
+      ],
+      "interpretation": {
+        "title": "Interpretazione degli Indici",
+        "items": [
+          {
+            "label": "Indice di Autonomia Finanziaria (27,3%)",
+            "description": "Buono, in significativo miglioramento rispetto al 2022 (14,9%) e prossimo alla soglia ottimale del 33%."
+          },
+          {
+            "label": "Copertura Immobilizzazioni (10,67)",
+            "description": "Eccellente, ampiamente superiore alla soglia ottimale (≥1,0), indicando una struttura patrimoniale equilibrata con capitale proprio che finanzia integralmente le immobilizzazioni."
+          },
+          {
+            "label": "Leva Finanziaria (0,00)",
+            "description": "Eccellente, azzeramento completo dell'indebitamento finanziario con eliminazione del rischio finanziario."
+          },
+          {
+            "label": "Quoziente di Liquidità (5,5%)",
+            "description": "Adeguato, indica una buona disponibilità di mezzi liquidi in rapporto ai ricavi, superiore alla soglia di sicurezza del 4%."
+          }
+        ]
+      }
+    },
+    "improvements": {
+      "title": "3.7 Punti di Forza e Debolezza con Proposte di Miglioramento",
+      "data": [
+        {
+          "area": "Crediti commerciali",
+          "currentSituation": "DSO elevato (262 giorni) con crediti pari a €748.028",
+          "suggestedAction": "Implementare politiche di credit management più stringenti (sconti per pagamenti anticipati, factoring, sistemi di sollecito strutturati)",
+          "expectedEffects": "Riduzione del ciclo di incasso, miglioramento della liquidità, riduzione del rischio credito",
+          "quantitativeImpact": "Riduzione DSO a 150 giorni (-112 giorni): liberazione di €320.000 di liquidità"
+        },
+        {
+          "area": "Debiti fornitori",
+          "currentSituation": "DPO molto elevato (222 giorni) con debiti pari a €421.125",
+          "suggestedAction": "Riequilibrare i rapporti con i fornitori strategici attraverso accordi di supply chain financing",
+          "expectedEffects": "Miglioramento delle relazioni commerciali, mantenimento di condizioni favorevoli, prevenzione di interruzioni di fornitura",
+          "quantitativeImpact": "Riduzione DPO a 180 giorni (-42 giorni): impiego di €118.000 di liquidità"
+        },
+        {
+          "area": "Capitale Circolante Netto",
+          "currentSituation": "CCN in forte crescita (+32,3%), assorbimento di liquidità",
+          "suggestedAction": "Ottimizzare la gestione complessiva del CCN con approccio integrato",
+          "expectedEffects": "Miglioramento dell'efficienza del capitale, riduzione del fabbisogno finanziario",
+          "quantitativeImpact": "Riduzione del 15% del CCN: liberazione di €32.000 di liquidità"
+        },
+        {
+          "area": "Immobilizzazioni",
+          "currentSituation": "Bassa incidenza (2,6%) con trend decrescente (-15,2%)",
+          "suggestedAction": "Valutare investimenti strategici in tecnologie e infrastrutture digitali",
+          "expectedEffects": "Incremento della capacità produttiva, miglioramento dell'efficienza operativa",
+          "quantitativeImpact": "Investimento programmato: €25.000 con ROI atteso del 35%"
+        },
+        {
+          "area": "Struttura Finanziaria",
+          "currentSituation": "Ottima (PFN cash positive, zero debiti)",
+          "suggestedAction": "Valutare l'opportunità di utilizzare moderata leva finanziaria per investimenti strategici",
+          "expectedEffects": "Incremento della redditività del capitale proprio attraverso effetto leva positivo",
+          "quantitativeImpact": "Finanziamento potenziale: €50.000 con costo del 5,5% e ROI atteso >15%"
+        },
+        {
+          "area": "Liquidità",
+          "currentSituation": "Consistente (€56.948) ma con rendimenti potenzialmente bassi",
+          "suggestedAction": "Implementare strategie di cash management per ottimizzare i rendimenti della liquidità in eccesso",
+          "expectedEffects": "Incremento dei proventi finanziari senza compromettere la disponibilità di risorse",
+          "quantitativeImpact": "Rendimento addizionale: €1.700 annui (+3% sulla liquidità disponibile)"
+        }
+      ]
+    },
+    "conclusions": {
+      "keyPoints": [
+        {
+          "number": "1",
+          "title": "Rafforzamento Finanziario",
+          "description": "Azzeramento debiti finanziari (-100%) e patrimonio netto +69,2%",
+          "type": "success"
+        },
+        {
+          "number": "2",
+          "title": "Equilibrio Ottimale",
+          "description": "Copertura immobilizzazioni 10,67x e autonomia finanziaria 27,3%",
+          "type": "success"
+        },
+        {
+          "number": "3",
+          "title": "Capitale Circolante",
+          "description": "DSO critico a 262 giorni con forte immobilizzo in crediti",
+          "type": "warning"
+        },
+        {
+          "number": "4",
+          "title": "Liquidità Positiva",
+          "description": "PFN cash positive di €56.948 senza debiti finanziari",
+          "type": "success"
+        }
+      ],
+      "strategicPriorities": [
+        {
+          "number": "01",
+          "title": "Ottimizzazione Capitale Circolante",
+          "description": "Riduzione tempi incasso crediti e normalizzazione pagamenti fornitori per liberare risorse finanziarie"
+        },
+        {
+          "number": "02",
+          "title": "Valutazione Leva Finanziaria",
+          "description": "Ricorso moderato al debito per investimenti strategici con ROI superiore al costo del capitale"
+        },
+        {
+          "number": "03",
+          "title": "Cash Management Attivo",
+          "description": "Implementazione strategie per ottimizzare rendimenti sulla liquidità disponibile"
+        }
+      ],
+      "finalJudgment": "L'azienda mostra un <strong>percorso virtuoso di rafforzamento patrimoniale</strong>, con una struttura finanziaria eccellente caratterizzata da elevata solidità e flessibilità. La sfida principale riguarda l'<strong>ottimizzazione della gestione del capitale circolante</strong>, con particolare riferimento ai crediti commerciali, per migliorare ulteriormente l'efficienza nell'utilizzo delle risorse e la generazione di liquidità."
+    }
+  },
+  "charts": {
+    "assetsComposition": {
+      "id": "assetsChart",
+      "type": "doughnut",
+      "title": "Grafico 3.1: Composizione Impieghi 2024 (%)",
+      "data": {
+        "labels": ["Crediti Clienti", "Liquidità", "Altri Crediti", "Attivo Fisso", "Rimanenze"],
+        "values": [87.3, 6.6, 3.3, 2.6, 0.2]
+      }
+    },
+    "liabilitiesComposition": {
+      "id": "liabilitiesChart",
+      "type": "doughnut",
+      "title": "Grafico 3.2: Composizione Fonti 2024 (%)",
+      "data": {
+        "labels": ["Debiti Fornitori", "Patrimonio Netto", "Altri Debiti", "Fondi", "Debiti Finanziari"],
+        "values": [49.1, 27.3, 16.7, 6.8, 0.0]
+      }
+    },
+    "investmentsStructure": {
+      "id": "investmentsStructureChart",
+      "type": "bar",
+      "title": "Grafico 3.3: Evoluzione Struttura Impieghi (€000)",
+      "data": {
+        "labels": ["2022", "2023", "2024"],
+        "datasets": [
+          {
+            "label": "Crediti Clienti",
+            "values": [486, 614, 748]
+          },
+          {
+            "label": "Liquidità",
+            "values": [72, 40, 57]
+          },
+          {
+            "label": "Altri Crediti",
+            "values": [64, 7, 28]
+          },
+          {
+            "label": "Attivo Fisso",
+            "values": [16, 26, 22]
+          },
+          {
+            "label": "Rimanenze",
+            "values": [10, 0, 2]
+          }
+        ]
+      }
+    },
+    "equityComposition": {
+      "id": "equityCompositionChart",
+      "type": "bar",
+      "title": "Grafico 3.4: Evoluzione Fonti 2022-2024 (%)",
+      "data": {
+        "labels": ["2022", "2023", "2024"],
+        "datasets": [
+          {
+            "label": "Patrimonio Netto %",
+            "values": [14.9, 20.1, 27.3]
+          },
+          {
+            "label": "Debiti %",
+            "values": [85.1, 79.9, 72.7]
+          }
+        ]
+      }
+    },
+    "financialDebt": {
+      "id": "financialDebtChart",
+      "type": "mixed",
+      "title": "Grafico 3.5: Evoluzione Debiti Finanziari (€000)",
+      "data": {
+        "labels": ["2022", "2023", "2024"],
+        "datasets": [
+          {
+            "label": "Debiti Finanziari",
+            "type": "bar",
+            "values": [21.6, 43.6, 0]
+          },
+          {
+            "label": "Patrimonio Netto",
+            "type": "bar",
+            "values": [96.9, 138.4, 234.1]
+          },
+          {
+            "label": "Rapporto D/E",
+            "type": "line",
+            "values": [0.22, 0.31, 0.00]
+          }
+        ]
+      }
+    },
+    "pfnTrend": {
+      "id": "pfnTrendChart",
+      "type": "line",
+      "title": "Grafico 3.6: Evoluzione PFN 2022-2024 (€000)",
+      "data": {
+        "labels": ["2022", "2023", "2024"],
+        "datasets": [
+          {
+            "label": "PFN",
+            "values": [-50.8, 3.1, -56.9]
+          },
+          {
+            "label": "Soglia Zero",
+            "values": [0, 0, 0]
+          }
+        ]
+      }
+    }
+  }
+}
