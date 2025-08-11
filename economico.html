@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisi Economica - SCAN360</title>
+    <link rel="stylesheet" href="economico.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon" id="companyLogo"></div>
+                <div class="logo-text">SCAN360 Report</div>
+            </div>
+            <div class="header-info" id="headerInfo"></div>
+        </div>
+    </header>
+    
+    <button class="mobile-menu-btn" id="mobileMenuToggle">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+    
+    <div class="main-container">
+        <nav class="sidebar" id="sidebar">
+            <div id="navigationMenu"></div>
+        </nav>
+        
+        <main class="content" id="content">
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h1 class="page-title">Analisi Economica e Benchmark</h1>
+                    <p class="page-subtitle">Analisi dettagliata della performance economica e confronto con il settore di riferimento</p>
+                </div>
+                
+                <!-- Section 2.1: ANALISI ECONOMICA -->
+                <div class="section-header">
+                    <svg class="section-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    </svg>
+                    <h2>2.1 ANALISI ECONOMICA</h2>
+                </div>
+                
+                <!-- Dynamic content will be inserted here -->
+                <div id="contoEconomicoSection"></div>
+                <div id="trendAnalysisSection"></div>
+                <div id="costStructureSection"></div>
+                <div id="profitabilitySection"></div>
+                <div id="breakEvenSection"></div>
+                <div id="leverageSection"></div>
+                
+                <!-- Section 2.2: BENCHMARK E POSIZIONAMENTO -->
+                <div class="section-header" style="margin-top: 48px;">
+                    <svg class="section-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <h2>2.2 BENCHMARK E POSIZIONAMENTO</h2>
+                </div>
+                
+                <div id="benchmarkSection"></div>
+                <div id="gapAnalysisSection"></div>
+                <div id="actionPlanSection"></div>
+                
+                <!-- Summary Section -->
+                <div id="summarySection"></div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Economico Application JavaScript -->
+    <script>
+        class EconomicoApp {
+            constructor() {
+                this.data = null;
+                this.charts = {};
+                this.chartColors = {
+                    primary: '#00d9ff',
+                    secondary: '#5a67d8',
+                    success: '#22c55e',
+                    warning: '#f59e0b',
+                    danger: '#ef4444',
+                    light: '#c1c9d2',
+                    dark: '#1e3a47'
+                };
+                this.gridColor = 'rgba(193, 201, 210, 0.1)';
+                this.fontColor = '#c1c9d2';
+            }
+            
+            async init() {
+                try {
+                    // Load data from JSON
+                    const response = await fetch('economico-data.json');
+                    this.data = await response.json();
+                    
+                    // Initialize Chart.js defaults
+                    this.setupChartDefaults();
+                    
+                    // Setup mobile menu
+                    this.setupMobileMenu();
+                    
+                    // Render all components
+                    this.renderHeader();
+                    this.renderNavigation();
+                    this.renderSections();
+                    
+                    // Initialize charts after DOM is ready
+                    setTimeout(() => this.initializeCharts(), 100);
+                } catch (error) {
+                    console.error('Error loading data:', error);
+                    this.showError(error);
+                }
+            }
+            
+            setupChartDefaults() {
+                Chart.defaults.color = this.fontColor;
+                Chart.defaults.borderColor = this.gridColor;
+                Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif';
+                Chart.defaults.font.size = window.innerWidth < 768 ? 10 : 12;
+            }
+            
+            setupMobileMenu() {
+                const mobileToggle = document.getElementById('mobileMenuToggle');
+                const sidebar = document.getElementById('sidebar');
+                const content = document.getElementById('content');
+                
+                mobileToggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                });
+                
+                // Close menu when clicking nav items on mobile
+                document.addEventListener('click', (e) => {
+                    if (e.target.closest('.nav-item') && window.innerWidth <= 1200) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+                
+                // Handle resize
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 1200) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+            }
+            
+            renderHeader() {
+                const logo = document.getElementById('companyLogo');
+                const headerInfo = document.getElementById('headerInfo');
+                
+                logo.textContent = this.data.company.shortName;
+                headerInfo.innerHTML = `
+                    <span>${this.data.company.name}</span>
+                    <span>•</span>
+                    <span>Report: ${this.data.company.reportType}</span>
+                    <span>•</span>
+                    <span>${this.data.company.lastUpdate}</span>
+                `;
+            }
+            
+            renderNavigation() {
+                const nav = document.getElementById('navigationMenu');
+                let html = '';
+                
+                this.data.navigation.forEach(section => {
+                    html += `
+                        <div class="nav-section">
+                            <div class="nav-title">${section.title}</div>
+                            ${section.items.map(item => `
+                                <a class="nav-item ${item.active ? 'active' : ''}" href="${item.href}">
+                                    <span class="nav-icon">${this.getIcon(item.icon)}</span>
+                                    <span>${item.label}</span>
+                                </a>
+                            `).join('')}
+                        </div>
+                    `;
+                });
+                
+                nav.innerHTML = html;
+            }
+            
+            renderSections() {
+                // Render each section based on data
+                this.renderContoEconomico();
+                this.renderTrendAnalysis();
+                this.renderCostStructure();
+                this.renderProfitabilityIndices();
+                this.renderBreakEven();
+                this.renderLeverage();
+                this.renderBenchmark();
+                this.renderGapAnalysis();
+                this.renderActionPlan();
+                this.renderSummary();
+            }
+            
+            renderContoEconomico() {
+                const section = this.data.sections.contoEconomico;
+                const container = document.getElementById('contoEconomicoSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="subsection-header">${section.title}</h3>
+                            <p class="card-description">${section.description}</p>
+                        </div>
+                        
+                        <h4 class="card-title">${section.tableTitle}</h4>
+                        <div class="table-responsive">
+                            ${this.createEconomicTable(section.data)}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            createEconomicTable(data) {
+                let html = `
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Voce</th>
+                                ${data.years.map(year => `
+                                    <th class="text-end">${year}</th>
+                                    <th class="text-end hide-mobile">%</th>
+                                `).join('')}
+                                <th class="text-end">Δ 23-24</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                data.rows.forEach(row => {
+                    const rowClass = row.totalRow ? 'total-row' : '';
+                    const labelStyle = row.bold ? '<strong>' + row.label + '</strong>' : row.label;
+                    const variationClass = row.variationType === 'positive' ? 'value-positive' : 
+                                          row.variationType === 'negative' ? 'value-negative' : '';
+                    
+                    html += `
+                        <tr class="${rowClass}">
+                            <td>${labelStyle}</td>
+                            ${row.values.map((value, i) => `
+                                <td class="text-end">${this.formatCurrency(value)}</td>
+                                <td class="text-end hide-mobile">${row.percentages[i]}%</td>
+                            `).join('')}
+                            <td class="text-end ${variationClass}">${row.variation > 0 ? '+' : ''}${row.variation}%</td>
+                        </tr>
+                    `;
+                });
+                
+                html += `
+                        </tbody>
+                    </table>
+                `;
+                
+                return html;
+            }
+            
+            renderTrendAnalysis() {
+                const section = this.data.sections.trendAnalysis;
+                const container = document.getElementById('trendAnalysisSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <h3 class="subsection-header">${section.title}</h3>
+                        <p class="card-description">${section.description}</p>
+                        
+                        <div class="grid grid-2">
+                            <div>
+                                <h4 class="card-title">${this.data.charts.trendRicaviMargini.title}</h4>
+                                <div class="chart-container">
+                                    <canvas id="trendRicaviMarginiChart"></canvas>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="card-title">${section.variations.tableTitle}</h4>
+                                ${this.createVariationsTable(section.variations.data)}
+                                ${this.createAnalysisBox(section.analysis)}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            createVariationsTable(data) {
+                let html = `
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Voce</th>
+                                    <th class="text-end">Δ Assoluta</th>
+                                    <th class="text-end">Δ %</th>
+                                    <th>Impatto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+                
+                data.forEach(item => {
+                    const valueClass = item.deltaPercentuale.includes('+') ? 'value-positive' : 'value-negative';
+                    
+                    html += `
+                        <tr>
+                            <td>${item.voce}</td>
+                            <td class="text-end">${item.deltaAssoluta}</td>
+                            <td class="text-end ${valueClass}">${item.deltaPercentuale}</td>
+                            <td><span class="badge badge-${item.impactType}">${item.impatto}</span></td>
+                        </tr>
+                    `;
+                });
+                
+                html += `
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                
+                return html;
+            }
+            
+            createAnalysisBox(analysis) {
+                return `
+                    <div class="analysis-box" style="margin-top: 16px;">
+                        <p><strong>${analysis.title}</strong></p>
+                        <ul>
+                            ${analysis.points.map(point => `
+                                <li><strong>${point.label}</strong>: ${point.description}</li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            renderCostStructure() {
+                const section = this.data.sections.costStructure;
+                const container = document.getElementById('costStructureSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <h3 class="subsection-header">${section.title}</h3>
+                        <p class="card-description">${section.description}</p>
+                        
+                        <h4 class="card-title">${section.tableTitle}</h4>
+                        <div class="table-responsive">
+                            ${this.createCostStructureTable(section.data)}
+                        </div>
+                        ${this.createAnalysisBox(section.analysis)}
+                    </div>
+                `;
+            }
+            
+            createCostStructureTable(data) {
+                let html = `
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Categoria di Costo</th>
+                                ${data.years.map(year => `
+                                    <th class="text-end">${year}</th>
+                                    <th class="text-end hide-mobile">% Ricavi</th>
+                                `).join('')}
+                                <th class="text-end">Var%</th>
+                                <th>Valutazione</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                data.rows.forEach(row => {
+                    const rowClass = row.totalRow ? 'total-row' : '';
+                    const labelStyle = row.bold ? '<strong>' + row.label + '</strong>' : row.label;
+                    const variationClass = row.variation > 0 ? 'value-negative' : 'value-positive';
+                    
+                    html += `
+                        <tr class="${rowClass}">
+                            <td>${labelStyle}</td>
+                            ${row.values.map((value, i) => `
+                                <td class="text-end">${this.formatCurrency(value)}</td>
+                                <td class="text-end hide-mobile">${row.percentages[i]}</td>
+                            `).join('')}
+                            <td class="text-end ${variationClass}">${row.variation > 0 ? '+' : ''}${row.variation}%</td>
+                            <td><span class="badge badge-${row.evalType}">${row.evaluation}</span></td>
+                        </tr>
+                    `;
+                });
+                
+                html += `
+                        </tbody>
+                    </table>
+                `;
+                
+                return html;
+            }
+            
+            renderProfitabilityIndices() {
+                const section = this.data.sections.profitabilityIndices;
+                const container = document.getElementById('profitabilitySection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <h3 class="subsection-header">${section.title}</h3>
+                        <p class="card-description">${section.description}</p>
+                        
+                        <div class="grid grid-2">
+                            <div>
+                                <h4 class="card-title">${section.tableTitle}</h4>
+                                ${this.createProfitabilityTable(section.data)}
+                            </div>
+                            <div>
+                                <h4 class="card-title">${this.data.charts.profitabilityIndices.title}</h4>
+                                <div class="chart-container chart-small">
+                                    <canvas id="profitabilityIndicesChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="analysis-box" style="margin-top: 20px;">
+                            <p><strong>Analisi redditività:</strong> ${section.analysis}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            createProfitabilityTable(data) {
+                const years = ['2022', '2023', '2024'];
+                
+                return `
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Indice</th>
+                                    <th>Formula</th>
+                                    ${years.map(year => `<th class="text-end">${year}</th>`).join('')}
+                                    <th>Soglia</th>
+                                    <th>Valutazione</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${data.indices.map(index => `
+                                    <tr>
+                                        <td><strong>${index.name}</strong></td>
+                                        <td>${index.formula}</td>
+                                        ${index.values.map((value, i) => {
+                                            const isLast = i === index.values.length - 1;
+                                            const valueClass = isLast && value > 10 ? 'value-positive' : '';
+                                            return `<td class="text-end ${valueClass}">${value}${index.name.includes('Turnover') ? '' : '%'}</td>`;
+                                        }).join('')}
+                                        <td>${index.threshold}</td>
+                                        <td><span class="badge badge-${index.evalType}">${index.evaluation}</span></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+            
+            renderBreakEven() {
+                const section = this.data.sections.breakEven;
+                const container = document.getElementById('breakEvenSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <h3 class="subsection-header">${section.title}</h3>
+                        <p class="card-description">${section.description}</p>
+                        
+                        <div class="grid grid-2">
+                            <div>
+                                <h4 class="card-title">${this.data.charts.breakEven.title}</h4>
+                                <div class="chart-container">
+                                    <canvas id="breakEvenChart"></canvas>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="card-title">${section.tableTitle}</h4>
+                                ${this.createBreakEvenTable(section.data)}
+                                
+                                <div class="alert-box alert-${section.alert.type}" style="margin-top: 16px;">
+                                    <ul style="margin: 0; padding-left: 20px;">
+                                        ${section.alert.points.map(point => `<li>${point}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            createBreakEvenTable(data) {
+                return `
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Parametro</th>
+                                    <th class="text-end">Valore</th>
+                                    <th>Formula</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${data.map(item => {
+                                    const valueClass = item.highlight === 'positive' ? 'value-positive' : '';
+                                    const rowStyle = item.parameter.includes('Break-Even') || item.parameter.includes('Margine di Sicurezza') ? 
+                                                    'font-weight: 600;' : '';
+                                    
+                                    return `
+                                        <tr>
+                                            <td style="${rowStyle}">${item.parameter}</td>
+                                            <td class="text-end ${valueClass}">${item.value}</td>
+                                            <td>${item.formula}</td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+            
+            renderLeverage() {
+                const section = this.data.sections.leverageOperativo;
+                const container = document.getElementById('leverageSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <h3 class="subsection-header">${section.title}</h3>
+                        <p class="card-description">${section.description}</p>
+                        
+                        <h4 class="card-title">Analisi Leverage Operativo 2024</h4>
+                        <div class="analysis-box">
+                            <p><strong>Grado di Leverage Operativo (DOL):</strong> ${section.dol.value}</p>
+                            <p>Formula: ${section.dol.formula}</p>
+                            
+                            <p style="margin-top: 16px;"><strong>Interpretazione:</strong></p>
+                            <ul>
+                                ${section.interpretation.map(point => `<li>${point}</li>`).join('')}
+                            </ul>
+                            
+                            <div style="margin-top: 16px; padding: 12px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 6px;">
+                                <p style="margin: 0; color: #f59e0b;"><strong>Attenzione:</strong> ${section.warning}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderBenchmark() {
+                const section = this.data.sections.benchmark;
+                const container = document.getElementById('benchmarkSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <h3 class="subsection-header">${section.title}</h3>
+                        <p class="card-description">${section.description}</p>
+                        
+                        <div class="grid grid-2">
+                            <div>
+                                <h4 class="card-title">${this.data.charts.competitiveRadar.title}</h4>
+                                <div class="chart-container">
+                                    <canvas id="competitiveRadarChart"></canvas>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="card-title">${section.tableTitle}</h4>
+                                ${this.createBenchmarkTable(section.data)}
+                            </div>
+                        </div>
+                        
+                        <div class="analysis-box" style="margin-top: 20px;">
+                            <p><strong>Analisi posizionamento:</strong> ${section.analysis}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            createBenchmarkTable(data) {
+                return `
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Indicatore</th>
+                                    <th class="text-end">RELIVE</th>
+                                    <th class="text-end">Media Sett.</th>
+                                    <th class="text-end">Gap</th>
+                                    <th>Valutazione</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${data.map(item => `
+                                    <tr>
+                                        <td>${item.indicator}</td>
+                                        <td class="text-end">${item.relive}</td>
+                                        <td class="text-end">${item.mediaSett}</td>
+                                        <td class="text-end ${item.gapType === 'positive' ? 'value-positive' : 'value-negative'}">${item.gap}</td>
+                                        <td><span class="badge badge-${item.evalType}">${item.evaluation}</span></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+            
+            renderGapAnalysis() {
+                const section = this.data.sections.gapAnalysis;
+                const container = document.getElementById('gapAnalysisSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <h3 class="subsection-header">${section.title}</h3>
+                        <p class="card-description">${section.description}</p>
+                        
+                        <h4 class="card-title">${section.tableTitle}</h4>
+                        ${this.createGapAnalysisTable(section.data)}
+                    </div>
+                `;
+            }
+            
+            createGapAnalysisTable(data) {
+                return `
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Area</th>
+                                    <th>Situazione Attuale</th>
+                                    <th>Best Practice</th>
+                                    <th>Gap</th>
+                                    <th>Priorità</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${data.map(item => `
+                                    <tr>
+                                        <td>${item.area}</td>
+                                        <td>${item.current}</td>
+                                        <td>${item.bestPractice}</td>
+                                        <td class="${item.gapType === 'negative' ? 'value-negative' : item.gapType === 'neutral' ? 'value-neutral' : ''}">${item.gap}</td>
+                                        <td><span class="badge badge-${item.priorityType}">${item.priority}</span></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+            
+            renderActionPlan() {
+                const section = this.data.sections.actionPlan;
+                const container = document.getElementById('actionPlanSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <h3 class="subsection-header">${section.title}</h3>
+                        <p class="card-description">${section.description}</p>
+                        
+                        <h4 class="card-title">${section.tableTitle}</h4>
+                        ${this.createActionPlanTable(section.actions)}
+                        
+                        <div class="analysis-box" style="margin-top: 20px;">
+                            <p><strong>${section.expectedImpact.title}</strong></p>
+                            <ul>
+                                ${section.expectedImpact.points.map(point => `<li>${point}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            createActionPlanTable(actions) {
+                return `
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Azione</th>
+                                    <th>Obiettivo</th>
+                                    <th>Timeframe</th>
+                                    <th>KPI Target</th>
+                                    <th>Impatto Atteso</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${actions.map(action => {
+                                    const labelStyle = action.bold ? `<strong>${action.action}</strong>` : action.action;
+                                    const impactBadge = action.impactType ? 
+                                        `<span class="badge badge-${action.impactType}">${action.expectedImpact}</span>` : 
+                                        action.expectedImpact;
+                                    
+                                    return `
+                                        <tr>
+                                            <td>${labelStyle}</td>
+                                            <td>${action.objective}</td>
+                                            <td>${action.timeframe}</td>
+                                            <td>${action.kpiTarget}</td>
+                                            <td>${impactBadge}</td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+            
+            renderSummary() {
+                const summary = this.data.summary;
+                const container = document.getElementById('summarySection');
+                
+                container.innerHTML = `
+                    <div class="card summary-card">
+                        <h3 class="subsection-header">Riepilogo Analisi Economica</h3>
+                        
+                        <div class="summary-grid">
+                            <div class="summary-section">
+                                <h4 style="color: #22c55e;">✓ Punti di Forza</h4>
+                                <ul>
+                                    ${summary.strengths.map(item => `<li>• ${item}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <div class="summary-section">
+                                <h4 style="color: #f59e0b;">⚠ Aree di Attenzione</h4>
+                                <ul>
+                                    ${summary.attentionAreas.map(item => `<li>• ${item}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <div class="summary-section">
+                                <h4 style="color: #ef4444;">✗ Criticità</h4>
+                                <ul>
+                                    ${summary.criticalIssues.map(item => `<li>• ${item}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(0, 217, 255, 0.2);">
+                            <p style="font-size: 14px; margin: 0;"><strong>Valutazione complessiva:</strong> ${summary.overallAssessment}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            initializeCharts() {
+                // 1. Trend Ricavi e Margini
+                this.createTrendChart();
+                
+                // 2. Profitability Indices
+                this.createProfitabilityChart();
+                
+                // 3. Break-Even
+                this.createBreakEvenChart();
+                
+                // 4. Competitive Radar
+                this.createRadarChart();
+            }
+            
+            createTrendChart() {
+                const chartData = this.data.charts.trendRicaviMargini;
+                const ctx = document.getElementById('trendRicaviMarginiChart')?.getContext('2d');
+                
+                if (!ctx) return;
+                
+                this.charts.trendRicavi = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.data.labels,
+                        datasets: [{
+                            label: 'Ricavi (€K)',
+                            data: chartData.data.revenues,
+                            backgroundColor: this.chartColors.primary,
+                            borderRadius: 4,
+                            yAxisID: 'y',
+                            order: 2
+                        }, {
+                            label: 'EBITDA (€K)',
+                            data: chartData.data.ebitda,
+                            backgroundColor: this.chartColors.secondary,
+                            borderRadius: 4,
+                            yAxisID: 'y1',
+                            order: 1
+                        }, {
+                            label: 'Utile Netto (€K)',
+                            data: chartData.data.netProfit,
+                            backgroundColor: this.chartColors.success,
+                            borderRadius: 4,
+                            yAxisID: 'y1',
+                            order: 0
+                        }]
+                    },
+                    options: this.getBarChartOptions()
+                });
+            }
+            
+            createProfitabilityChart() {
+                const chartData = this.data.charts.profitabilityIndices;
+                const ctx = document.getElementById('profitabilityIndicesChart')?.getContext('2d');
+                
+                if (!ctx) return;
+                
+                this.charts.profitability = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: chartData.data.labels,
+                        datasets: [{
+                            label: 'ROE %',
+                            data: chartData.data.roe,
+                            borderColor: this.chartColors.success,
+                            backgroundColor: 'transparent',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            pointRadius: 5
+                        }, {
+                            label: 'ROI %',
+                            data: chartData.data.roi,
+                            borderColor: this.chartColors.primary,
+                            backgroundColor: 'transparent',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            pointRadius: 5
+                        }, {
+                            label: 'ROS %',
+                            data: chartData.data.ros,
+                            borderColor: this.chartColors.secondary,
+                            backgroundColor: 'transparent',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            pointRadius: 5
+                        }]
+                    },
+                    options: this.getLineChartOptions()
+                });
+            }
+            
+            createBreakEvenChart() {
+                const chartData = this.data.charts.breakEven;
+                const ctx = document.getElementById('breakEvenChart')?.getContext('2d');
+                
+                if (!ctx) return;
+                
+                this.charts.breakEven = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: chartData.data.labels,
+                        datasets: [{
+                            label: 'Costi Totali',
+                            data: chartData.data.totalCosts,
+                            borderColor: this.chartColors.danger,
+                            backgroundColor: 'transparent',
+                            borderWidth: 3,
+                            tension: 0.4
+                        }, {
+                            label: 'Ricavi',
+                            data: chartData.data.revenues,
+                            borderColor: this.chartColors.success,
+                            backgroundColor: 'transparent',
+                            borderWidth: 3,
+                            borderDash: [5, 5]
+                        }, {
+                            label: 'Break-Even',
+                            data: chartData.data.breakEvenPoint,
+                            borderColor: this.chartColors.warning,
+                            backgroundColor: this.chartColors.warning,
+                            pointRadius: 8,
+                            pointHoverRadius: 10,
+                            showLine: false
+                        }]
+                    },
+                    options: this.getBreakEvenOptions()
+                });
+            }
+            
+            createRadarChart() {
+                const chartData = this.data.charts.competitiveRadar;
+                const ctx = document.getElementById('competitiveRadarChart')?.getContext('2d');
+                
+                if (!ctx) return;
+                
+                this.charts.radar = new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: chartData.data.labels,
+                        datasets: [{
+                            label: 'RELIVE',
+                            data: chartData.data.relive,
+                            borderColor: this.chartColors.primary,
+                            backgroundColor: 'rgba(0, 217, 255, 0.2)',
+                            borderWidth: 2,
+                            pointRadius: 5
+                        }, {
+                            label: 'Media Settore',
+                            data: chartData.data.mediaSett,
+                            borderColor: this.chartColors.danger,
+                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            pointRadius: 5
+                        }]
+                    },
+                    options: this.getRadarOptions()
+                });
+            }
+            
+            // Chart options methods
+            getBarChartOptions() {
+                return {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                padding: 15,
+                                usePointStyle: true,
+                                font: { size: 11 }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Ricavi (€K)',
+                                font: { size: 11 }
+                            },
+                            grid: { color: this.gridColor }
+                        },
+                        y1: {
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'EBITDA / Utile (€K)',
+                                font: { size: 11 }
+                            },
+                            grid: { drawOnChartArea: false }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                };
+            }
+            
+            getLineChartOptions() {
+                return {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                padding: 15,
+                                usePointStyle: true,
+                                font: { size: 11 }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            },
+                            grid: { color: this.gridColor }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                };
+            }
+            
+            getBreakEvenOptions() {
+                return {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                padding: 15,
+                                usePointStyle: true,
+                                font: { size: 11 }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Importo (€K)',
+                                font: { size: 11 }
+                            },
+                            grid: { color: this.gridColor }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Ricavi (€K)',
+                                font: { size: 11 }
+                            },
+                            grid: { display: false }
+                        }
+                    }
+                };
+            }
+            
+            getRadarOptions() {
+                return {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                padding: 15,
+                                usePointStyle: true,
+                                font: { size: 11 }
+                            }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 300,
+                            ticks: {
+                                stepSize: 50,
+                                callback: function(value) {
+                                    return value + '%';
+                                },
+                                backdropColor: 'transparent'
+                            },
+                            grid: { color: this.gridColor },
+                            angleLines: { color: this.gridColor },
+                            pointLabels: {
+                                font: { size: 11 },
+                                color: this.fontColor
+                            }
+                        }
+                    }
+                };
+            }
+            
+            // Utility methods
+            formatCurrency(value) {
+                if (value === null || value === undefined) return '-';
+                const absValue = Math.abs(value);
+                const sign = value < 0 ? '-' : '';
+                return sign + absValue.toLocaleString('it-IT');
+            }
+            
+            getIcon(iconName) {
+                const icons = {
+                    'dashboard': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>',
+                    'document': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>',
+                    'currency': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>',
+                    'balance': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="9"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>',
+                    'bank': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>',
+                    'cycle': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline></svg>',
+                    'warning': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path></svg>',
+                    'shield': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>'
+                };
+                
+                return icons[iconName] || '';
+            }
+            
+            showError(error) {
+                const content = document.getElementById('content');
+                content.innerHTML = `
+                    <div class="content-wrapper">
+                        <div class="alert-box alert-warning">
+                            <h4>Errore caricamento dati</h4>
+                            <p>Impossibile caricare economico-data.json. Assicurati che il file sia nella stessa cartella.</p>
+                            <p>Errore: ${error.message}</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        // Initialize app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const app = new EconomicoApp();
+            app.init();
+        });
+    </script>
+</body>
+</html>
