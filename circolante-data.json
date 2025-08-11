@@ -1,0 +1,513 @@
+{
+  "company": {
+    "name": "RELIVE COMMUNICATION S.R.L.",
+    "shortName": "RC",
+    "reportType": "Circolante e Flussi",
+    "lastUpdate": "28 Aprile 2025"
+  },
+  "navigation": [
+    {
+      "section": "main",
+      "title": "Menu Principale",
+      "items": [
+        {
+          "id": "dashboard",
+          "label": "Dashboard",
+          "href": "dashboard.html",
+          "icon": "dashboard"
+        },
+        {
+          "id": "sintesi",
+          "label": "Sintesi e Profilo",
+          "href": "sintesi.html",
+          "icon": "document"
+        }
+      ]
+    },
+    {
+      "section": "detailed",
+      "title": "Analisi Dettagliata",
+      "items": [
+        {
+          "id": "economico",
+          "label": "Analisi Economica",
+          "href": "economico.html",
+          "icon": "currency"
+        },
+        {
+          "id": "patrimoniale",
+          "label": "Analisi Patrimoniale",
+          "href": "patrimoniale.html",
+          "icon": "balance"
+        },
+        {
+          "id": "bancabilita",
+          "label": "Bancabilità",
+          "href": "bancabilita.html",
+          "icon": "bank"
+        },
+        {
+          "id": "circolante",
+          "label": "Circolante e Flussi",
+          "href": "circolante.html",
+          "icon": "cycle",
+          "active": true
+        },
+        {
+          "id": "rischi",
+          "label": "Rischi e Azioni",
+          "href": "rischi.html",
+          "icon": "warning"
+        },
+        {
+          "id": "irp",
+          "label": "Dettaglio IRP",
+          "href": "irp.html",
+          "icon": "shield"
+        }
+      ]
+    }
+  ],
+  "sections": {
+    "workingCapital": {
+      "title": "5.1 Analisi Capitale Circolante",
+      "description": "L'analisi del capitale circolante di RELIVE COMMUNICATION S.R.L. evidenzia una gestione caratterizzata da tempi di incasso molto elevati, parzialmente compensati da termini di pagamento ai fornitori altrettanto estesi. Il ciclo del circolante risulta significativamente deteriorato nel triennio.",
+      "kpis": [
+        {
+          "label": "DSO (Giorni Clienti)",
+          "value": 262,
+          "unit": "giorni",
+          "status": "danger"
+        },
+        {
+          "label": "DIO (Giorni Magazzino)",
+          "value": 79,
+          "unit": "giorni",
+          "status": "warning"
+        },
+        {
+          "label": "DPO (Giorni Fornitori)",
+          "value": 222,
+          "unit": "giorni",
+          "status": "success"
+        },
+        {
+          "label": "Ciclo Circolante",
+          "value": 119,
+          "unit": "giorni",
+          "status": "danger"
+        }
+      ],
+      "criticalNote": "Il ciclo di 119 giorni indica che l'azienda finanzia il proprio ciclo operativo per circa 4 mesi, con un significativo assorbimento di liquidità.",
+      "trend": {
+        "tableTitle": "Trend Ciclo Circolante 2022-2024",
+        "data": [
+          {
+            "component": "DSO (giorni)",
+            "year2022": 209,
+            "year2023": 219,
+            "year2024": 262,
+            "variation": "+43",
+            "trend": "Peggioramento ↑",
+            "trendType": "danger"
+          },
+          {
+            "component": "DIO (giorni)",
+            "year2022": "N/A",
+            "year2023": 0,
+            "year2024": 79,
+            "variation": "+79",
+            "trend": "Peggioramento ↑",
+            "trendType": "danger"
+          },
+          {
+            "component": "DPO (giorni)",
+            "year2022": 202,
+            "year2023": 150,
+            "year2024": 222,
+            "variation": "+72",
+            "trend": "Miglioramento ↑",
+            "trendType": "success"
+          },
+          {
+            "component": "Ciclo Circolante",
+            "year2022": 7,
+            "year2023": 69,
+            "year2024": 119,
+            "variation": "+50",
+            "trend": "Peggioramento ↑",
+            "trendType": "danger",
+            "isTotal": true
+          }
+        ]
+      },
+      "congruityTest": [
+        {
+          "title": "CREDITI (DSO)",
+          "titleType": "danger",
+          "items": [
+            { "label": "Valore", "value": "€748.028" },
+            { "label": "DSO Effettivo", "value": "262 gg", "bold": true },
+            { "label": "DSO Normale", "value": "90 gg" },
+            { "label": "Giorni Eccesso", "value": "+172 gg", "type": "danger", "separator": true },
+            { "label": "Capitale Immobilizzato", "value": "~€492.468", "type": "danger" }
+          ]
+        },
+        {
+          "title": "DEBITI (DPO)",
+          "titleType": "success",
+          "items": [
+            { "label": "Valore", "value": "€421.125" },
+            { "label": "DPO Effettivo", "value": "222 gg", "bold": true },
+            { "label": "DPO Standard", "value": "90 gg" },
+            { "label": "Giorni Eccesso", "value": "+132 gg", "type": "success", "separator": true },
+            { "label": "Finanz. Ottenuto", "value": "~€232.616", "type": "success" }
+          ]
+        },
+        {
+          "title": "MAGAZZINO (DIO)",
+          "titleType": "warning",
+          "items": [
+            { "label": "Valore", "value": "€1.883" },
+            { "label": "DIO Effettivo", "value": "79 gg", "bold": true },
+            { "label": "DIO Standard", "value": "60 gg" },
+            { "label": "Giorni in Eccesso", "value": "+19 gg", "type": "warning", "separator": true },
+            { "label": "Capitale Immobilizzato", "value": "~€456", "type": "warning" }
+          ]
+        }
+      ],
+      "detailedAnalysis": "Il ciclo di 119gg richiede un fabbisogno finanziario stimato di circa €260.308, principalmente a causa dell'elevatissimo tempo di incasso dei crediti clienti (262gg). Questo è parzialmente compensato dai termini di pagamento fornitori molto estesi (222gg) che generano un \"finanziamento\" di circa €232.616."
+    },
+    "improvementStrategies": {
+      "title": "5.2 Strategie di Miglioramento del Capitale Circolante",
+      "subtitle": "Interventi Prioritari e Impatto Finanziario Atteso",
+      "strategies": [
+        {
+          "title": "Crediti Clienti",
+          "icon": "arrow-down",
+          "actions": [
+            "Implementare sconti per pagamenti anticipati (2% entro 30gg)",
+            "Introdurre sistemi automatizzati di sollecito",
+            "Valutazione preventiva solvibilità clienti"
+          ],
+          "impactValue": "+€177.518",
+          "impactLabel": "(Target DSO 200gg)",
+          "impactType": "success"
+        },
+        {
+          "title": "Controllo Dinamico Crediti",
+          "icon": "clipboard",
+          "actions": [
+            "Sistema di aging strutturato",
+            "Valutazione solvibilità nuovi clienti",
+            "Limiti di credito per cliente"
+          ],
+          "impactValue": "+€112.204",
+          "impactLabel": "(Riduzione crediti problematici 15%)",
+          "impactType": "success"
+        },
+        {
+          "title": "Debiti Fornitori",
+          "icon": "calendar",
+          "actions": [
+            "Rinegoziazione selettiva con fornitori non strategici",
+            "Calendario pagamenti centralizzato",
+            "Valutazione cash discount offerti"
+          ],
+          "impactValue": "-€38.769",
+          "impactLabel": "(Mantenimento DPO entro 200gg)",
+          "impactType": "warning"
+        }
+      ],
+      "totalImpact": "+€244.953"
+    },
+    "cashFlowAnalysis": {
+      "title": "5.3 Analisi Flussi di Cassa",
+      "description": "L'analisi dei flussi di cassa evidenzia la capacità aziendale di generare liquidità dalle operazioni e la sua destinazione nel corso dell'esercizio 2024.",
+      "flowTable": {
+        "title": "Tabella 5.1: Dettaglio Flussi 2024 (€)",
+        "data": [
+          {
+            "label": "EBITDA",
+            "value": 102108,
+            "percentage": "9,91%",
+            "type": "success"
+          },
+          {
+            "label": "Var. Capitale Circolante",
+            "value": -98150,
+            "percentage": "-9,52%",
+            "type": "danger"
+          },
+          {
+            "label": "Cash Flow Operativo",
+            "value": 63852,
+            "percentage": "6,19%",
+            "type": "success",
+            "isTotal": true
+          },
+          {
+            "label": "Cash Flow Investimenti",
+            "value": -3805,
+            "percentage": "-0,37%",
+            "type": "danger"
+          },
+          {
+            "label": "Free Cash Flow (FCF)",
+            "value": 60047,
+            "percentage": "5,83%",
+            "type": "success",
+            "isTotal": true
+          },
+          {
+            "label": "Variazione Debiti Fin.",
+            "value": -43570,
+            "percentage": "-4,23%",
+            "type": "danger"
+          },
+          {
+            "label": "Variazione Netta Cassa",
+            "value": 16477,
+            "percentage": "1,60%",
+            "type": "success",
+            "isTotal": true
+          }
+        ]
+      },
+      "analysis": {
+        "points": [
+          {
+            "label": "EBITDA buono (€102.108)",
+            "description": "Indicativo di una redditività operativa positiva (9,91% sui ricavi)."
+          },
+          {
+            "label": "Cash Flow Operativo positivo (€63.852)",
+            "description": "Nonostante l'assorbimento del capitale circolante (-€98.150)."
+          },
+          {
+            "label": "Limitati investimenti (-€3.805)",
+            "description": "Evidenziano una politica di contenimento delle spese in conto capitale."
+          },
+          {
+            "label": "Significativa riduzione del debito finanziario (-€43.570)",
+            "description": "Azzeramento completo dell'indebitamento."
+          },
+          {
+            "label": "Variazione netta cassa positiva (€16.477)",
+            "description": "Miglioramento della posizione di liquidità."
+          }
+        ]
+      }
+    },
+    "cashFlowTrend": {
+      "title": "5.4 Trend Triennale e Proiezioni dei Flussi di Cassa",
+      "trendInterpretation": [
+        {
+          "label": "Variabilità del Cash Flow Operativo",
+          "description": "Da €11.859 nel 2022 a €63.852 nel 2024, con un picco negativo nel 2023 (-€35.522)."
+        },
+        {
+          "label": "Stabilità dell'EBITDA",
+          "description": "€59.227 nel 2022, €104.917 nel 2023, €102.108 nel 2024 (leggera flessione -2,68%)."
+        },
+        {
+          "label": "Deterioramento nella gestione del capitale circolante",
+          "description": "Da -€27.397 nel 2022 a -€98.150 nel 2024."
+        },
+        {
+          "label": "Progressiva riduzione dell'indebitamento",
+          "description": "Da -€3.401 nel 2022 a -€43.570 nel 2024 (azzeramento completo)."
+        }
+      ],
+      "projectionAnalysis": [
+        {
+          "label": "CF Operativo positivo",
+          "description": "€92.805 stimato per il 2025, con miglioramento significativo."
+        },
+        {
+          "label": "Investimenti moderati",
+          "description": "Previsti circa €10.800 nel 2025."
+        },
+        {
+          "label": "Crescita della liquidità",
+          "description": "Variazione netta di cassa positiva e in crescita."
+        },
+        {
+          "label": "Marginalità in miglioramento",
+          "description": "EBITDA previsto al 10,50% dei ricavi nel 2025."
+        },
+        {
+          "label": "PFN",
+          "description": "Mantenimento della cassa netta positiva con ulteriore rafforzamento."
+        }
+      ],
+      "projectionNote": "Le proiezioni evidenziano un potenziale miglioramento nella generazione di cassa operativa, con particolare focus sull'ottimizzazione del capitale circolante (potenziale liberazione di €244.953)."
+    },
+    "operationalSuggestions": {
+      "title": "5.5 Suggerimenti Operativi per Miglioramento Flussi",
+      "suggestions": [
+        {
+          "area": "Pianificazione tesoreria",
+          "action": "Implementazione sistema cash forecasting a 13 settimane",
+          "impact": "€17.000 riduzione cash buffer",
+          "impactType": "success"
+        },
+        {
+          "area": "Gestione ciclo attivo",
+          "action": "Fatturazione tempestiva e revisione contratti con milestone di pagamento",
+          "impact": "€85.896 (riduzione DSO 30gg)",
+          "impactType": "success"
+        },
+        {
+          "area": "Ottimizzazione finanziaria",
+          "action": "Gestione attiva della liquidità eccedente",
+          "impact": "€2.084 (rendimento 1,5%)",
+          "impactType": "success"
+        },
+        {
+          "area": "Gestione fornitori",
+          "action": "Negoziazione condizioni e sconti pagamento",
+          "impact": "-€4.500 (costi implementazione)",
+          "impactType": "warning"
+        },
+        {
+          "area": "Reporting flussi",
+          "action": "Implementazione dashboard flussi settimanali",
+          "impact": "-€7.500 (costi implementazione)",
+          "impactType": "warning"
+        },
+        {
+          "area": "Complessivo",
+          "action": "Implementazione integrata",
+          "impact": "€88.480 miglioramento netto",
+          "impactType": "success",
+          "isTotal": true
+        }
+      ],
+      "conclusion": "L'analisi del capitale circolante e dei flussi di cassa di RELIVE COMMUNICATION S.R.L. evidenzia alcune criticità significative, in particolare l'elevato ciclo del circolante (119 giorni) dovuto principalmente ai tempi di incasso dei crediti clienti (262 giorni). Nonostante ciò, l'azienda è riuscita a generare un cash flow operativo positivo (€63.852, 6,19% sui ricavi) e ha eliminato completamente il debito finanziario. L'implementazione delle strategie suggerite potrebbe consentire un miglioramento del Cash Flow Operativo stimabile in €88.480 annui, rafforzando ulteriormente la posizione di liquidità dell'azienda, già positiva al 31/12/2024 (€56.948)."
+    }
+  },
+  "summary": {
+    "title": "5.6 Conclusioni sull'Analisi Circolante e Flussi",
+    "introduction": "L'analisi del capitale circolante e dei flussi di cassa di RELIVE COMMUNICATION S.R.L. evidenzia un sistema complesso con elementi di criticità e opportunità significative per l'ottimizzazione finanziaria.",
+    "criticalIssues": [
+      {
+        "value": "119 gg",
+        "label": "CICLO CIRCOLANTE",
+        "description": "Deterioramento di +50 giorni vs 2023, indicando crescente stress finanziario"
+      },
+      {
+        "value": "262 gg",
+        "label": "DSO CRITICO",
+        "description": "Immobilizzo di €492.468, triplo rispetto al benchmark di settore"
+      },
+      {
+        "value": "-€98K",
+        "label": "ASSORBIMENTO CCN",
+        "description": "Significativa erosione della liquidità operativa nel 2024"
+      },
+      {
+        "value": "±99K",
+        "label": "VOLATILITÀ CF",
+        "description": "Forte variabilità del CF operativo nel biennio 2023-2024"
+      }
+    ],
+    "strengths": [
+      {
+        "title": "CF Operativo Positivo",
+        "description": "€63.852 generati nonostante l'assorbimento del circolante",
+        "icon": "currency"
+      },
+      {
+        "title": "Zero Debiti Finanziari",
+        "description": "Completo azzeramento dell'indebitamento bancario",
+        "icon": "bank"
+      },
+      {
+        "title": "DPO Favorevole",
+        "description": "222 giorni di dilazione fornitori compensano parzialmente il fabbisogno",
+        "icon": "cash"
+      },
+      {
+        "title": "Liquidità Positiva",
+        "description": "€56.948 di cassa con incremento di €16.477 nel 2024",
+        "icon": "clock"
+      }
+    ],
+    "strategicPriorities": [
+      {
+        "priority": 1,
+        "title": "Sistema Strutturato di Credit Management",
+        "description": "Target: riduzione DSO a 180 giorni entro 12 mesi • Impatto: liberazione €177.518"
+      },
+      {
+        "priority": 2,
+        "title": "Ottimizzazione Capitale Circolante",
+        "description": "Potenziale liberazione complessiva di €244.953 attraverso gestione integrata"
+      },
+      {
+        "priority": 3,
+        "title": "Cash Forecasting Avanzato",
+        "description": "Implementazione sistema previsionale a 13 settimane per ottimizzare la liquidità"
+      },
+      {
+        "priority": 4,
+        "title": "Strumenti di Factoring Selettivo",
+        "description": "Valutazione cessione crediti più datati per accelerare incassi critici"
+      }
+    ],
+    "totalImpact": {
+      "value": "+€88.480",
+      "label": "Miglioramento annuo stimato del Cash Flow Operativo",
+      "description": "L'implementazione coordinata delle strategie identificate consentirà di trasformare l'attuale criticità nella gestione del circolante in un vantaggio competitivo, rafforzando ulteriormente la già solida posizione di liquidità aziendale e creando le basi per una crescita sostenibile nel medio-lungo periodo."
+    }
+  },
+  "charts": {
+    "workingCapitalCycle": {
+      "id": "workingCapitalCycleChart",
+      "type": "bar",
+      "title": "Grafico 5.1: Ciclo Capitale Circolante vs Benchmark (giorni)",
+      "data": {
+        "labels": ["DSO", "DIO", "DPO", "Ciclo Netto"],
+        "relive2024": [262, 79, -222, 119],
+        "benchmark": [90, 60, -90, 60]
+      }
+    },
+    "cashFlowWaterfall": {
+      "id": "cashFlowWaterfallChart",
+      "type": "waterfall",
+      "title": "Grafico 5.2: Composizione Flussi di Cassa 2024 (Waterfall)",
+      "data": [
+        { "name": "EBITDA", "value": 102.108, "cumulative": 102.108 },
+        { "name": "Δ Cap. Circolante", "value": -98.150, "cumulative": 3.958 },
+        { "name": "CF Operativo", "value": 0, "cumulative": 63.852 },
+        { "name": "Investimenti", "value": -3.805, "cumulative": 60.047 },
+        { "name": "FCF", "value": 0, "cumulative": 60.047 },
+        { "name": "Δ Debiti Fin.", "value": -43.570, "cumulative": 16.477 },
+        { "name": "Δ Cassa Netta", "value": 0, "cumulative": 16.477 }
+      ]
+    },
+    "cashFlowTrend": {
+      "id": "cashFlowTrendChart",
+      "type": "line",
+      "title": "Grafico 5.3: Evoluzione Flussi di Cassa 2022-2024 (€)",
+      "data": {
+        "labels": ["2022", "2023", "2024"],
+        "ebitda": [59.227, 104.917, 102.108],
+        "operativeCashFlow": [11.859, -35.522, 63.852],
+        "freeCashFlow": [8.458, -49.342, 60.047]
+      }
+    },
+    "cashFlowProjection": {
+      "id": "cashFlowProjectionChart",
+      "type": "mixed",
+      "title": "Grafico 5.4: Proiezioni Finanziarie 2025-2026 (€)",
+      "data": {
+        "labels": ["2024", "2025E", "2026E"],
+        "operativeCashFlow": [63.852, 92.805, 108.426],
+        "capex": [-3.805, -10.800, -12.500],
+        "freeCashFlow": [60.047, 82.005, 95.926]
+      }
+    }
+  }
+}
