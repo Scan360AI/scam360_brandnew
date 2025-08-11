@@ -1,0 +1,262 @@
+{
+  "company": {
+    "name": "RELIVE COMMUNICATION S.R.L.",
+    "shortName": "RC",
+    "reportType": "Dettaglio IRP",
+    "lastUpdate": "28 Aprile 2025"
+  },
+  "navigation": [
+    {
+      "section": "main",
+      "title": "Menu Principale",
+      "items": [
+        {
+          "id": "dashboard",
+          "label": "Dashboard",
+          "href": "dashboard.html",
+          "icon": "dashboard"
+        },
+        {
+          "id": "sintesi",
+          "label": "Sintesi e Profilo",
+          "href": "sintesi.html",
+          "icon": "document"
+        }
+      ]
+    },
+    {
+      "section": "detailed",
+      "title": "Analisi Dettagliata",
+      "items": [
+        {
+          "id": "economico",
+          "label": "Analisi Economica",
+          "href": "economico.html",
+          "icon": "currency"
+        },
+        {
+          "id": "patrimoniale",
+          "label": "Analisi Patrimoniale",
+          "href": "patrimoniale.html",
+          "icon": "balance"
+        },
+        {
+          "id": "bancabilita",
+          "label": "Bancabilità",
+          "href": "bancabilita.html",
+          "icon": "bank"
+        },
+        {
+          "id": "circolante",
+          "label": "Circolante e Flussi",
+          "href": "circolante.html",
+          "icon": "cycle"
+        },
+        {
+          "id": "rischi",
+          "label": "Rischi e Azioni",
+          "href": "rischi.html",
+          "icon": "warning"
+        },
+        {
+          "id": "irp",
+          "label": "Dettaglio IRP",
+          "href": "irp.html",
+          "icon": "shield",
+          "active": true
+        }
+      ]
+    }
+  ],
+  "irpScore": {
+    "value": 78.50,
+    "maxValue": 100,
+    "category": "B",
+    "categoryText": "Rischio Moderato-Basso",
+    "categoryColor": "success",
+    "scalePosition": 78.5,
+    "description": "L'IRP Kitzanos (scala 0-100) offre una valutazione olistica dell'affidabilità aziendale integrando multipli modelli di scoring."
+  },
+  "irpCalculation": {
+    "title": "7.2 Sintesi Calcolo IRP",
+    "description": "L'IRP integra quattro distinti modelli di valutazione del rischio, ciascuno con il proprio peso specifico:",
+    "components": [
+      {
+        "name": "Componente Primaria (CP)",
+        "originalValue": "-",
+        "normalizedScore": 78.45,
+        "weight": 30,
+        "weightedScore": 23.54,
+        "status": "success",
+        "isBold": true
+      },
+      {
+        "name": "Leanus Score",
+        "originalValue": "10,03 (\"Buono\")",
+        "normalizedScore": 87.52,
+        "weight": 30,
+        "weightedScore": 26.26,
+        "status": "success",
+        "isBold": true
+      },
+      {
+        "name": "Rating MCC (PD)",
+        "originalValue": "1,02% (Fascia 2)",
+        "normalizedScore": 89.80,
+        "weight": 25,
+        "weightedScore": 22.45,
+        "status": "success",
+        "isBold": true
+      },
+      {
+        "name": "Z-Score di Altman",
+        "originalValue": "9,48 (\"Zona sicura\")",
+        "normalizedScore": 95.00,
+        "weight": 15,
+        "weightedScore": 14.25,
+        "status": "success",
+        "isBold": true
+      }
+    ],
+    "totalScore": 78.50
+  },
+  "componentDetails": {
+    "primaryComponent": {
+      "title": "1. Componente Primaria (CP)",
+      "score": 78.45,
+      "status": "Rischio Basso",
+      "statusType": "success",
+      "description": "Media ponderata di 6 indicatori finanziari chiave:",
+      "indicators": [
+        {
+          "name": "PFN/EBITDA",
+          "value": "OK (negativa)",
+          "score": 100.00,
+          "weight": 25,
+          "status": "success"
+        },
+        {
+          "name": "EBIT/OF",
+          "value": "65,59",
+          "score": 100.00,
+          "weight": 20,
+          "status": "success"
+        },
+        {
+          "name": "Ciclo Circolante",
+          "value": "119 gg",
+          "score": 43.00,
+          "weight": 15,
+          "status": "warning"
+        },
+        {
+          "name": "EBITDA/Ricavi",
+          "value": "9,91%",
+          "score": 74.10,
+          "weight": 15,
+          "status": "success"
+        },
+        {
+          "name": "Copertura Attivo Fisso",
+          "value": "10,67",
+          "score": 100.00,
+          "weight": 15,
+          "status": "success"
+        },
+        {
+          "name": "DSCR",
+          "value": "8,60",
+          "score": 100.00,
+          "weight": 10,
+          "status": "success"
+        }
+      ]
+    },
+    "leanusScore": {
+      "title": "2. Leanus Score",
+      "score": 87.52,
+      "status": "Rischio Basso",
+      "statusType": "success",
+      "originalScore": 10.03,
+      "classification": "Buono",
+      "scaleMin": -40,
+      "scaleMax": 40,
+      "scalePosition": 62.54,
+      "description": "L'azienda presenta indicatori di solidità e performance economico-finanziaria positivi, senza significative aree di criticità."
+    },
+    "ratingMCC": {
+      "title": "3. Rating MCC (PD)",
+      "score": 89.80,
+      "status": "Rischio Basso",
+      "statusType": "success",
+      "probabilityDefault": 1.02,
+      "fascia": "2",
+      "formula": "80 + (2 - PD) × 10 = 89,80",
+      "description": "Probabilità di default molto contenuta (fascia 1%-2%), indicativa di un profilo di rischio creditizio solido e di un'elevata capacità di far fronte agli impegni finanziari."
+    },
+    "zScoreAltman": {
+      "title": "4. Z-Score di Altman",
+      "score": 95.00,
+      "status": "Rischio Minimo",
+      "statusType": "success",
+      "originalScore": 9.48,
+      "zone": "Zona Sicura",
+      "scalePosition": 90,
+      "thresholds": {
+        "danger": 1.81,
+        "warning": 2.99,
+        "safe": 10
+      },
+      "description": "Lo Z-Score di 9,48 posiziona l'azienda ampiamente nella \"zona sicura\" (Z > 2,99), indicando una solidità strutturale molto forte e una probabilità di insolvenza statisticamente trascurabile."
+    }
+  },
+  "finalEvaluation": {
+    "title": "7.4 Valutazione Finale e Raccomandazioni",
+    "interpretation": {
+      "title": "Interpretazione IRP (78,50 - Rischio Moderato-Basso)",
+      "description": "L'Indice di Rischio Ponderato di 78,50/100 colloca RELIVE COMMUNICATION S.R.L. nella fascia di rischio MODERATO-BASSO (categoria B), evidenziando una solidità economico-finanziaria adeguata con alcuni punti di forza significativi ma anche aree di potenziale miglioramento."
+    },
+    "strengths": [
+      "Eccellente solidità patrimoniale (PN €234.134, +69,23%)",
+      "Buona marginalità operativa (EBITDA 9,91% dei ricavi)",
+      "Assenza di debiti finanziari al 31/12/2024",
+      "Posizione finanziaria netta positiva (€-56.948)",
+      "ROE e ROI eccellenti (40,91% e 53,26%)"
+    ],
+    "weaknesses": [
+      "Tempi di incasso clienti eccessivi (DSO 262 giorni)",
+      "Ciclo del circolante elevato (119 giorni)",
+      "Tempi di pagamento fornitori elevati (DPO 222 giorni)",
+      "Crescita limitata dei ricavi (+1,64%)",
+      "Incremento significativo dei costi fissi (+22,4%)"
+    ],
+    "recommendations": [
+      {
+        "action": "Gestione dei crediti commerciali",
+        "description": "Implementazione di politiche di credit management più efficaci per ridurre i giorni di incasso clienti (DSO), con obiettivo di riduzione a 180 giorni.",
+        "impact": "Impatto stimato: +3-5 punti IRP."
+      },
+      {
+        "action": "Ottimizzazione del capitale circolante",
+        "description": "Riequilibrare progressivamente i tempi di pagamento verso valori fisiologici (90-120 giorni) e sviluppare relazioni di partnership con i fornitori strategici.",
+        "impact": "Impatto stimato: +1-2 punti IRP."
+      },
+      {
+        "action": "Controllo dei costi fissi",
+        "description": "Implementazione di un sistema di budgeting e controllo per allineare la crescita dei costi fissi con quella dei ricavi.",
+        "impact": "Impatto stimato: +0,5-1 punto IRP."
+      },
+      {
+        "action": "Sviluppo commerciale",
+        "description": "Definizione di una strategia di crescita focalizzata sul cross-selling verso la clientela esistente e sullo sviluppo di servizi ad alto valore aggiunto.",
+        "impact": "Impatto stimato: +1-2,5 punti IRP."
+      },
+      {
+        "action": "Struttura finanziaria",
+        "description": "Valutazione dell'opportunità di introdurre un moderato livello di leva finanziaria per supportare investimenti in crescita, mantenendo un rapporto PFN/EBITDA inferiore a 1x.",
+        "impact": "Impatto stimato: +0,5-1,5 punti IRP."
+      }
+    ],
+    "strategicObjective": "Con l'implementazione delle raccomandazioni sopra indicate, l'azienda potrebbe raggiungere un IRP di 85-90 punti nel medio termine (12-18 mesi), passando alla categoria di rischio \"A\" (Rischio Basso)."
+  }
+}
