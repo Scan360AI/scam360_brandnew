@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circolante e Flussi - SCAN360</title>
+    <link rel="stylesheet" href="circolante.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon" id="companyLogo"></div>
+                <div class="logo-text">SCAN360 Report</div>
+            </div>
+            <div class="header-info" id="headerInfo"></div>
+        </div>
+    </header>
+    
+    <button class="mobile-menu-btn" id="mobileMenuToggle">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+    
+    <div class="main-container">
+        <nav class="sidebar" id="sidebar">
+            <div id="navigationMenu"></div>
+        </nav>
+        
+        <main class="content" id="content">
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h1 class="page-title">Analisi Circolante e Flussi di Cassa</h1>
+                    <p class="page-subtitle">Analisi dettagliata del capitale circolante e della generazione di liquidità</p>
+                </div>
+                
+                <!-- Section Header -->
+                <div class="section-header">
+                    <svg class="section-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23 4 23 10 17 10"></polyline>
+                        <polyline points="1 20 1 14 7 14"></polyline>
+                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                    </svg>
+                    <h2>5. ANALISI CAPITALE CIRCOLANTE E FLUSSI DI CASSA</h2>
+                </div>
+                
+                <!-- Dynamic sections will be inserted here -->
+                <div id="workingCapitalSection"></div>
+                <div id="improvementStrategiesSection"></div>
+                <div id="cashFlowAnalysisSection"></div>
+                <div id="cashFlowTrendSection"></div>
+                <div id="operationalSuggestionsSection"></div>
+                <div id="summarySection"></div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Circolante Application JavaScript -->
+    <script>
+        class CircolanteApp {
+            constructor() {
+                this.data = null;
+                this.charts = {};
+                this.chartColors = {
+                    primary: '#00d9ff',
+                    secondary: '#5a67d8',
+                    success: '#22c55e',
+                    warning: '#f59e0b',
+                    danger: '#ef4444',
+                    info: '#00d9ff',
+                    light: '#c1c9d2',
+                    dark: '#1e3a47'
+                };
+                this.gridColor = 'rgba(193, 201, 210, 0.1)';
+                this.fontColor = '#c1c9d2';
+            }
+            
+            async init() {
+                try {
+                    // Load data from JSON
+                    const response = await fetch('circolante-data.json');
+                    this.data = await response.json();
+                    
+                    // Initialize Chart.js defaults
+                    this.setupChartDefaults();
+                    
+                    // Setup mobile menu
+                    this.setupMobileMenu();
+                    
+                    // Render all components
+                    this.renderHeader();
+                    this.renderNavigation();
+                    this.renderSections();
+                    
+                    // Initialize charts after DOM is ready
+                    setTimeout(() => this.initializeCharts(), 100);
+                } catch (error) {
+                    console.error('Error loading data:', error);
+                    this.showError(error);
+                }
+            }
+            
+            setupChartDefaults() {
+                Chart.defaults.color = this.fontColor;
+                Chart.defaults.borderColor = this.gridColor;
+                Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif';
+                Chart.defaults.font.size = window.innerWidth < 768 ? 10 : 12;
+                
+                window.addEventListener('resize', () => {
+                    Chart.defaults.font.size = window.innerWidth < 768 ? 10 : 12;
+                });
+            }
+            
+            setupMobileMenu() {
+                const mobileToggle = document.getElementById('mobileMenuToggle');
+                const sidebar = document.getElementById('sidebar');
+                
+                mobileToggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                });
+                
+                // Close menu when clicking nav items on mobile
+                document.addEventListener('click', (e) => {
+                    if (e.target.closest('.nav-item') && window.innerWidth <= 1200) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+                
+                // Handle resize
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 1200) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+            }
+            
+            renderHeader() {
+                const logo = document.getElementById('companyLogo');
+                const headerInfo = document.getElementById('headerInfo');
+                
+                logo.textContent = this.data.company.shortName;
+                headerInfo.innerHTML = `
+                    <span>${this.data.company.name}</span>
+                    <span>•</span>
+                    <span>Report: ${this.data.company.reportType}</span>
+                    <span>•</span>
+                    <span>${this.data.company.lastUpdate}</span>
+                `;
+            }
+            
+            renderNavigation() {
+                const nav = document.getElementById('navigationMenu');
+                let html = '';
+                
+                this.data.navigation.forEach(section => {
+                    html += `
+                        <div class="nav-section">
+                            <div class="nav-title">${section.title}</div>
+                            ${section.items.map(item => `
+                                <a class="nav-item ${item.active ? 'active' : ''}" href="${item.href}">
+                                    <span class="nav-icon">${this.getIcon(item.icon)}</span>
+                                    <span>${item.label}</span>
+                                </a>
+                            `).join('')}
+                        </div>
+                    `;
+                });
+                
+                nav.innerHTML = html;
+            }
+            
+            renderSections() {
+                this.renderWorkingCapital();
+                this.renderImprovementStrategies();
+                this.renderCashFlowAnalysis();
+                this.renderCashFlowTrend();
+                this.renderOperationalSuggestions();
+                this.renderSummary();
+            }
+            
+            renderWorkingCapital() {
+                const section = this.data.sections.workingCapital;
+                const container = document.getElementById('workingCapitalSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="subsection-header">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>${section.description}</p>
+                            
+                            <!-- KPIs -->
+                            <div class="kpi-grid">
+                                ${section.kpis.map(kpi => `
+                                    <div class="kpi-box ${kpi.status}">
+                                        <div class="kpi-label">${kpi.label}</div>
+                                        <div class="kpi-value text-${kpi.status}">${kpi.value}</div>
+                                        <div class="kpi-unit">${kpi.unit}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            
+                            <p class="small text-danger"><strong>${section.criticalNote}</strong></p>
+                            
+                            <!-- Trend Table -->
+                            <h6 class="mt-4">${section.trend.tableTitle}</h6>
+                            ${this.createTrendTable(section.trend.data)}
+                            
+                            <!-- Charts and Analysis -->
+                            <div class="row mt-4">
+                                <div class="col-lg-7 mb-3">
+                                    <h6 class="text-center small">${this.data.charts.workingCapitalCycle.title}</h6>
+                                    <div class="chart-container">
+                                        <canvas id="workingCapitalCycleChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <div class="alert-box alert-danger">
+                                        <h6 class="mb-2">${this.getIcon('warning')}Analisi Ciclo (119 giorni)</h6>
+                                        <p class="small mb-0">Significativo deterioramento rispetto al 2023 (+50gg). Principale criticità nei giorni crediti clienti (262gg), molto sopra benchmark di settore (90gg).</p>
+                                    </div>
+                                    
+                                    <div class="alert-box alert-info mt-3">
+                                        <h6 class="mb-2">Componenti Chiave 2024:</h6>
+                                        <ul class="small mb-0">
+                                            <li><strong class="text-danger">DSO (262gg):</strong> Molto sopra benchmark (90gg)</li>
+                                            <li><strong class="text-warning">DIO (79gg):</strong> Sopra benchmark (60gg)</li>
+                                            <li><strong class="text-success">DPO (222gg):</strong> Significativamente sopra benchmark (90gg)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Congruity Test -->
+                            <h6 class="mt-4">Test di Congruità Componenti (2024)</h6>
+                            <div class="grid grid-3">
+                                ${section.congruityTest.map(test => this.createCongruityCard(test)).join('')}
+                            </div>
+                            
+                            <div class="alert-box alert-danger mt-3">
+                                <strong>Analisi Dettagliata:</strong> ${section.detailedAnalysis}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            createTrendTable(data) {
+                return `
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Componente</th>
+                                    <th class="text-end">2022</th>
+                                    <th class="text-end">2023</th>
+                                    <th class="text-end">2024</th>
+                                    <th class="text-end">Var. 23-24</th>
+                                    <th>Trend</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${data.map(row => `
+                                    <tr class="${row.isTotal ? 'total-row' : ''}">
+                                        <td>${row.component}</td>
+                                        <td class="text-end">${row.year2022}</td>
+                                        <td class="text-end">${row.year2023}</td>
+                                        <td class="text-end">${row.year2024}</td>
+                                        <td class="text-end text-${row.trendType}">${row.variation}</td>
+                                        <td class="text-${row.trendType}">${row.trend}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+            
+            createCongruityCard(test) {
+                return `
+                    <div class="card">
+                        <h6 class="card-title text-${test.titleType}">${test.title}</h6>
+                        <ul class="small mb-0">
+                            ${test.items.map(item => `
+                                <li ${item.separator ? 'class="mt-2 pt-2" style="border-top: 1px solid #1e3a47;"' : ''}>
+                                    ${item.label}: 
+                                    <strong class="${item.type ? 'text-' + item.type : ''}">${item.value}</strong>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            renderImprovementStrategies() {
+                const section = this.data.sections.improvementStrategies;
+                const container = document.getElementById('improvementStrategiesSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="subsection-header">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <h6>${section.subtitle}</h6>
+                            
+                            <div class="strategy-grid">
+                                ${section.strategies.map(strategy => `
+                                    <div class="strategy-card">
+                                        <h6>${this.getIcon(strategy.icon)}${strategy.title}</h6>
+                                        <ol>
+                                            ${strategy.actions.map(action => `<li>${action}</li>`).join('')}
+                                        </ol>
+                                        <div class="impact-value text-${strategy.impactType}">${strategy.impactValue}</div>
+                                        <div class="impact-label">${strategy.impactLabel}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            
+                            <div class="alert-box alert-success text-center mt-4">
+                                <h5 class="mb-0">Impatto Complessivo Stimato (Liquidità Netta): <strong>${section.totalImpact}</strong></h5>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderCashFlowAnalysis() {
+                const section = this.data.sections.cashFlowAnalysis;
+                const container = document.getElementById('cashFlowAnalysisSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="subsection-header">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>${section.description}</p>
+                            
+                            <div class="row">
+                                <div class="col-lg-7 mb-3">
+                                    <h6 class="text-center small">${this.data.charts.cashFlowWaterfall.title}</h6>
+                                    <div class="chart-container chart-large">
+                                        <canvas id="cashFlowWaterfallChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <h6>${section.flowTable.title}</h6>
+                                    ${this.createCashFlowTable(section.flowTable.data)}
+                                </div>
+                            </div>
+                            
+                            <div class="analysis-box mt-4">
+                                <h6>Analisi Flussi di Cassa 2024:</h6>
+                                <ul>
+                                    ${section.analysis.points.map(point => `
+                                        <li><strong>${point.label}:</strong> ${point.description}</li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            createCashFlowTable(data) {
+                return `
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Voce</th>
+                                    <th class="text-end">Valore</th>
+                                    <th class="text-end">% Ricavi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${data.map(row => `
+                                    <tr class="${row.isTotal ? 'total-row' : ''}">
+                                        <td>${row.isTotal ? '<strong>' + row.label + '</strong>' : row.label}</td>
+                                        <td class="text-end text-${row.type}">${this.formatCurrency(row.value)}</td>
+                                        <td class="text-end">${row.percentage}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+            
+            renderCashFlowTrend() {
+                const section = this.data.sections.cashFlowTrend;
+                const container = document.getElementById('cashFlowTrendSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="subsection-header">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-7 mb-3">
+                                    <h6 class="text-center small">${this.data.charts.cashFlowTrend.title}</h6>
+                                    <div class="chart-container">
+                                        <canvas id="cashFlowTrendChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <h6>Interpretazione Trend:</h6>
+                                    <ul class="small">
+                                        ${section.trendInterpretation.map(item => `
+                                            <li><strong>${item.label}:</strong> ${item.description}</li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <hr style="margin: 32px 0; border-color: #1e3a47;">
+                            
+                            <div class="row">
+                                <div class="col-lg-7 mb-3">
+                                    <h6 class="text-center small">${this.data.charts.cashFlowProjection.title}</h6>
+                                    <div class="chart-container">
+                                        <canvas id="cashFlowProjectionChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <h6>Analisi Proiezioni:</h6>
+                                    <ul class="small">
+                                        ${section.projectionAnalysis.map(item => `
+                                            <li><strong>${item.label}:</strong> ${item.description}</li>
+                                        `).join('')}
+                                    </ul>
+                                    
+                                    <div class="alert-box alert-warning small mt-3">
+                                        ${section.projectionNote}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderOperationalSuggestions() {
+                const section = this.data.sections.operationalSuggestions;
+                const container = document.getElementById('operationalSuggestionsSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="subsection-header">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Area</th>
+                                            <th>Azione Suggerita</th>
+                                            <th class="text-end">Impatto Annuo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${section.suggestions.map(sug => `
+                                            <tr class="${sug.isTotal ? 'total-row' : ''}">
+                                                <td>${sug.isTotal ? '<strong>' + sug.area + '</strong>' : sug.area}</td>
+                                                <td>${sug.isTotal ? '<strong>' + sug.action + '</strong>' : sug.action}</td>
+                                                <td class="text-end text-${sug.impactType}">
+                                                    ${sug.isTotal ? '<strong>' + sug.impact + '</strong>' : sug.impact}
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="alert-box alert-info mt-4">
+                                <strong>CONCLUSIONI:</strong> ${section.conclusion}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderSummary() {
+                const summary = this.data.summary;
+                const container = document.getElementById('summarySection');
+                
+                container.innerHTML = `
+                    <div class="summary-card">
+                        <h3>${this.getIcon('check')}${summary.title}</h3>
+                        
+                        <p style="font-size: 16px; line-height: 1.8; margin-bottom: 24px;">${summary.introduction}</p>
+                        
+                        <!-- Critical Issues -->
+                        <div style="background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 12px; padding: 24px; margin-bottom: 24px;">
+                            <h6 style="color: #ef4444; font-size: 18px; margin-bottom: 16px; display: flex; align-items: center;">
+                                ${this.getIcon('warning')}
+                                Criticità Principali Identificate
+                            </h6>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+                                ${summary.criticalIssues.map(issue => `
+                                    <div style="background: rgba(0, 0, 0, 0.2); padding: 16px; border-radius: 8px;">
+                                        <div style="font-size: 32px; font-weight: 700; color: #ef4444; margin-bottom: 4px;">${issue.value}</div>
+                                        <div style="font-size: 12px; color: #c1c9d2; margin-bottom: 8px;">${issue.label}</div>
+                                        <div style="font-size: 13px; line-height: 1.4;">${issue.description}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <!-- Strengths -->
+                        <div style="background: rgba(34, 197, 94, 0.05); border: 1px solid rgba(34, 197, 94, 0.2); border-radius: 12px; padding: 24px; margin-bottom: 24px;">
+                            <h6 style="color: #22c55e; font-size: 18px; margin-bottom: 16px; display: flex; align-items: center;">
+                                ${this.getIcon('check-circle')}
+                                Punti di Forza del Sistema
+                            </h6>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+                                ${summary.strengths.map(strength => `
+                                    <div style="display: flex; align-items: start; gap: 12px;">
+                                        <div style="background: rgba(34, 197, 94, 0.2); width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                            ${this.getIcon(strength.icon)}
+                                        </div>
+                                        <div>
+                                            <div style="font-weight: 600; margin-bottom: 4px;">${strength.title}</div>
+                                            <div style="font-size: 13px; color: #8b95a2;">${strength.description}</div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <!-- Strategic Priorities -->
+                        <div style="background: rgba(0, 217, 255, 0.05); border: 1px solid rgba(0, 217, 255, 0.2); border-radius: 12px; padding: 24px; margin-bottom: 24px;">
+                            <h6 style="color: #00d9ff; font-size: 18px; margin-bottom: 16px; display: flex; align-items: center;">
+                                ${this.getIcon('star')}
+                                Priorità Strategiche di Intervento
+                            </h6>
+                            <div style="display: grid; gap: 12px;">
+                                ${summary.strategicPriorities.map(priority => `
+                                    <div style="display: flex; gap: 16px; align-items: start; background: rgba(0, 0, 0, 0.2); padding: 16px; border-radius: 8px;">
+                                        <div style="background: #00d9ff; color: #0e1e25; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">${priority.priority}</div>
+                                        <div>
+                                            <div style="font-weight: 600; margin-bottom: 4px;">${priority.title}</div>
+                                            <div style="font-size: 13px; color: #8b95a2;">${priority.description}</div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <!-- Final Impact -->
+                        <div style="background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(90, 105, 217, 0.1) 100%); border: 2px solid rgba(0, 217, 255, 0.3); border-radius: 12px; padding: 24px; text-align: center;">
+                            <h5 style="color: #00d9ff; margin-bottom: 12px;">Impatto Complessivo delle Strategie Proposte</h5>
+                            <div style="font-size: 36px; font-weight: 700; color: #22c55e; margin-bottom: 8px;">${summary.totalImpact.value}</div>
+                            <div style="font-size: 14px; color: #c1c9d2;">${summary.totalImpact.label}</div>
+                            <hr style="margin: 20px 0; border-color: rgba(0, 217, 255, 0.2);">
+                            <p style="font-size: 14px; line-height: 1.6; margin-bottom: 0;">
+                                ${summary.totalImpact.description}
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            initializeCharts() {
+                // 1. Working Capital Cycle Chart
+                this.createWorkingCapitalChart();
+                
+                // 2. Cash Flow Waterfall Chart
+                this.createCashFlowWaterfallChart();
+                
+                // 3. Cash Flow Trend Chart
+                this.createCashFlowTrendChart();
+                
+                // 4. Cash Flow Projection Chart
+                this.createCashFlowProjectionChart();
+            }
+            
+            createWorkingCapitalChart() {
+                const chartData = this.data.charts.workingCapitalCycle;
+                const ctx = document.getElementById('workingCapitalCycleChart')?.getContext('2d');
+                
+                if (!ctx) return;
+                
+                this.charts.workingCapital = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.data.labels,
+                        datasets: [{
+                            label: 'RELIVE 2024',
+                            data: chartData.data.relive2024,
+                            backgroundColor: chartData.data.relive2024.map(v => 
+                                v > 100 ? this.chartColors.danger :
+                                v > 60 ? this.chartColors.warning :
+                                v < 0 ? this.chartColors.success :
+                                this.chartColors.danger
+                            ),
+                            borderWidth: 0,
+                            borderRadius: 4
+                        }, {
+                            label: 'Benchmark',
+                            data: chartData.data.benchmark,
+                            backgroundColor: 'rgba(193, 201, 210, 0.3)',
+                            borderColor: this.chartColors.light,
+                            borderWidth: 1,
+                            borderRadius: 4
+                        }]
+                    },
+                    options: this.getBarChartOptions()
+                });
+            }
+            
+            createCashFlowWaterfallChart() {
+                const chartData = this.data.charts.cashFlowWaterfall;
+                const ctx = document.getElementById('cashFlowWaterfallChart')?.getContext('2d');
+                
+                if (!ctx) return;
+                
+                this.charts.waterfall = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.data.map(d => d.name),
+                        datasets: [{
+                            label: 'Flusso',
+                            data: chartData.data.map((d, i) => {
+                                if (d.value === 0) return d.cumulative;
+                                return d.value;
+                            }),
+                            backgroundColor: chartData.data.map((d, i) => {
+                                if (d.value === 0) return this.chartColors.primary;
+                                return d.value > 0 ? this.chartColors.success : this.chartColors.danger;
+                            }),
+                            borderWidth: 0,
+                            borderRadius: 4
+                        }]
+                    },
+                    options: this.getWaterfallOptions()
+                });
+            }
+            
+            createCashFlowTrendChart() {
+                const chartData = this.data.charts.cashFlowTrend;
+                const ctx = document.getElementById('cashFlowTrendChart')?.getContext('2d');
+                
+                if (!ctx) return;
+                
+                this.charts.trend = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: chartData.data.labels,
+                        datasets: [{
+                            label: 'EBITDA',
+                            data: chartData.data.ebitda,
+                            borderColor: this.chartColors.primary,
+                            backgroundColor: 'transparent',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            pointRadius: 6,
+                            pointBackgroundColor: this.chartColors.primary,
+                            pointBorderColor: '#0e1e25',
+                            pointBorderWidth: 2
+                        }, {
+                            label: 'Cash Flow Operativo',
+                            data: chartData.data.operativeCashFlow,
+                            borderColor: this.chartColors.success,
+                            backgroundColor: 'transparent',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            pointRadius: 6,
+                            pointBackgroundColor: this.chartColors.success,
+                            pointBorderColor: '#0e1e25',
+                            pointBorderWidth: 2
+                        }, {
+                            label: 'Free Cash Flow',
+                            data: chartData.data.freeCashFlow,
+                            borderColor: this.chartColors.warning,
+                            backgroundColor: 'transparent',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            borderDash: [5, 5],
+                            pointRadius: 6,
+                            pointBackgroundColor: this.chartColors.warning,
+                            pointBorderColor: '#0e1e25',
+                            pointBorderWidth: 2
+                        }]
+                    },
+                    options: this.getLineChartOptions()
+                });
+            }
+            
+            createCashFlowProjectionChart() {
+                const chartData = this.data.charts.cashFlowProjection;
+                const ctx = document.getElementById('cashFlowProjectionChart')?.getContext('2d');
+                
+                if (!ctx) return;
+                
+                this.charts.projection = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.data.labels,
+                        datasets: [{
+                            label: 'Cash Flow Operativo',
+                            data: chartData.data.operativeCashFlow,
+                            type: 'bar',
+                            backgroundColor: this.chartColors.success,
+                            borderRadius: 4,
+                            order: 2
+                        }, {
+                            label: 'CAPEX',
+                            data: chartData.data.capex,
+                            type: 'bar',
+                            backgroundColor: this.chartColors.danger,
+                            borderRadius: 4,
+                            order: 2
+                        }, {
+                            label: 'Free Cash Flow',
+                            data: chartData.data.freeCashFlow,
+                            type: 'line',
+                            borderColor: this.chartColors.primary,
+                            backgroundColor: 'transparent',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            pointRadius: 6,
+                            pointBackgroundColor: this.chartColors.primary,
+                            pointBorderColor: '#0e1e25',
+                            pointBorderWidth: 2,
+                            order: 1
+                        }]
+                    },
+                    options: this.getMixedChartOptions()
+                });
+            }
+            
+            // Chart Options Methods
+            getBarChartOptions() {
+                return {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                usePointStyle: true,
+                                font: { size: 11 }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) label += ': ';
+                                    const value = Math.abs(context.parsed.y);
+                                    return label + value + ' giorni';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false }
+                        },
+                        y: {
+                            grid: { color: this.gridColor },
+                            ticks: {
+                                callback: function(value) {
+                                    return Math.abs(value) + 'gg';
+                                }
+                            }
+                        }
+                    }
+                };
+            }
+            
+            getWaterfallOptions() {
+                return {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.parsed.y;
+                                    return '€' + value.toFixed(0) + 'K';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 45,
+                                font: { size: 10 }
+                            }
+                        },
+                        y: {
+                            grid: { color: this.gridColor },
+                            ticks: {
+                                callback: function(value) {
+                                    return '€' + value + 'K';
+                                }
+                            }
+                        }
+                    }
+                };
+            }
+            
+            getLineChartOptions() {
+                return {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                usePointStyle: true,
+                                font: { size: 11 }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false }
+                        },
+                        y: {
+                            grid: { color: this.gridColor },
+                            ticks: {
+                                callback: function(value) {
+                                    return '€' + value + 'K';
+                                }
+                            }
+                        }
+                    }
+                };
+            }
+            
+            getMixedChartOptions() {
+                return {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                usePointStyle: true,
+                                font: { size: 11 }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: this.gridColor },
+                            ticks: {
+                                callback: function(value) {
+                                    return '€' + value + 'K';
+                                }
+                            }
+                        }
+                    }
+                };
+            }
+            
+            // Utility Methods
+            formatCurrency(value) {
+                if (value === null || value === undefined) return '-';
+                const absValue = Math.abs(value);
+                const sign = value < 0 ? '-' : '';
+                return sign + absValue.toLocaleString('it-IT');
+            }
+            
+            getIcon(iconName) {
+                const icons = {
+                    'dashboard': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>',
+                    'document': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>',
+                    'currency': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>',
+                    'balance': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"></path><path d="M4 21V7l8-4v18"></path><path d="M12 21V3l8 4v14"></path></svg>',
+                    'bank': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>',
+                    'cycle': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline></svg>',
+                    'warning': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 6px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>',
+                    'check': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px;"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path></svg>',
+                    'check-circle': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>',
+                    'star': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>',
+                    'arrow-down': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 4px;"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>',
+                    'clipboard': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 4px;"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>',
+                    'calendar': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 4px;"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>',
+                    'cash': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7"></path><path d="M16 19h6"></path><path d="M19 16v6"></path></svg>',
+                    'clock': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>',
+                    'shield': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>'
+                };
+                
+                return icons[iconName] || '';
+            }
+            
+            showError(error) {
+                const content = document.getElementById('content');
+                content.innerHTML = `
+                    <div class="content-wrapper">
+                        <div class="alert-box alert-danger">
+                            <h4>Errore caricamento dati</h4>
+                            <p>Impossibile caricare circolante-data.json. Assicurati che il file sia nella stessa cartella.</p>
+                            <p>Errore: ${error.message}</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        // Initialize app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const app = new CircolanteApp();
+            app.init();
+        });
+    </script>
+</body>
+</html>
