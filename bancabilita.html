@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bancabilità - SCAN360</title>
+    <link rel="stylesheet" href="bancabilita.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <div class="logo">
+                <div class="logo-placeholder" id="companyLogo"></div>
+                <div class="logo-text">SCAN360 Report</div>
+            </div>
+            <div class="header-info" id="headerInfo"></div>
+        </div>
+    </header>
+    
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    
+    <div class="main-container">
+        <nav class="sidebar" id="sidebar">
+            <div id="navigationMenu"></div>
+        </nav>
+        
+        <main class="content">
+            <div class="page-header">
+                <h1 class="page-title">Bancabilità e Sostenibilità del Debito</h1>
+                <p class="page-subtitle">Analisi dettagliata della capacità creditizia e della sostenibilità finanziaria</p>
+            </div>
+            
+            <!-- Section Header -->
+            <div class="section-header">
+                <svg class="section-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                    <line x1="2" y1="10" x2="22" y2="10"></line>
+                </svg>
+                <h2 class="section-title">4. BANCABILITÀ E SOSTENIBILITÀ DEL DEBITO</h2>
+            </div>
+            
+            <!-- IRP Visual Section -->
+            <div id="irpSection"></div>
+            
+            <!-- Dynamic sections will be inserted here -->
+            <div id="valutazioneSintetica"></div>
+            <div id="indicatoriSostenibilita"></div>
+            <div id="capacitaIndebitamento"></div>
+            <div id="dscrSection"></div>
+            <div id="pfnEbitdaSection"></div>
+            <div id="matchingFinanziario"></div>
+            <div id="analisiCapacita"></div>
+            <div id="kpiCrisi"></div>
+            <div id="raccomandazioni"></div>
+        </main>
+    </div>
+    
+    <!-- Mobile Menu Toggle Button -->
+    <button id="mobileMenuToggle">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Bancabilità Application JavaScript -->
+    <script>
+        class BancabilitaApp {
+            constructor() {
+                this.data = null;
+                this.charts = {};
+                this.chartColors = {
+                    primary: '#00d9ff',
+                    secondary: '#5a67d8',
+                    success: '#22c55e',
+                    warning: '#f59e0b',
+                    danger: '#ef4444',
+                    light: '#c1c9d2',
+                    dark: '#1e3a47'
+                };
+                this.gridColor = 'rgba(193, 201, 210, 0.1)';
+                this.fontColor = '#c1c9d2';
+            }
+            
+            async init() {
+                try {
+                    // Load data from JSON
+                    const response = await fetch('bancabilita-data.json');
+                    this.data = await response.json();
+                    
+                    // Initialize Chart.js defaults
+                    this.setupChartDefaults();
+                    
+                    // Setup mobile menu
+                    this.setupMobileMenu();
+                    
+                    // Render all components
+                    this.renderHeader();
+                    this.renderNavigation();
+                    this.renderIRP();
+                    this.renderSections();
+                    
+                    // Initialize charts after DOM is ready
+                    setTimeout(() => this.initializeCharts(), 100);
+                } catch (error) {
+                    console.error('Error loading data:', error);
+                    this.showError(error);
+                }
+            }
+            
+            setupChartDefaults() {
+                Chart.defaults.color = this.fontColor;
+                Chart.defaults.borderColor = this.gridColor;
+                Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif';
+            }
+            
+            setupMobileMenu() {
+                const mobileBtn = document.getElementById('mobileMenuBtn');
+                const mobileToggle = document.getElementById('mobileMenuToggle');
+                const sidebar = document.getElementById('sidebar');
+                const backdrop = document.getElementById('sidebarBackdrop');
+                
+                const toggleSidebar = () => {
+                    sidebar.classList.toggle('active');
+                    backdrop.classList.toggle('active');
+                };
+                
+                if (mobileBtn) mobileBtn.addEventListener('click', toggleSidebar);
+                if (mobileToggle) mobileToggle.addEventListener('click', toggleSidebar);
+                if (backdrop) backdrop.addEventListener('click', toggleSidebar);
+                
+                // Handle resize
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 968) {
+                        sidebar.classList.remove('active');
+                        backdrop.classList.remove('active');
+                    }
+                });
+            }
+            
+            renderHeader() {
+                const logo = document.getElementById('companyLogo');
+                const headerInfo = document.getElementById('headerInfo');
+                
+                logo.textContent = this.data.company.shortName;
+                headerInfo.innerHTML = `
+                    <span>${this.data.company.name}</span>
+                    <span>•</span>
+                    <span>Report: ${this.data.company.reportType}</span>
+                    <span>•</span>
+                    <span>${this.data.company.lastUpdate}</span>
+                `;
+            }
+            
+            renderNavigation() {
+                const nav = document.getElementById('navigationMenu');
+                let html = '';
+                
+                this.data.navigation.forEach(section => {
+                    html += `
+                        <div class="nav-section">
+                            <div class="nav-title">${section.title}</div>
+                            ${section.items.map(item => `
+                                <a class="nav-item ${item.active ? 'active' : ''}" href="${item.href}">
+                                    <span class="nav-icon">${this.getIcon(item.icon)}</span>
+                                    <span>${item.label}</span>
+                                </a>
+                            `).join('')}
+                        </div>
+                    `;
+                });
+                
+                nav.innerHTML = html;
+            }
+            
+            renderIRP() {
+                const container = document.getElementById('irpSection');
+                const irp = this.data.irp;
+                
+                container.innerHTML = `
+                    <div class="irp-visual-section">
+                        <div class="irp-content">
+                            <div class="irp-left">
+                                <h6 style="font-size: 14px; color: #8b95a2; margin-bottom: 16px;">
+                                    ${this.getIcon('shield')}
+                                    Indice Rischio Ponderato
+                                </h6>
+                                <div class="irp-score-circle">
+                                    <span class="irp-score-value">${irp.score.toFixed(2).replace('.', ',')}</span>
+                                    <span class="irp-score-max">/ ${irp.maxScore}</span>
+                                </div>
+                                <div class="irp-category-text">${irp.categoryText} <span class="badge badge-success">${irp.category}</span></div>
+                                <a href="irp.html" style="color: #00d9ff; font-size: 14px; text-decoration: none;">Vedi Dettaglio IRP →</a>
+                            </div>
+                            
+                            <div class="irp-right">
+                                <h4>Valutazione Generale</h4>
+                                <p>${irp.description}</p>
+                                <div class="irp-indicators">
+                                    ${irp.indicators.map(ind => `
+                                        <div class="irp-indicator">
+                                            <svg class="irp-indicator-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                ${this.getIconPath(ind.icon)}
+                                            </svg>
+                                            <div class="irp-indicator-value">${ind.value}</div>
+                                            <div class="irp-indicator-label">${ind.label}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderSections() {
+                this.renderValutazioneSintetica();
+                this.renderIndicatoriSostenibilita();
+                this.renderCapacitaIndebitamento();
+                this.renderDSCR();
+                this.renderPFNEbitda();
+                this.renderMatchingFinanziario();
+                this.renderAnalisiCapacita();
+                this.renderKPICrisi();
+                this.renderRaccomandazioni();
+            }
+            
+            renderValutazioneSintetica() {
+                const section = this.data.sections.valutazioneSintetica;
+                const container = document.getElementById('valutazioneSintetica');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>${section.description}</p>
+                            
+                            <ul>
+                                ${section.highlights.map(h => `
+                                    <li><strong>${h.label}</strong>: ${h.value}</li>
+                                `).join('')}
+                            </ul>
+                            
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            ${section.tableData.headers.map(h => `
+                                                <th ${h !== 'Periodo' ? 'class="text-end"' : ''}>${h}</th>
+                                            `).join('')}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${section.tableData.rows.map(row => `
+                                            <tr>
+                                                <td>${row.periodo}</td>
+                                                <td class="text-end">${row.debiti}</td>
+                                                <td class="text-end">${row.liquidita}</td>
+                                                <td class="text-end">${row.pfn}</td>
+                                                <td><span class="text-${row.trendType}">${row.trend}</span></td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <p class="mt-3">${section.conclusion}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderIndicatoriSostenibilita() {
+                const section = this.data.sections.indicatoriSostenibilita;
+                const container = document.getElementById('indicatoriSostenibilita');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="grid grid-2">
+                                <div>
+                                    <h6>${section.tableTitle}</h6>
+                                    <div class="table-responsive">
+                                        <table class="data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Indicatore</th>
+                                                    <th class="text-end">2022</th>
+                                                    <th class="text-end">2023</th>
+                                                    <th class="text-end">2024</th>
+                                                    <th>Valutazione</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${section.indicators.map(ind => `
+                                                    <tr>
+                                                        <td>${ind.name}</td>
+                                                        ${ind.values.map(v => `<td class="text-end">${v}</td>`).join('')}
+                                                        <td><span class="badge badge-${ind.evalType}">${ind.evaluation}</span></td>
+                                                    </tr>
+                                                `).join('')}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h6 class="text-center">Grafico 4.1: Evoluzione Indicatori</h6>
+                                    <div class="chart-container">
+                                        <canvas id="debtSustainabilityChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h6 class="mt-4">Interpretazione Indicatori:</h6>
+                            <ul class="small">
+                                ${section.interpretations.map(i => `
+                                    <li><strong>${i.label}</strong>: ${i.description}</li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderCapacitaIndebitamento() {
+                const section = this.data.sections.capacitaIndebitamento;
+                const container = document.getElementById('capacitaIndebitamento');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="grid grid-2">
+                                <div>
+                                    <div class="capacity-box">
+                                        <div class="capacity-icon">+</div>
+                                        <div class="capacity-value">${section.capacityValue}</div>
+                                        <div class="capacity-label">${section.capacityLabel}</div>
+                                    </div>
+                                    <p class="small mt-3 text-center">${section.description}</p>
+                                </div>
+                                <div>
+                                    <h6>Fattori Chiave:</h6>
+                                    <div class="grid grid-2">
+                                        <div>
+                                            <strong class="text-success">Fattori di Supporto:</strong>
+                                            <ul class="factor-list support">
+                                                ${section.supportFactors.map(f => `<li>${f}</li>`).join('')}
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <strong class="text-danger">Fattori Limitanti:</strong>
+                                            <ul class="factor-list limit">
+                                                ${section.limitingFactors.map(f => `<li>${f}</li>`).join('')}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <p class="small mt-3">${section.analysis}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderDSCR() {
+                const section = this.data.sections.dscr;
+                const container = document.getElementById('dscrSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>${section.description}</p>
+                            
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Parametro DSCR</th>
+                                            <th class="text-end">Valore</th>
+                                            <th>Valutazione</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${section.parameters.map(p => `
+                                            <tr>
+                                                <td>${p.label}</td>
+                                                <td class="text-end">${p.value}</td>
+                                                <td>${p.evalType ? 
+                                                    `<span class="badge badge-${p.evalType}">${p.evaluation}</span>` : 
+                                                    p.evaluation}
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="alert-box alert-success mt-3">
+                                <h5>${section.analysis.title}</h5>
+                                ${section.analysis.points.map(p => `<p>${p}</p>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderPFNEbitda() {
+                const section = this.data.sections.pfnEbitda;
+                const container = document.getElementById('pfnEbitdaSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>${section.description}</p>
+                            
+                            <ul>
+                                ${section.highlights.map(h => `
+                                    <li><strong>${h.label}</strong>: ${h.value}</li>
+                                `).join('')}
+                            </ul>
+                            
+                            <div class="grid grid-2 mt-4">
+                                <div>
+                                    <h6>Evoluzione storica:</h6>
+                                    <div class="table-responsive">
+                                        <table class="data-table">
+                                            <thead>
+                                                <tr>
+                                                    ${section.historicalData.headers.map(h => `
+                                                        <th ${h !== 'Anno' ? 'class="text-end"' : ''}>${h}</th>
+                                                    `).join('')}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${section.historicalData.rows.map(row => `
+                                                    <tr>
+                                                        <td>${row.year}</td>
+                                                        <td class="text-end">${row.pfn}</td>
+                                                        <td class="text-end">${row.ebitda}</td>
+                                                        <td class="text-end">${row.ratio}</td>
+                                                    </tr>
+                                                `).join('')}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h6>Interpretazione:</h6>
+                                    <p class="small">${section.interpretation.title}</p>
+                                    <ul class="small">
+                                        ${section.interpretation.points.map(p => `<li>${p}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderMatchingFinanziario() {
+                const section = this.data.sections.matchingFinanziario;
+                const container = document.getElementById('matchingFinanziario');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>${section.description}</p>
+                            
+                            <div class="grid grid-2">
+                                ${section.cards.map(card => `
+                                    <div class="matching-card ${card.type}">
+                                        <h6 class="matching-card-header">
+                                            ${this.getMatchingIcon(card.title)}
+                                            ${card.title}
+                                        </h6>
+                                        <p class="small">${card.description}</p>
+                                        <ul class="small">
+                                            ${card.points.map(p => `
+                                                <li><strong>${p.label}</strong>: ${p.value}</li>
+                                            `).join('')}
+                                        </ul>
+                                        <p class="small fw-bold mb-0">Valutazione: <span class="badge badge-success">${card.evaluation}</span></p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderAnalisiCapacita() {
+                const section = this.data.sections.analisiCapacita;
+                const container = document.getElementById('analisiCapacita');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>${section.description}</p>
+                            
+                            <ol>
+                                ${section.approaches.map(approach => `
+                                    <li class="mb-3">
+                                        <strong>${approach.title}</strong>
+                                        <ul>
+                                            ${approach.points.map(p => `<li>${p}</li>`).join('')}
+                                        </ul>
+                                    </li>
+                                `).join('')}
+                            </ol>
+                            
+                            <div class="alert-box alert-info">
+                                <h5>Conclusione</h5>
+                                <p>${section.conclusion}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderKPICrisi() {
+                const section = this.data.sections.kpiCrisi;
+                const container = document.getElementById('kpiCrisi');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>${section.description}</p>
+                            
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Indicatore CCII</th>
+                                            <th>Settore</th>
+                                            <th class="text-end">Soglia</th>
+                                            <th class="text-end">Azienda</th>
+                                            <th>Valutazione</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${section.indicators.map(ind => `
+                                            <tr>
+                                                <td>${ind.name}</td>
+                                                <td>${ind.sector}</td>
+                                                <td class="text-end">${ind.threshold}</td>
+                                                <td class="text-end">${ind.value}</td>
+                                                <td><span class="badge badge-${ind.evalType}">${ind.evaluation}</span></td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="alert-box alert-success mt-3">
+                                <h5>${section.analysis.title}</h5>
+                                <p>${section.analysis.text}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderRaccomandazioni() {
+                const section = this.data.sections.raccomandazioni;
+                const container = document.getElementById('raccomandazioni');
+                
+                container.innerHTML = `
+                    <div class="card summary-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                ${this.getIcon('check-list')}
+                                ${section.title}
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <!-- Architettura Strategica -->
+                            <h6 style="color: #00d9ff; margin-bottom: 20px; font-size: 18px;">Architettura Strategica delle Opportunità</h6>
+                            
+                            <div class="grid grid-2 mb-4">
+                                ${this.renderStrengthsCard(section.strengths)}
+                                ${this.renderImprovementsCard(section.improvements)}
+                            </div>
+                            
+                            <!-- Piano d'Azione Strategico -->
+                            <h6 style="color: #00d9ff; margin-bottom: 20px; margin-top: 40px; font-size: 18px;">Piano d'Azione Strategico - Timeline</h6>
+                            
+                            ${this.renderTimeline(section.timeline)}
+                            
+                            <!-- Vantaggi Competitivi -->
+                            ${this.renderCompetitiveAdvantages(section.competitiveAdvantages)}
+                            
+                            <!-- Conclusioni Finali -->
+                            <h6 class="mt-4" style="color: #00d9ff; font-size: 18px;">Conclusioni e Raccomandazioni Finali</h6>
+                            <p class="mb-0">${section.finalConclusion}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderStrengthsCard(strengths) {
+                return `
+                    <div style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(34, 197, 94, 0.05) 100%); border: 2px solid rgba(34, 197, 94, 0.3); border-radius: 12px; padding: 24px;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                            <div style="width: 40px; height: 40px; background: rgba(34, 197, 94, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                ${this.getIcon('shield')}
+                            </div>
+                            <h6 style="color: #22c55e; margin: 0; font-size: 16px;">Punti di Forza Strutturali</h6>
+                        </div>
+                        <div class="grid" style="gap: 12px;">
+                            ${strengths.map(s => `
+                                <div style="background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px;">
+                                    <div style="font-size: 20px; font-weight: 700; color: #22c55e;">${s.value}</div>
+                                    <div style="font-size: 12px; color: #c1c9d2;">${s.label}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderImprovementsCard(improvements) {
+                return `
+                    <div style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%); border: 2px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 24px;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                            <div style="width: 40px; height: 40px; background: rgba(245, 158, 11, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                ${this.getIcon('alert')}
+                            </div>
+                            <h6 style="color: #f59e0b; margin: 0; font-size: 16px;">Aree di Ottimizzazione</h6>
+                        </div>
+                        <div class="grid" style="gap: 12px;">
+                            ${improvements.map(i => `
+                                <div style="background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px;">
+                                    <div style="font-size: 20px; font-weight: 700; color: #f59e0b;">${i.value}</div>
+                                    <div style="font-size: 12px; color: #c1c9d2;">${i.label}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderTimeline(timeline) {
+                return `
+                    <div style="position: relative; padding: 20px 0;">
+                        <div style="position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: #1e3a47; z-index: 0;"></div>
+                        
+                        <div class="grid grid-3" style="position: relative; z-index: 1;">
+                            ${timeline.map(item => this.renderTimelineItem(item)).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderTimelineItem(item) {
+                const colorMap = {
+                    primary: '#00d9ff',
+                    warning: '#f59e0b',
+                    success: '#22c55e'
+                };
+                const color = colorMap[item.color];
+                
+                return `
+                    <div style="text-align: center;">
+                        <div style="background: #16242a; border: 2px solid ${color}; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                            <div style="width: 50px; height: 50px; background: ${color}; border-radius: 50%; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center;">
+                                ${this.getTimelineIcon(item.phase)}
+                            </div>
+                            <h6 style="color: ${color}; margin-bottom: 8px;">${item.phase}</h6>
+                            <p style="font-weight: 600; margin-bottom: 12px;">${item.title}</p>
+                            <div style="background: rgba(${this.hexToRgb(color)}, 0.1); padding: 12px; border-radius: 8px; margin-bottom: 8px;">
+                                <div style="font-size: 18px; font-weight: 700; color: ${color};">${item.value}</div>
+                                <div style="font-size: 11px;">${item.description}</div>
+                            </div>
+                            <p style="font-size: 12px; color: #c1c9d2;">${item.impact}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderCompetitiveAdvantages(advantages) {
+                return `
+                    <div style="background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(0, 217, 255, 0.05) 100%); border: 2px solid rgba(0, 217, 255, 0.3); border-radius: 12px; padding: 24px; margin-bottom: 32px;">
+                        <h6 style="color: #00d9ff; margin-bottom: 16px; font-size: 16px;">
+                            ${this.getIcon('star')}
+                            Vantaggi Competitivi della Struttura Finanziaria
+                        </h6>
+                        <div class="grid grid-2" style="gap: 16px;">
+                            ${advantages.map(adv => `
+                                <div style="background: rgba(255, 255, 255, 0.05); padding: 16px; border-radius: 8px;">
+                                    <h6 style="color: #fff; font-size: 14px; margin-bottom: 8px;">${adv.title}</h6>
+                                    <p style="font-size: 12px; margin: 0;">${adv.description}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            initializeCharts() {
+                this.createDebtSustainabilityChart();
+            }
+            
+            createDebtSustainabilityChart() {
+                const ctx = document.getElementById('debtSustainabilityChart');
+                if (!ctx) return;
+                
+                const chartData = this.data.charts.debtSustainability;
+                
+                this.charts.debtSustainability = new Chart(ctx.getContext('2d'), {
+                    type: 'radar',
+                    data: {
+                        labels: chartData.data.labels,
+                        datasets: chartData.data.datasets.map(dataset => ({
+                            label: dataset.label,
+                            data: dataset.data,
+                            borderColor: this.chartColors[dataset.color],
+                            backgroundColor: this.getColorWithAlpha(this.chartColors[dataset.color], 0.2),
+                            borderWidth: 2,
+                            pointBackgroundColor: this.chartColors[dataset.color],
+                            pointBorderColor: '#0e1e25',
+                            pointBorderWidth: 2,
+                            pointRadius: 4
+                        }))
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        elements: {
+                            line: {
+                                tension: 0.2
+                            }
+                        },
+                        scales: {
+                            r: {
+                                angleLines: {
+                                    color: this.gridColor
+                                },
+                                grid: {
+                                    color: this.gridColor
+                                },
+                                pointLabels: {
+                                    color: this.fontColor,
+                                    font: {
+                                        size: 11
+                                    }
+                                },
+                                ticks: {
+                                    color: this.fontColor,
+                                    backdropColor: 'transparent',
+                                    font: {
+                                        size: 10
+                                    }
+                                },
+                                suggestedMin: 0,
+                                suggestedMax: 100
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 10,
+                                    usePointStyle: true,
+                                    font: {
+                                        size: 11
+                                    },
+                                    color: this.fontColor
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(22, 36, 42, 0.95)',
+                                borderColor: '#1e3a47',
+                                borderWidth: 1,
+                                titleColor: '#fff',
+                                bodyColor: '#c1c9d2',
+                                padding: 12,
+                                cornerRadius: 6,
+                                displayColors: true,
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.r !== null) {
+                                            label += context.parsed.r + '%';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Utility functions
+            getIcon(iconName) {
+                const icons = {
+                    'dashboard': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>',
+                    'document': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>',
+                    'currency': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>',
+                    'balance': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"></path><path d="M4 21V7l8-4v18"></path><path d="M12 21V3l8 4v14"></path></svg>',
+                    'bank': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>',
+                    'cycle': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline></svg>',
+                    'warning': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path></svg>',
+                    'shield': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 4px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>',
+                    'check-list': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path></svg>',
+                    'alert': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>',
+                    'star': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>'
+                };
+                
+                return icons[iconName] || '';
+            }
+            
+            getIconPath(iconName) {
+                const paths = {
+                    'layers': '<path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path>',
+                    'building': '<path d="M3 21h18"></path><path d="M4 21V7l8-4v18"></path>',
+                    'card': '<rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line>',
+                    'check': '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>'
+                };
+                
+                return paths[iconName] || '';
+            }
+            
+            getMatchingIcon(title) {
+                const icons = {
+                    'Cash Flow Matching': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 4H3"></path><path d="M18 8H6"></path><path d="M19 12H9"></path><path d="M16 16H11"></path><path d="M13 20H12"></path></svg>',
+                    'Amounts Matching': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="12" y1="3" x2="12" y2="21"></line><line x1="3" y1="12" x2="21" y2="12"></line></svg>',
+                    'Duration Matching': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>',
+                    'Quality Matching': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L18 12L6 22V2Z"></path></svg>'
+                };
+                
+                return icons[title] || '';
+            }
+            
+            getTimelineIcon(phase) {
+                const icons = {
+                    'IMMEDIATO': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0e1e25" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>',
+                    '6-12 MESI': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0e1e25" stroke-width="2"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path></svg>',
+                    '12-24 MESI': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0e1e25" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>'
+                };
+                
+                return icons[phase] || '';
+            }
+            
+            getColorWithAlpha(color, alpha) {
+                const rgb = this.hexToRgb(color);
+                return `rgba(${rgb}, ${alpha})`;
+            }
+            
+            hexToRgb(hex) {
+                const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? 
+                    `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : 
+                    '0, 0, 0';
+            }
+            
+            showError(error) {
+                const content = document.querySelector('.content');
+                content.innerHTML = `
+                    <div class="alert-box alert-danger">
+                        <h5>Errore caricamento dati</h5>
+                        <p>Impossibile caricare bancabilita-data.json. Assicurati che il file sia nella stessa cartella.</p>
+                        <p>Errore: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Initialize app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const app = new BancabilitaApp();
+            app.init();
+        });
+    </script>
+</body>
+</html>
