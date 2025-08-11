@@ -1,0 +1,558 @@
+{
+  "company": {
+    "name": "RELIVE COMMUNICATION S.R.L.",
+    "shortName": "RC",
+    "reportType": "Analisi Rischi e Raccomandazioni",
+    "lastUpdate": "28 Aprile 2025"
+  },
+  "navigation": [
+    {
+      "section": "main",
+      "title": "Menu Principale",
+      "items": [
+        {
+          "id": "dashboard",
+          "label": "Dashboard",
+          "href": "dashboard.html",
+          "icon": "dashboard"
+        },
+        {
+          "id": "sintesi",
+          "label": "Sintesi e Profilo",
+          "href": "sintesi.html",
+          "icon": "document"
+        }
+      ]
+    },
+    {
+      "section": "detailed",
+      "title": "Analisi Dettagliata",
+      "items": [
+        {
+          "id": "economico",
+          "label": "Analisi Economica",
+          "href": "economico.html",
+          "icon": "currency"
+        },
+        {
+          "id": "patrimoniale",
+          "label": "Analisi Patrimoniale",
+          "href": "patrimoniale.html",
+          "icon": "balance"
+        },
+        {
+          "id": "bancabilita",
+          "label": "Bancabilità",
+          "href": "bancabilita.html",
+          "icon": "bank"
+        },
+        {
+          "id": "circolante",
+          "label": "Circolante e Flussi",
+          "href": "circolante.html",
+          "icon": "cycle"
+        },
+        {
+          "id": "rischi",
+          "label": "Rischi e Azioni",
+          "href": "rischi.html",
+          "icon": "warning",
+          "active": true
+        },
+        {
+          "id": "irp",
+          "label": "Dettaglio IRP",
+          "href": "irp.html",
+          "icon": "shield"
+        }
+      ]
+    }
+  ],
+  "riskIndicators": {
+    "title": "6.1 Indicatori di Rischio",
+    "description": "L'analisi del profilo di rischio di RELIVE COMMUNICATION S.R.L. si basa su un approccio integrato che considera molteplici dimensioni valutative, conformemente al framework metodologico Kitzanos. La tabella seguente sintetizza i principali indicatori di rischio valutati nel periodo di riferimento:",
+    "data": [
+      {
+        "indicator": "Patrimonio Netto",
+        "value2022": "€96.884",
+        "value2023": "€138.351",
+        "value2024": "€234.134",
+        "trend": "up",
+        "trendClass": "text-success",
+        "evaluation": "Forte rafforzamento (+69,23%)",
+        "evalClass": "text-success"
+      },
+      {
+        "indicator": "Indice di Autonomia Finanziaria",
+        "value2022": "14,9%",
+        "value2023": "20,1%",
+        "value2024": "27,3%",
+        "trend": "up",
+        "trendClass": "text-success",
+        "evaluation": "Miglioramento costante",
+        "evalClass": "text-success"
+      },
+      {
+        "indicator": "Copertura Immobilizzazioni",
+        "value2022": "5,92",
+        "value2023": "5,35",
+        "value2024": "10,67",
+        "trend": "up",
+        "trendClass": "text-success",
+        "evaluation": "Eccellente",
+        "evalClass": "text-success"
+      },
+      {
+        "indicator": "PFN/EBITDA",
+        "value2022": "Negativo",
+        "value2023": "0,03",
+        "value2024": "Negativo",
+        "trend": "up",
+        "trendClass": "text-success",
+        "evaluation": "Eccellente (cash positive)",
+        "evalClass": "text-success"
+      },
+      {
+        "indicator": "Oneri Finanziari/Ricavi",
+        "value2022": "0,11%",
+        "value2023": "0,21%",
+        "value2024": "0,14%",
+        "trend": "mixed",
+        "trendClass": "text-warning",
+        "evaluation": "Contenuto",
+        "evalClass": "text-success"
+      },
+      {
+        "indicator": "Giorni Crediti Clienti",
+        "value2022": "209",
+        "value2023": "219",
+        "value2024": "262",
+        "trend": "down",
+        "trendClass": "text-danger",
+        "evaluation": "Critico",
+        "evalClass": "text-danger"
+      },
+      {
+        "indicator": "Giorni Debiti Fornitori",
+        "value2022": "202",
+        "value2023": "150",
+        "value2024": "222",
+        "trend": "up",
+        "trendClass": "text-warning",
+        "evaluation": "Molto elevato",
+        "evalClass": "text-warning"
+      },
+      {
+        "indicator": "Cash Flow Operativo/Ricavi",
+        "value2022": "1,42%",
+        "value2023": "-3,50%",
+        "value2024": "6,19%",
+        "trend": "up",
+        "trendClass": "text-success",
+        "evaluation": "Netto miglioramento",
+        "evalClass": "text-success"
+      },
+      {
+        "indicator": "ROI",
+        "value2022": "113,84%",
+        "value2023": "67,88%",
+        "value2024": "53,26%",
+        "trend": "down",
+        "trendClass": "text-warning",
+        "evaluation": "Eccellente nonostante il calo",
+        "evalClass": "text-success"
+      }
+    ],
+    "analysis": "L'analisi evidenzia un profilo di rischio complessivamente contenuto, con indicatori patrimoniali e reddituali eccellenti. Si rilevano tuttavia criticità significative nella gestione del capitale circolante, con particolare riferimento ai giorni di incasso dei crediti commerciali."
+  },
+  "zScoreRating": {
+    "title": "6.2 Z-Score e Rating",
+    "tableTitle": "Tabella 6.2.1: Z-Score e Rating (2024)",
+    "data": [
+      {
+        "indicator": "Z-Score Altman",
+        "value2022": "n.d.",
+        "value2023": "n.d.",
+        "value2024": "9,48",
+        "highlight": true,
+        "interpretation": "Zona sicura",
+        "badgeType": "success"
+      },
+      {
+        "indicator": "Probabilità di Default (MCC)",
+        "value2022": "n.d.",
+        "value2023": "n.d.",
+        "value2024": "1,02%",
+        "highlight": true,
+        "interpretation": "Rischio molto contenuto",
+        "badgeType": "success"
+      },
+      {
+        "indicator": "Leanus Score",
+        "value2022": "2 - Buono",
+        "value2023": "3 - Discreto",
+        "value2024": "2 - Buono",
+        "highlight": true,
+        "interpretation": "Recupero solidità",
+        "badgeType": "success"
+      },
+      {
+        "indicator": "Rating MCC",
+        "value2022": "n.d.",
+        "value2023": "n.d.",
+        "value2024": "Fascia \"2\"",
+        "highlight": true,
+        "interpretation": "Merito creditizio buono",
+        "badgeType": "success"
+      },
+      {
+        "indicator": "IRP (Indice di Rischio Ponderato)",
+        "value2022": "n.d.",
+        "value2023": "n.d.",
+        "value2024": "78,50",
+        "highlight": true,
+        "interpretation": "Categoria B (Rischio moderato-basso)",
+        "badgeType": "success"
+      }
+    ],
+    "interpretation": [
+      "Lo Z-Score di Altman, calcolato sul bilancio dell'esercizio 2024, è pari a 9,48. Questo valore si colloca ampiamente nella \"zona di sicurezza\" secondo il modello di Altman (Z > 2,99), indicando una bassissima probabilità di default.",
+      "Il trend storico evidenzia un andamento oscillante ma complessivamente positivo, con un miglioramento del merito creditizio nell'ultimo periodo di osservazione. Il rating complessivo assegnato all'azienda è \"2 - Buono\" con un punteggio di 10,03, confermando un profilo creditizio solido e meritevole di fiducia.",
+      "L'Indice di Rischio Ponderato (IRP) pari a 78,50 posiziona l'azienda nella categoria di rischio B, indicando un rischio moderato-basso e una solidità adeguata."
+    ]
+  },
+  "redFlags": {
+    "title": "6.3 Red Flags e Segnali d'Allarme",
+    "tableTitle": "Tabella 6.3.1: Principali Red Flags Identificate (2024)",
+    "data": [
+      {
+        "area": "Crediti commerciali",
+        "signal": "DSO estremamente elevato",
+        "value": "262 giorni (+43 gg vs 2023)",
+        "risk": "Immobilizzazione di circa €492.468 di liquidità potenziale"
+      },
+      {
+        "area": "Debiti fornitori",
+        "signal": "DPO molto elevato",
+        "value": "222 giorni (+72 gg vs 2023)",
+        "risk": "Tensioni nei rapporti con fornitori e potenziale perdita di condizioni favorevoli"
+      },
+      {
+        "area": "Struttura costi",
+        "signal": "Incremento costi fissi",
+        "value": "+22,4% vs ricavi +1,64%",
+        "risk": "Perdita di efficienza operativa e riduzione marginalità"
+      },
+      {
+        "area": "Ciclo circolante",
+        "signal": "Ciclo complessivo in aumento",
+        "value": "119 giorni (+49 gg vs 2023)",
+        "risk": "Assorbimento di capitale circolante e tensioni di liquidità"
+      },
+      {
+        "area": "Fiscalità",
+        "signal": "Volatilità della PTN",
+        "value": "Da €106.706 a €24.311 (-77,21%)",
+        "risk": "Potenziale impatto sulla pianificazione finanziaria"
+      }
+    ]
+  },
+  "accountingManipulation": {
+    "title": "6.4 Analisi di Potenziali Manipolazioni Contabili",
+    "description": "La verifica degli indicatori di qualità del bilancio non ha evidenziato segnali di manipolazioni contabili significative. Tuttavia, si rilevano alcuni aspetti meritevoli di attenzione:",
+    "tableTitle": "Tabella 6.4.1: Indicatori di potenziali criticità contabili",
+    "data": [
+      {
+        "area": "Crediti commerciali",
+        "anomaly": "Forte crescita rispetto ai ricavi",
+        "evaluation": "warning",
+        "notes": "+21,80% crediti vs +1,64% ricavi"
+      },
+      {
+        "area": "Ciclo del circolante",
+        "anomaly": "Forte differenza DSO/DPO",
+        "evaluation": "warning",
+        "notes": "DSO 262 giorni vs DPO 222 giorni"
+      },
+      {
+        "area": "Utile netto",
+        "anomaly": "Forte crescita non proporzionale all'EBIT",
+        "evaluation": "warning",
+        "notes": "+131% vs EBIT -1,71%"
+      },
+      {
+        "area": "Incidenza fiscale",
+        "anomaly": "Riduzione drastica delle imposte",
+        "evaluation": "danger",
+        "notes": "€242 nel 2024 vs €25.184 nel 2023"
+      }
+    ],
+    "considerations": "L'analisi di questi elementi non porta a concludere la presenza di manipolazioni contabili, ma suggerisce la necessità di un monitoraggio attento della qualità del bilancio e dell'evoluzione degli indicatori economico-finanziari, in particolare per quanto riguarda la gestione fiscale che presenta variazioni significative difficilmente ripetibili nei prossimi esercizi."
+  },
+  "sensitivityAnalysis": {
+    "title": "6.5 Analisi di Sensitività",
+    "tableTitle": "Tabella 6.5.1: Analisi di sensitività (2024)",
+    "data": [
+      {
+        "parameter": "Variazione Ricavi che rende l'EBIT = 0",
+        "criticalValue": "-23,81%",
+        "interpretation": "Buon margine di sicurezza",
+        "evalClass": "text-success"
+      },
+      {
+        "parameter": "Variazione Costi Fissi che rende l'EBIT = 0",
+        "criticalValue": "+32,08%",
+        "interpretation": "Buona capacità di assorbire incrementi nei costi fissi",
+        "evalClass": "text-success"
+      },
+      {
+        "parameter": "Variazione Crediti Clienti che azzera la Liquidità",
+        "criticalValue": "+20 giorni",
+        "interpretation": "Moderata sensibilità a variazioni DSO",
+        "evalClass": "text-warning"
+      },
+      {
+        "parameter": "Variazione Rimanenze che annulla il Patrimonio Netto",
+        "criticalValue": "-9.822 giorni",
+        "interpretation": "Eccellente copertura patrimoniale",
+        "evalClass": "text-success"
+      },
+      {
+        "parameter": "Variazione Debiti Fornitori che azzera la Liquidità",
+        "criticalValue": "-30 giorni",
+        "interpretation": "Moderata dipendenza dai termini di pagamento",
+        "evalClass": "text-warning"
+      }
+    ],
+    "warning": "I risultati dell'analisi di sensitività mostrano che l'EBIT dell'azienda si azzererebbe in caso di riduzione dei ricavi del 23,81% o incremento dei costi fissi del 32,08%. Questi valori testimoniano un elevato grado di resilienza operativa. Tuttavia, l'azienda presenta una vulnerabilità nella gestione della liquidità a breve termine, con un potenziale azzeramento della liquidità in caso di aumento di 20 giorni nei tempi di incasso o riduzione di 30 giorni nei tempi di pagamento."
+  },
+  "stressTest": {
+    "title": "6.6 Risultati Stress Test",
+    "tableTitle": "Tabella 6.6.1: Risultati Stress Test (2024)",
+    "data": [
+      {
+        "test": "Variazione Ricavi che rende l'EBIT = 0",
+        "result": "-23,81%",
+        "passed": true
+      },
+      {
+        "test": "Variazione Costi Fissi che rende l'EBIT = 0",
+        "result": "+32,08%",
+        "passed": true
+      },
+      {
+        "test": "Variazione Crediti Clienti che azzera la Liquidità",
+        "result": "+20 giorni",
+        "passed": true,
+        "withReserve": true
+      },
+      {
+        "test": "Variazione Rimanenze che annulla il Patrimonio Netto",
+        "result": "-9.822 giorni",
+        "passed": true
+      },
+      {
+        "test": "Variazione Debiti Fornitori che azzera la Liquidità",
+        "result": "-30 giorni",
+        "passed": false
+      }
+    ],
+    "anomalies": [
+      "Giorni crediti clienti superiori a 120 (262 giorni)",
+      "Giorni debiti fornitori superiori a 120 (222 giorni)"
+    ],
+    "summary": "L'azienda ha superato 4 test di stress su 5 (80%), evidenziando una buona resilienza complessiva a condizioni avverse. Questi risultati confermano che la principale area di vulnerabilità è rappresentata dalla gestione del capitale circolante, mentre la struttura economica e patrimoniale presenta una buona solidità intrinseca."
+  },
+  "actionPlan": {
+    "title": "7.1 Piano d'Azione e Raccomandazioni Operative",
+    "description": "Sulla base dell'analisi condotta, si delineano le seguenti raccomandazioni strategiche e operative per ottimizzare il profilo economico-finanziario di RELIVE COMMUNICATION S.R.L.:",
+    "tableTitle": "Tabella 7.1.1: Piano d'azione e raccomandazioni operative",
+    "actions": [
+      {
+        "area": "Gestione Crediti",
+        "icon": "inbox",
+        "currentSituation": "DSO: 262 giorni<br>€748.028",
+        "recommendedAction": "Implementare politiche di credit management più stringenti",
+        "expectedEffects": "Riduzione DSO a 150 giorni:<br>liberazione di €320.000 di liquidità",
+        "priority": "Alta",
+        "priorityType": "danger"
+      },
+      {
+        "area": "Debiti Fornitori",
+        "icon": "building",
+        "currentSituation": "DPO: 222 giorni<br>€421.125",
+        "recommendedAction": "Riequilibrare i rapporti con fornitori strategici",
+        "expectedEffects": "Riduzione DPO a 180 giorni:<br>impiego di €118.000 di liquidità",
+        "priority": "Media",
+        "priorityType": "warning"
+      },
+      {
+        "area": "Capitale Circolante",
+        "icon": "cycle",
+        "currentSituation": "CCN in forte crescita (+32,3%)",
+        "recommendedAction": "Ottimizzare la gestione complessiva del CCN con approccio integrato",
+        "expectedEffects": "Riduzione del 15% del CCN:<br>liberazione di €32.000 di liquidità",
+        "priority": "Media",
+        "priorityType": "warning"
+      },
+      {
+        "area": "Immobilizzazioni",
+        "icon": "book",
+        "currentSituation": "Bassa incidenza (2,6%) con trend decrescente (-15,2%)",
+        "recommendedAction": "Valutare investimenti strategici in tecnologie e infrastrutture digitali",
+        "expectedEffects": "Incremento capacità produttiva<br>ROI atteso: 35%",
+        "priority": "Media",
+        "priorityType": "warning"
+      },
+      {
+        "area": "Struttura Finanziaria",
+        "icon": "globe",
+        "currentSituation": "Ottima (PFN cash positive, zero debiti)",
+        "recommendedAction": "Valutare l'opportunità di utilizzare moderata leva finanziaria per investimenti strategici",
+        "expectedEffects": "Incremento redditività capitale proprio (ROE +5-8%)",
+        "priority": "Bassa",
+        "priorityType": "success"
+      },
+      {
+        "area": "Liquidità",
+        "icon": "currency",
+        "currentSituation": "Consistente (€56.948)",
+        "recommendedAction": "Implementare strategie di cash management per ottimizzare rendimenti",
+        "expectedEffects": "Rendimento addizionale:<br>€1.700 annui",
+        "priority": "Bassa",
+        "priorityType": "success"
+      }
+    ]
+  },
+  "timeframePlan": {
+    "title": "7.3 Piano d'Azione Articolato per Timeframe",
+    "tableTitle": "Tabella 7.3.1: Piano d'azione articolato per timeframe",
+    "timeline": [
+      {
+        "timeframe": "0-3m",
+        "label": "Azioni Immediate",
+        "priority": "high",
+        "priorityLabel": "Alta",
+        "actions": [
+          "Analisi dettagliata del portafoglio crediti con segmentazione per anzianità e rischiosità",
+          "Identificazione delle posizioni critiche e definizione di un piano di azione specifico per cliente",
+          "Ottimizzazione della tesoreria con pianificazione dettagliata dei flussi di cassa a 90 giorni",
+          "Revisione delle politiche commerciali con analisi della redditività per cliente"
+        ]
+      },
+      {
+        "timeframe": "3-12m",
+        "label": "Azioni a Breve Termine",
+        "priority": "medium",
+        "priorityLabel": "Media",
+        "actions": [
+          "Implementazione di un sistema di scoring clienti con limiti di fido interno",
+          "Digitalizzazione del ciclo attivo e passivo con sistemi di approvazione automatizzati",
+          "Sviluppo di reportistica periodica automatizzata per il monitoraggio dei KPI chiave",
+          "Implementazione di sistemi di reporting integrati con definizione di KPI specifici per area di business"
+        ]
+      },
+      {
+        "timeframe": "1-3a",
+        "label": "Azioni a Medio-Lungo Termine",
+        "priority": "low",
+        "priorityLabel": "Bassa",
+        "actions": [
+          "Valutazione di opportunità di crescita organica e per linee esterne",
+          "Definizione di un piano industriale pluriennale con analisi di potenziali diversificazioni",
+          "Revisione dell'organigramma aziendale con sviluppo di competenze specialistiche interne",
+          "Implementazione di sistemi incentivanti basati su KPI",
+          "Valutazione di operazioni straordinarie e pianificazione della distribuzione di dividendi"
+        ]
+      }
+    ]
+  },
+  "kpiMonitoring": {
+    "title": "7.4 KPI Dashboard per il Monitoraggio",
+    "categories": [
+      {
+        "name": "Liquidità",
+        "description": "Controllo cash flow",
+        "kpis": [
+          { "name": "DSO", "target": "< 150 gg", "current": "262 gg", "status": "critical" },
+          { "name": "DPO", "target": "120-150 gg", "current": "222 gg", "status": "warning" },
+          { "name": "Cash Ratio", "target": "> 20%", "current": "11%", "status": "warning" }
+        ]
+      },
+      {
+        "name": "Redditività",
+        "description": "Performance economica",
+        "kpis": [
+          { "name": "ROE", "target": "> 15%", "current": "40,91%", "status": "ok" },
+          { "name": "ROI", "target": "> 20%", "current": "53,26%", "status": "ok" },
+          { "name": "EBITDA Margin", "target": "> 10%", "current": "9,91%", "status": "warning" }
+        ]
+      },
+      {
+        "name": "Struttura",
+        "description": "Equilibrio patrimoniale",
+        "kpis": [
+          { "name": "D/E Ratio", "target": "< 1,0", "current": "0,00", "status": "ok" },
+          { "name": "Autonomia Fin.", "target": "> 33%", "current": "27,3%", "status": "warning" },
+          { "name": "Copertura Imm.", "target": "> 1,0", "current": "10,67", "status": "ok" }
+        ]
+      },
+      {
+        "name": "Rischio",
+        "description": "Indicatori di allerta",
+        "kpis": [
+          { "name": "Z-Score", "target": "> 3,0", "current": "9,48", "status": "ok" },
+          { "name": "PD", "target": "< 2%", "current": "1,02%", "status": "ok" },
+          { "name": "IRP", "target": "> 70", "current": "78,50", "status": "ok" }
+        ]
+      }
+    ]
+  },
+  "systemAlerts": [
+    {
+      "level": "yellow",
+      "title": "ALLERTA GIALLA: Gestione Capitale Circolante",
+      "items": [
+        "DSO superiore a 250 giorni (attuale: 262)",
+        "DPO superiore a 200 giorni (attuale: 222)",
+        "Ciclo del circolante in peggioramento (+49 giorni vs 2023)"
+      ]
+    },
+    {
+      "level": "red",
+      "title": "ALLERTA ROSSA: Nessuna criticità grave",
+      "items": [
+        "Tutti gli indicatori di solidità patrimoniale sono positivi",
+        "Non si rilevano rischi di insolvenza o default",
+        "Liquidità disponibile sufficiente per le operazioni correnti"
+      ]
+    }
+  ],
+  "finalSummary": {
+    "title": "7.5 Sintesi Finale e Raccomandazioni Prioritarie",
+    "mainActions": [
+      {
+        "number": "01",
+        "action": "Ottimizzazione immediata gestione crediti",
+        "details": "Riduzione DSO da 262 a 150 giorni entro 6 mesi",
+        "impact": "Liberazione €320k liquidità",
+        "priorityClass": "high"
+      },
+      {
+        "number": "02",
+        "action": "Normalizzazione rapporti fornitori",
+        "details": "Riduzione DPO da 222 a 180 giorni entro 3 mesi",
+        "impact": "Miglioramento relazioni commerciali",
+        "priorityClass": "medium"
+      },
+      {
+        "number": "03",
+        "action": "Implementazione sistema controllo gestione",
+        "details": "Dashboard KPI e reporting mensile entro 2 mesi",
+        "impact": "Monitoraggio real-time performance",
+        "priorityClass": "medium"
+      }
+    ],
+    "conclusion": "RELIVE COMMUNICATION S.R.L. presenta un profilo di rischio complessivamente contenuto (IRP 78,50 - Categoria B) con eccellenti indicatori di solidità patrimoniale e redditività. Le principali aree di intervento riguardano l'ottimizzazione del capitale circolante, con particolare focus sulla gestione dei crediti commerciali. L'implementazione del piano d'azione proposto permetterà di liberare significative risorse finanziarie (oltre €350k) e migliorare ulteriormente il già solido profilo di rischio aziendale."
+  }
+}
