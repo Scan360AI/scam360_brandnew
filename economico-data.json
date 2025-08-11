@@ -1,0 +1,736 @@
+{
+  "company": {
+    "name": "RELIVE COMMUNICATION S.R.L.",
+    "shortName": "RC",
+    "reportType": "Analisi Economica",
+    "lastUpdate": "28 Aprile 2025"
+  },
+  "navigation": [
+    {
+      "section": "main",
+      "title": "Menu Principale",
+      "items": [
+        {
+          "id": "dashboard",
+          "label": "Dashboard",
+          "href": "dashboard.html",
+          "icon": "dashboard"
+        },
+        {
+          "id": "sintesi",
+          "label": "Sintesi e Profilo",
+          "href": "sintesi.html",
+          "icon": "document"
+        }
+      ]
+    },
+    {
+      "section": "detailed",
+      "title": "Analisi Dettagliata",
+      "items": [
+        {
+          "id": "economico",
+          "label": "Analisi Economica",
+          "href": "economico.html",
+          "icon": "currency",
+          "active": true
+        },
+        {
+          "id": "patrimoniale",
+          "label": "Analisi Patrimoniale",
+          "href": "patrimoniale.html",
+          "icon": "balance"
+        },
+        {
+          "id": "bancabilita",
+          "label": "Bancabilità",
+          "href": "bancabilita.html",
+          "icon": "bank"
+        },
+        {
+          "id": "circolante",
+          "label": "Circolante e Flussi",
+          "href": "circolante.html",
+          "icon": "cycle"
+        },
+        {
+          "id": "rischi",
+          "label": "Rischi e Azioni",
+          "href": "rischi.html",
+          "icon": "warning"
+        },
+        {
+          "id": "irp",
+          "label": "Dettaglio IRP",
+          "href": "irp.html",
+          "icon": "shield"
+        }
+      ]
+    }
+  ],
+  "sections": {
+    "contoEconomico": {
+      "title": "2.1.1 Conto Economico Riclassificato",
+      "description": "Il conto economico riclassificato evidenzia la struttura dei costi e dei ricavi di RELIVE COMMUNICATION S.R.L.",
+      "tableTitle": "Tabella 2.1: Conto Economico Riclassificato 2022-2024",
+      "data": {
+        "years": ["2022", "2023", "2024"],
+        "rows": [
+          {
+            "label": "Ricavi netti",
+            "bold": true,
+            "values": [571653, 1014018, 1030604],
+            "percentages": [100.0, 100.0, 100.0],
+            "variation": 1.6,
+            "variationType": "positive"
+          },
+          {
+            "label": "Costi esterni",
+            "values": [-432547, -747695, -737969],
+            "percentages": [75.7, 73.7, 71.6],
+            "variation": -1.3,
+            "variationType": "positive"
+          },
+          {
+            "label": "Valore Aggiunto",
+            "bold": true,
+            "values": [139106, 266323, 292635],
+            "percentages": [24.3, 26.3, 28.4],
+            "variation": 9.9,
+            "variationType": "positive"
+          },
+          {
+            "label": "Costo del personale",
+            "values": [-95447, -164074, -242750],
+            "percentages": [16.7, 16.2, 23.6],
+            "variation": 48.0,
+            "variationType": "negative"
+          },
+          {
+            "label": "EBITDA",
+            "bold": true,
+            "values": [40499, 104295, 102125],
+            "percentages": [7.1, 10.3, 9.9],
+            "variation": -2.1,
+            "variationType": "negative"
+          },
+          {
+            "label": "Ammortamenti",
+            "values": [-4065, -7948, -7450],
+            "percentages": [0.7, 0.8, 0.7],
+            "variation": -6.3,
+            "variationType": "positive"
+          },
+          {
+            "label": "EBIT",
+            "bold": true,
+            "values": [35850, 96346, 94675],
+            "percentages": [6.3, 9.5, 9.2],
+            "variation": -1.7,
+            "variationType": "negative"
+          },
+          {
+            "label": "Oneri finanziari",
+            "values": [-1168, -2350, -1850],
+            "percentages": [0.2, 0.2, 0.2],
+            "variation": -21.3,
+            "variationType": "positive"
+          },
+          {
+            "label": "EBT",
+            "bold": true,
+            "values": [26033, 50550, 93325],
+            "percentages": [4.6, 5.0, 9.1],
+            "variation": 84.6,
+            "variationType": "positive"
+          },
+          {
+            "label": "Imposte",
+            "values": [-13505, -9252, -2825],
+            "percentages": [2.4, 0.9, 0.3],
+            "variation": -69.5,
+            "variationType": "positive"
+          },
+          {
+            "label": "Utile netto",
+            "bold": true,
+            "totalRow": true,
+            "values": [12528, 41298, 95500],
+            "percentages": [2.2, 4.1, 9.3],
+            "variation": 131.3,
+            "variationType": "positive"
+          }
+        ]
+      }
+    },
+    "trendAnalysis": {
+      "title": "2.1.2 Analisi dei Trend Economici",
+      "description": "Evoluzione dei principali aggregati economici nel triennio.",
+      "variations": {
+        "tableTitle": "Tabella 2.2: Analisi Variazioni 2023-2024",
+        "data": [
+          {
+            "voce": "Ricavi",
+            "deltaAssoluta": "+16.586",
+            "deltaPercentuale": "+1,6%",
+            "impatto": "Modesto",
+            "impactType": "warning"
+          },
+          {
+            "voce": "Costi esterni",
+            "deltaAssoluta": "-9.726",
+            "deltaPercentuale": "-1,3%",
+            "impatto": "Positivo",
+            "impactType": "success"
+          },
+          {
+            "voce": "Costo personale",
+            "deltaAssoluta": "+78.676",
+            "deltaPercentuale": "+48,0%",
+            "impatto": "Critico",
+            "impactType": "danger"
+          },
+          {
+            "voce": "EBITDA",
+            "deltaAssoluta": "-2.170",
+            "deltaPercentuale": "-2,1%",
+            "impatto": "Attenzione",
+            "impactType": "warning"
+          },
+          {
+            "voce": "Utile netto",
+            "deltaAssoluta": "+54.202",
+            "deltaPercentuale": "+131,3%",
+            "impatto": "Eccellente",
+            "impactType": "success"
+          }
+        ]
+      },
+      "analysis": {
+        "title": "Analisi critica delle variazioni:",
+        "points": [
+          {
+            "label": "Crescita ricavi limitata",
+            "description": "+1,6% significativamente sotto media settore (+5%)"
+          },
+          {
+            "label": "Esplosione costo personale",
+            "description": "+48% indica probabili nuove assunzioni strategiche"
+          },
+          {
+            "label": "Efficienza fiscale",
+            "description": "Ottimizzazione fiscale ha amplificato l'utile netto"
+          }
+        ]
+      }
+    },
+    "costStructure": {
+      "title": "2.1.3 Struttura e Dettaglio Principali Costi",
+      "description": "Analisi delle principali voci di costo e loro incidenza.",
+      "tableTitle": "Tabella 2.3: Struttura dei Costi 2022-2024",
+      "data": {
+        "years": ["2022", "2023", "2024"],
+        "rows": [
+          {
+            "label": "Costi Variabili (acquisti+servizi)",
+            "values": [387822, 660007, 634405],
+            "percentages": [67.8, 65.1, 61.5],
+            "variation": -3.9,
+            "evaluation": "Miglioramento",
+            "evalType": "success"
+          },
+          {
+            "label": "Costi Fissi",
+            "values": [44725, 87688, 103564],
+            "percentages": [7.8, 8.6, 10.0],
+            "variation": 18.1,
+            "evaluation": "Attenzione",
+            "evalType": "warning"
+          },
+          {
+            "label": "Costo del personale",
+            "values": [95447, 164074, 242750],
+            "percentages": [16.7, 16.2, 23.6],
+            "variation": 48.0,
+            "evaluation": "Monitorare",
+            "evalType": "warning"
+          },
+          {
+            "label": "- di cui: costo medio/dipendente",
+            "values": [31816, 32815, 40458],
+            "percentages": ["-", "-", "-"],
+            "variation": 23.3,
+            "evaluation": "Strategico",
+            "evalType": "info"
+          },
+          {
+            "label": "Totale Costi Operativi",
+            "bold": true,
+            "totalRow": true,
+            "values": [527994, 911769, 980719],
+            "percentages": [92.4, 89.9, 95.2],
+            "variation": 7.6,
+            "evaluation": "Pressione",
+            "evalType": "warning"
+          }
+        ]
+      },
+      "analysis": {
+        "title": "Punti chiave analisi costi:",
+        "points": [
+          {
+            "label": "Struttura costi",
+            "description": "Prevalenza costi variabili (61,5%) garantisce flessibilità operativa"
+          },
+          {
+            "label": "Incremento costo personale",
+            "description": "Da 3 a 6 dipendenti (+100%), costo medio +23,3%, indica upgrade competenze"
+          },
+          {
+            "label": "Elasticità costi-ricavi",
+            "description": "Costi crescono più velocemente dei ricavi, richiede attenzione"
+          },
+          {
+            "label": "Produttività",
+            "description": "€171.767/dipendente, sopra media settore (€150.000)"
+          }
+        ]
+      }
+    },
+    "profitabilityIndices": {
+      "title": "2.1.4 Indici di Redditività",
+      "description": "Analisi della capacità di generare ritorni adeguati.",
+      "tableTitle": "Tabella 2.4: Indici di Redditività 2022-2024",
+      "data": {
+        "indices": [
+          {
+            "name": "ROE",
+            "formula": "Utile/PN",
+            "values": [18.95, 29.97, 40.91],
+            "threshold": "> 7%",
+            "evaluation": "Eccellente",
+            "evalType": "success"
+          },
+          {
+            "name": "ROI",
+            "formula": "EBIT/CIN",
+            "values": [113.84, 67.88, 53.26],
+            "threshold": "> 10%",
+            "evaluation": "Eccellente",
+            "evalType": "success"
+          },
+          {
+            "name": "ROS",
+            "formula": "EBIT/Ricavi",
+            "values": [6.3, 9.5, 9.2],
+            "threshold": "> 6%",
+            "evaluation": "Ottimo",
+            "evalType": "success"
+          },
+          {
+            "name": "EBITDA Margin",
+            "formula": "EBITDA/Ricavi",
+            "values": [7.1, 10.3, 9.9],
+            "threshold": "> 8%",
+            "evaluation": "Buono",
+            "evalType": "success"
+          },
+          {
+            "name": "Net Margin",
+            "formula": "Utile/Ricavi",
+            "values": [2.2, 4.1, 9.3],
+            "threshold": "> 5%",
+            "evaluation": "Eccellente",
+            "evalType": "success"
+          },
+          {
+            "name": "Turnover",
+            "formula": "Ricavi/CIN",
+            "values": [18.18, 7.17, 5.82],
+            "threshold": "> 2",
+            "evaluation": "Ottimo",
+            "evalType": "success"
+          },
+          {
+            "name": "CF/Ricavi",
+            "formula": "CF/Ricavi",
+            "values": [1.4, -3.5, 6.2],
+            "threshold": "> 5%",
+            "evaluation": "Buono",
+            "evalType": "success"
+          }
+        ]
+      },
+      "analysis": "RELIVE COMMUNICATION mostra una redditività eccezionale con ROE al 40,91% (vs 22,7% settore), ROI al 53,26% (vs 18,4% settore), trainata da elevata efficienza operativa e ottimizzazione fiscale nel 2024."
+    },
+    "breakEven": {
+      "title": "2.1.5 Analisi del Break-Even",
+      "description": "Determinazione del punto di pareggio e margine di sicurezza.",
+      "tableTitle": "Tabella 2.5: Parametri Break-Even 2024",
+      "data": [
+        {
+          "parameter": "Costi Fissi Totali",
+          "value": "€ 353.549",
+          "formula": "CF + Personale + Amm.ti"
+        },
+        {
+          "parameter": "Margine di Contribuzione %",
+          "value": "38,50%",
+          "formula": "(Ricavi - CV) / Ricavi"
+        },
+        {
+          "parameter": "Break-Even Point",
+          "value": "€ 918.309",
+          "formula": "CF / MDC%",
+          "highlight": "positive"
+        },
+        {
+          "parameter": "Ricavi Attuali",
+          "value": "€ 1.030.604",
+          "formula": "-"
+        },
+        {
+          "parameter": "Margine di Sicurezza",
+          "value": "10,9%",
+          "formula": "(Ricavi - BEP) / Ricavi",
+          "highlight": "positive"
+        },
+        {
+          "parameter": "Margine di Sicurezza €",
+          "value": "€ 112.295",
+          "formula": "Ricavi - BEP"
+        }
+      ],
+      "alert": {
+        "type": "success",
+        "points": [
+          "BEP: €918.309 | Margine Sicurezza: 10,9% (Sufficiente)",
+          "Variazione ricavi per EBIT=0: -10,9%",
+          "L'azienda può sostenere una riduzione ricavi fino al 10,9%"
+        ]
+      }
+    },
+    "leverageOperativo": {
+      "title": "2.1.6 Leverage Operativo",
+      "description": "Analisi della sensibilità del risultato operativo alle variazioni di ricavi.",
+      "dol": {
+        "value": 4.34,
+        "formula": "Margine di Contribuzione / EBIT = €396.847 / €94.675 = 4,34"
+      },
+      "interpretation": [
+        "Una variazione dell'1% nei ricavi genera una variazione del 4,34% nell'EBIT",
+        "Alta sensibilità operativa dovuta all'elevata incidenza dei costi fissi (34,3% dei costi totali)",
+        "Opportunità: piccoli incrementi di fatturato generano significativi aumenti di redditività",
+        "Rischio: in caso di contrazione ricavi, l'EBIT si riduce rapidamente"
+      ],
+      "warning": "L'elevato leverage operativo (4,34) richiede particolare focus sulla crescita dei ricavi per massimizzare la redditività."
+    },
+    "benchmark": {
+      "title": "2.2.1 Confronto con Media di Settore",
+      "description": "Confronto dei principali indicatori con i benchmark del settore agenzie pubblicitarie.",
+      "tableTitle": "Tabella 2.6: Posizionamento Competitivo 2024",
+      "data": [
+        {
+          "indicator": "Crescita ricavi",
+          "relive": "+1,64%",
+          "mediaSett": "+5,00%",
+          "gap": "-3,36 p.p.",
+          "gapType": "negative",
+          "evaluation": "Inferiore",
+          "evalType": "warning"
+        },
+        {
+          "indicator": "EBITDA Margin",
+          "relive": "9,91%",
+          "mediaSett": "11,50%",
+          "gap": "-1,59 p.p.",
+          "gapType": "negative",
+          "evaluation": "In linea",
+          "evalType": "secondary"
+        },
+        {
+          "indicator": "ROI",
+          "relive": "53,26%",
+          "mediaSett": "18,40%",
+          "gap": "+34,86 p.p.",
+          "gapType": "positive",
+          "evaluation": "Superiore",
+          "evalType": "success"
+        },
+        {
+          "indicator": "ROE",
+          "relive": "40,91%",
+          "mediaSett": "22,70%",
+          "gap": "+18,21 p.p.",
+          "gapType": "positive",
+          "evaluation": "Superiore",
+          "evalType": "success"
+        },
+        {
+          "indicator": "Turnover",
+          "relive": "5,82",
+          "mediaSett": "2,90",
+          "gap": "+2,92",
+          "gapType": "positive",
+          "evaluation": "Superiore",
+          "evalType": "success"
+        },
+        {
+          "indicator": "PFN/EBITDA",
+          "relive": "-0,56",
+          "mediaSett": "1,70",
+          "gap": "Migliore",
+          "gapType": "positive",
+          "evaluation": "Superiore",
+          "evalType": "success"
+        },
+        {
+          "indicator": "Giorni Crediti",
+          "relive": "262",
+          "mediaSett": "95",
+          "gap": "+167",
+          "gapType": "negative",
+          "evaluation": "Critico",
+          "evalType": "danger"
+        },
+        {
+          "indicator": "Giorni Debiti",
+          "relive": "222",
+          "mediaSett": "105",
+          "gap": "+117",
+          "gapType": "negative",
+          "evaluation": "Attenzione",
+          "evalType": "warning"
+        }
+      ],
+      "analysis": "RELIVE COMMUNICATION si posiziona <strong>significativamente meglio della media di settore</strong> in termini di redditività (ROI 53,26% vs 18,40%), efficienza (Turnover 5,82 vs 2,90) e solidità finanziaria (PFN negativa). <strong>Criticità principale</strong>: gestione crediti (DSO 262 gg vs 95 settore) e crescita ricavi sotto media."
+    },
+    "gapAnalysis": {
+      "title": "2.2.2 Gap Analysis vs Best Practice",
+      "description": "Identificazione aree di miglioramento rispetto alle best practice.",
+      "tableTitle": "Tabella 2.7: Gap Analysis 2024",
+      "data": [
+        {
+          "area": "Gestione Crediti",
+          "current": "DSO: 262 giorni",
+          "bestPractice": "60-90 giorni",
+          "gap": "+172-202 giorni",
+          "gapType": "negative",
+          "priority": "Critica",
+          "priorityType": "danger"
+        },
+        {
+          "area": "Gestione Debiti",
+          "current": "DPO: 222 giorni",
+          "bestPractice": "60-90 giorni",
+          "gap": "+132-162 giorni",
+          "gapType": "negative",
+          "priority": "Critica",
+          "priorityType": "danger"
+        },
+        {
+          "area": "Crescita Ricavi",
+          "current": "+1,64%",
+          "bestPractice": "+8-12%",
+          "gap": "-6,36 to -10,36 p.p.",
+          "gapType": "negative",
+          "priority": "Alta",
+          "priorityType": "warning"
+        },
+        {
+          "area": "EBITDA Margin",
+          "current": "9,91%",
+          "bestPractice": "15-20%",
+          "gap": "-5,09 to -10,09 p.p.",
+          "gapType": "negative",
+          "priority": "Media",
+          "priorityType": "warning"
+        },
+        {
+          "area": "Produttività/Dip.",
+          "current": "€171.767",
+          "bestPractice": "€180.000-220.000",
+          "gap": "-€8.233 to -€48.233",
+          "gapType": "negative",
+          "priority": "Bassa",
+          "priorityType": "info"
+        },
+        {
+          "area": "Dimensione",
+          "current": "6 dipendenti",
+          "bestPractice": "15-25 dipendenti",
+          "gap": "-9 to -19 dip.",
+          "gapType": "negative",
+          "priority": "Strategica",
+          "priorityType": "info"
+        },
+        {
+          "area": "Leva Finanziaria",
+          "current": "D/E: 0,00",
+          "bestPractice": "D/E: 0,5-1,0",
+          "gap": "Conservativa",
+          "gapType": "neutral",
+          "priority": "Opportunità",
+          "priorityType": "secondary"
+        }
+      ]
+    },
+    "actionPlan": {
+      "title": "2.2.3 Azioni di Miglioramento Suggerite",
+      "description": "Piano di azione prioritario per colmare i gap identificati.",
+      "tableTitle": "Tabella 2.8: Piano di Azione Economico (Sintesi)",
+      "actions": [
+        {
+          "action": "1. Ottimizzazione Gestione Crediti",
+          "bold": true,
+          "objective": "Ridurre DSO",
+          "timeframe": "0-6 mesi",
+          "kpiTarget": "DSO < 180 gg",
+          "expectedImpact": "+€150k liquidità",
+          "impactType": "success"
+        },
+        {
+          "action": "- Implementare credit scoring clienti",
+          "objective": "Prevenzione",
+          "timeframe": "1 mese",
+          "kpiTarget": "100% clienti valutati",
+          "expectedImpact": "-30% insoluti",
+          "impactType": null
+        },
+        {
+          "action": "- Incentivi pagamento anticipato",
+          "objective": "Accelerazione",
+          "timeframe": "Immediato",
+          "kpiTarget": "20% fatture anticipate",
+          "expectedImpact": "-20 gg DSO",
+          "impactType": null
+        },
+        {
+          "action": "2. Accelerazione Crescita Ricavi",
+          "bold": true,
+          "objective": "+5% annuo",
+          "timeframe": "6-12 mesi",
+          "kpiTarget": "€1.082M (2025)",
+          "expectedImpact": "+€51k ricavi",
+          "impactType": "success"
+        },
+        {
+          "action": "- Sviluppo servizi digitali",
+          "objective": "Nuovi ricavi",
+          "timeframe": "3-6 mesi",
+          "kpiTarget": "15% ricavi da digital",
+          "expectedImpact": "+€150k/anno",
+          "impactType": null
+        },
+        {
+          "action": "- Espansione geografica",
+          "objective": "Nuovi mercati",
+          "timeframe": "6-9 mesi",
+          "kpiTarget": "2 nuove regioni",
+          "expectedImpact": "+€100k/anno",
+          "impactType": null
+        },
+        {
+          "action": "3. Efficientamento Costi",
+          "bold": true,
+          "objective": "Controllo margini",
+          "timeframe": "Ongoing",
+          "kpiTarget": "EBITDA > 11%",
+          "expectedImpact": "+1,1 p.p. margine",
+          "impactType": "warning"
+        },
+        {
+          "action": "- Digitalizzazione processi",
+          "objective": "Riduzione costi",
+          "timeframe": "3-6 mesi",
+          "kpiTarget": "-10% costi admin",
+          "expectedImpact": "-€30k/anno",
+          "impactType": null
+        },
+        {
+          "action": "- Rinegoziazione fornitori",
+          "objective": "Ottimizzazione",
+          "timeframe": "2 mesi",
+          "kpiTarget": "-5% costi esterni",
+          "expectedImpact": "-€35k/anno",
+          "impactType": null
+        }
+      ],
+      "expectedImpact": {
+        "title": "Impatto complessivo atteso (12 mesi):",
+        "points": [
+          "Ricavi: +5% (da €1.031M a €1.082M)",
+          "EBITDA Margin: +1,1 p.p. (da 9,9% a 11,0%)",
+          "Cash Flow: +€200k da ottimizzazione circolante",
+          "ROE: mantenimento sopra 35% con crescita sostenibile"
+        ]
+      }
+    }
+  },
+  "summary": {
+    "strengths": [
+      "ROE eccezionale (40,91%)",
+      "ROI best-in-class (53,26%)",
+      "Zero debito finanziario",
+      "Efficienza operativa elevata"
+    ],
+    "attentionAreas": [
+      "Crescita ricavi limitata (+1,6%)",
+      "Costo personale +48% YoY",
+      "Leverage operativo elevato (4,34)",
+      "Margine sicurezza 10,9%"
+    ],
+    "criticalIssues": [
+      "DSO 262 giorni (critico)",
+      "DPO 222 giorni (anomalo)",
+      "Sottodimensionamento (6 dip.)",
+      "Gap crescita vs settore"
+    ],
+    "overallAssessment": "Azienda con fondamentali economici solidi e redditività superiore al settore, ma con necessità di interventi urgenti sulla gestione del circolante e accelerazione della crescita per sostenere la struttura costi in espansione."
+  },
+  "charts": {
+    "trendRicaviMargini": {
+      "id": "trendRicaviMarginiChart",
+      "type": "bar",
+      "title": "Grafico 2.1: Trend Ricavi e Margini",
+      "data": {
+        "labels": ["2022", "2023", "2024"],
+        "revenues": [572, 1014, 1031],
+        "ebitda": [40.5, 104.3, 102.1],
+        "netProfit": [12.5, 41.3, 95.5]
+      }
+    },
+    "profitabilityIndices": {
+      "id": "profitabilityIndicesChart",
+      "type": "line",
+      "title": "Grafico 2.3: Andamento Redditività (%)",
+      "data": {
+        "labels": ["2022", "2023", "2024"],
+        "roe": [18.95, 29.97, 40.91],
+        "roi": [113.84, 67.88, 53.26],
+        "ros": [6.3, 9.5, 9.2]
+      }
+    },
+    "breakEven": {
+      "id": "breakEvenChart",
+      "type": "line",
+      "title": "Grafico 2.4: Analisi Break-Even",
+      "data": {
+        "labels": ["0", "200k", "400k", "600k", "800k", "918k", "1.031k", "1.200k"],
+        "totalCosts": [354, 477, 600, 723, 846, 918, 981, 1081],
+        "revenues": [0, 200, 400, 600, 800, 918, 1031, 1200],
+        "breakEvenPoint": [null, null, null, null, null, 918, null, null]
+      }
+    },
+    "competitiveRadar": {
+      "id": "competitiveRadarChart",
+      "type": "radar",
+      "title": "Grafico 2.5: Posizionamento vs Settore",
+      "data": {
+        "labels": ["Crescita", "EBITDA\\nMargin", "ROI", "ROE", "Efficienza", "Solidità\\nFinanziaria", "Liquidità", "Gestione\\nCrediti"],
+        "relive": [33, 86, 289, 180, 201, 200, 100, 28],
+        "mediaSett": [100, 100, 100, 100, 100, 100, 100, 100]
+      }
+    }
+  }
+}
