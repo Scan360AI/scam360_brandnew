@@ -1,0 +1,571 @@
+{
+  "company": {
+    "name": "RELIVE COMMUNICATION S.R.L.",
+    "shortName": "RC",
+    "reportType": "Bancabilità",
+    "lastUpdate": "28 Aprile 2025"
+  },
+  "navigation": [
+    {
+      "section": "main",
+      "title": "Menu Principale",
+      "items": [
+        {
+          "id": "dashboard",
+          "label": "Dashboard",
+          "href": "dashboard.html",
+          "icon": "dashboard"
+        },
+        {
+          "id": "sintesi",
+          "label": "Sintesi e Profilo",
+          "href": "sintesi.html",
+          "icon": "document"
+        }
+      ]
+    },
+    {
+      "section": "detailed",
+      "title": "Analisi Dettagliata",
+      "items": [
+        {
+          "id": "economico",
+          "label": "Analisi Economica",
+          "href": "economico.html",
+          "icon": "currency"
+        },
+        {
+          "id": "patrimoniale",
+          "label": "Analisi Patrimoniale",
+          "href": "patrimoniale.html",
+          "icon": "balance"
+        },
+        {
+          "id": "bancabilita",
+          "label": "Bancabilità",
+          "href": "bancabilita.html",
+          "icon": "bank",
+          "active": true
+        },
+        {
+          "id": "circolante",
+          "label": "Circolante e Flussi",
+          "href": "circolante.html",
+          "icon": "cycle"
+        },
+        {
+          "id": "rischi",
+          "label": "Rischi e Azioni",
+          "href": "rischi.html",
+          "icon": "warning"
+        },
+        {
+          "id": "irp",
+          "label": "Dettaglio IRP",
+          "href": "irp.html",
+          "icon": "shield"
+        }
+      ]
+    }
+  ],
+  "irp": {
+    "score": 78.50,
+    "maxScore": 100,
+    "category": "B",
+    "categoryText": "Rischio Moderato-Basso",
+    "description": "Profilo di rischio <strong>Moderato-Basso</strong>. L'azienda presenta un'eccellente solidità patrimoniale con assenza totale di debito finanziario e posizione di cassa netta positiva. Le principali aree di attenzione riguardano la gestione del capitale circolante con DSO elevato e la crescita limitata dei ricavi.",
+    "indicators": [
+      {
+        "icon": "layers",
+        "value": "10,03",
+        "label": "Leanus Score"
+      },
+      {
+        "icon": "building",
+        "value": "STABLE",
+        "label": "Business Category"
+      },
+      {
+        "icon": "card",
+        "value": "Fascia 2",
+        "label": "Rating MCC"
+      },
+      {
+        "icon": "check",
+        "value": "9,48",
+        "label": "Z-Score (Sicurezza)"
+      }
+    ]
+  },
+  "sections": {
+    "valutazioneSintetica": {
+      "title": "4.1 Valutazione Sintetica della Bancabilità",
+      "description": "RELIVE COMMUNICATION S.R.L. presenta un <strong>eccellente profilo di bancabilità</strong>, caratterizzato da una gestione particolarmente virtuosa dell'indebitamento.",
+      "highlights": [
+        {
+          "label": "Posizione Finanziaria Netta negativa",
+          "value": "€-56.948 (surplus di cassa)"
+        },
+        {
+          "label": "Debiti finanziari",
+          "value": "€0 (completamente azzerati)"
+        },
+        {
+          "label": "Liquidità disponibile",
+          "value": "€56.948"
+        }
+      ],
+      "tableData": {
+        "headers": ["Periodo", "Debiti Finanziari", "Liquidità", "PFN", "Trend"],
+        "rows": [
+          {
+            "periodo": "31/12/2022",
+            "debiti": "€21.599",
+            "liquidita": "€72.409",
+            "pfn": "€-50.810",
+            "trend": "Positivo",
+            "trendType": "success"
+          },
+          {
+            "periodo": "31/12/2023",
+            "debiti": "€43.570",
+            "liquidita": "€40.471",
+            "pfn": "€3.099",
+            "trend": "Temporaneo deterioramento",
+            "trendType": "warning"
+          },
+          {
+            "periodo": "31/12/2024",
+            "debiti": "€0",
+            "liquidita": "€56.948",
+            "pfn": "€-56.948",
+            "trend": "Netto miglioramento",
+            "trendType": "success"
+          }
+        ]
+      },
+      "conclusion": "Il <strong>completo azzeramento del debito finanziario</strong> nel 2024 rappresenta un risultato eccezionale che pone l'azienda in una condizione di solidità finanziaria ottimale."
+    },
+    "indicatoriSostenibilita": {
+      "title": "4.2 Indicatori di Sostenibilità del Debito",
+      "tableTitle": "Tabella 4.1: Indicatori Sostenibilità Debito 2022-2024",
+      "indicators": [
+        {
+          "name": "PFN/EBITDA",
+          "values": ["-0,86", "0,03", "-0,56"],
+          "evaluation": "Eccellente",
+          "evalType": "success"
+        },
+        {
+          "name": "Leva Finanziaria (D/E)",
+          "values": ["0,22", "0,31", "0,00"],
+          "evaluation": "Eccellente",
+          "evalType": "success"
+        },
+        {
+          "name": "EBITDA/Oneri Finanziari",
+          "values": ["66,25", "48,89", "70,96"],
+          "evaluation": "Eccellente",
+          "evalType": "success"
+        },
+        {
+          "name": "Oneri Finanziari/Ricavi",
+          "values": ["0,11%", "0,21%", "0,14%"],
+          "evaluation": "Eccellente",
+          "evalType": "success"
+        },
+        {
+          "name": "DSCR",
+          "values": ["n.d.", "n.d.", "8,604"],
+          "evaluation": "Eccellente",
+          "evalType": "success"
+        },
+        {
+          "name": "Cash Flow Operativo/Ricavi",
+          "values": ["1,42%", "-3,50%", "6,19%"],
+          "evaluation": "Buono",
+          "evalType": "success"
+        }
+      ],
+      "interpretations": [
+        {
+          "label": "PFN/EBITDA negativo",
+          "description": "situazione ottimale con surplus di cassa e capacità di generare EBITDA positivo"
+        },
+        {
+          "label": "Leva finanziaria azzerata",
+          "description": "completa indipendenza da capitale di terzi"
+        },
+        {
+          "label": "EBITDA/Oneri Finanziari",
+          "description": "valore di 70,96 ampiamente superiore alla soglia di sicurezza (>5)"
+        },
+        {
+          "label": "Incidenza oneri finanziari",
+          "description": "solo 0,14% dei ricavi, ben sotto la soglia critica del 3%"
+        }
+      ]
+    },
+    "capacitaIndebitamento": {
+      "title": "4.3 Capacità di Indebitamento Incrementale",
+      "capacityValue": "€ 180.000",
+      "capacityLabel": "Capacità incrementale stimata",
+      "description": "Debito aggiuntivo sostenibile mantenendo parametri di sicurezza",
+      "supportFactors": [
+        "EBITDA positivo (€102.108)",
+        "PFN negativa (surplus)",
+        "DSCR eccellente (8,604)",
+        "Cash Flow positivo"
+      ],
+      "limitingFactors": [
+        "DSO elevato (262 giorni)",
+        "Ciclo circolante lungo",
+        "Riduzione ROI",
+        "Crescita ricavi limitata"
+      ],
+      "analysis": "Considerando l'attuale assenza di debiti e un EBITDA di €102.108, applicando il criterio prudenziale di PFN/EBITDA < 3x, la capacità teorica potrebbe raggiungere circa €306.000. La stima Leanus di €180.000 appare quindi conservativa."
+    },
+    "dscr": {
+      "title": "4.4 DSCR (Debt Service Coverage Ratio)",
+      "description": "Il DSCR rappresenta l'indicatore primario per la valutazione della sostenibilità del debito secondo il sistema bancario:",
+      "parameters": [
+        {
+          "label": "DSCR calcolato",
+          "value": "8,604",
+          "evaluation": "Eccellente",
+          "evalType": "success"
+        },
+        {
+          "label": "Soglia bancaria minima",
+          "value": "1,2",
+          "evaluation": "Ampiamente superata"
+        },
+        {
+          "label": "Soglia di sicurezza",
+          "value": "1,5",
+          "evaluation": "Ampiamente superata"
+        }
+      ],
+      "analysis": {
+        "title": "Analisi DSCR",
+        "points": [
+          "Un DSCR di 8,604 indica che l'azienda genera flussi di cassa operativi 8,6 volte superiori rispetto all'ipotetico servizio del debito.",
+          "Questo valore posiziona l'azienda in una fascia di eccellenza per il merito creditizio."
+        ]
+      }
+    },
+    "pfnEbitda": {
+      "title": "4.5 PFN/EBITDA",
+      "description": "Il rapporto PFN/EBITDA al 31/12/2024 presenta la configurazione ideale:",
+      "highlights": [
+        {
+          "label": "PFN negativa",
+          "value": "€-56.948 (surplus di liquidità)"
+        },
+        {
+          "label": "EBITDA positivo",
+          "value": "€102.108"
+        },
+        {
+          "label": "Rapporto",
+          "value": "-0,56 (situazione ottimale)"
+        }
+      ],
+      "historicalData": {
+        "headers": ["Anno", "PFN", "EBITDA", "Rapporto"],
+        "rows": [
+          {
+            "year": "2022",
+            "pfn": "€-50.810",
+            "ebitda": "€59.227",
+            "ratio": "-0,86"
+          },
+          {
+            "year": "2023",
+            "pfn": "€3.099",
+            "ebitda": "€104.344",
+            "ratio": "0,03"
+          },
+          {
+            "year": "2024",
+            "pfn": "€-56.948",
+            "ebitda": "€102.108",
+            "ratio": "-0,56"
+          }
+        ]
+      },
+      "interpretation": {
+        "title": "La PFN negativa con EBITDA positivo rappresenta la migliore configurazione possibile:",
+        "points": [
+          "Nessun debito finanziario netto da rimborsare",
+          "Riserva di liquidità per opportunità di crescita",
+          "Totale indipendenza finanziaria",
+          "Massima flessibilità strategica"
+        ]
+      }
+    },
+    "matchingFinanziario": {
+      "title": "4.6 Matching Finanziario",
+      "description": "Valutazione dell'allineamento tra struttura degli impieghi e delle fonti:",
+      "cards": [
+        {
+          "type": "excellent",
+          "title": "Cash Flow Matching",
+          "description": "Ottima configurazione con:",
+          "points": [
+            {
+              "label": "CF Operativo",
+              "value": "€63.852 (6,19% ricavi)"
+            },
+            {
+              "label": "Variazione cassa",
+              "value": "€16.477 positiva"
+            }
+          ],
+          "evaluation": "Eccellente"
+        },
+        {
+          "type": "excellent",
+          "title": "Amounts Matching",
+          "description": "Struttura equilibrata:",
+          "points": [
+            {
+              "label": "Copertura immobilizz.",
+              "value": "10,67x"
+            },
+            {
+              "label": "PN/Attivo fisso",
+              "value": "superiore"
+            }
+          ],
+          "evaluation": "Eccellente"
+        },
+        {
+          "type": "excellent",
+          "title": "Duration Matching",
+          "description": "Assenza debiti finanziari:",
+          "points": [
+            {
+              "label": "2024",
+              "value": "Debiti €0"
+            },
+            {
+              "label": "Evoluzione",
+              "value": "Azzeramento completo"
+            }
+          ],
+          "evaluation": "Eccellente"
+        },
+        {
+          "type": "excellent",
+          "title": "Quality Matching",
+          "description": "Approccio prudente:",
+          "points": [
+            {
+              "label": "Mezzi propri",
+              "value": "prevalenti"
+            },
+            {
+              "label": "Liquidità",
+              "value": "eccedente"
+            }
+          ],
+          "evaluation": "Eccellente"
+        }
+      ]
+    },
+    "analisiCapacita": {
+      "title": "4.7 Analisi della Capacità di Indebitamento Sostenibile",
+      "description": "La capacità di indebitamento può essere analizzata attraverso diversi approcci:",
+      "approaches": [
+        {
+          "title": "Approccio PFN/EBITDA:",
+          "points": [
+            "Rapporto sostenibile massimo: 3x",
+            "EBITDA corrente: €102.108",
+            "Capacità teorica: €306.324"
+          ]
+        },
+        {
+          "title": "Approccio Cash Flow:",
+          "points": [
+            "CF Operativo: €63.852",
+            "DSCR minimo: 1,5",
+            "Servizio debito sostenibile: €42.568/anno",
+            "Debito a 5 anni (5%): €170.272"
+          ]
+        },
+        {
+          "title": "Approccio Patrimoniale:",
+          "points": [
+            "Patrimonio Netto: €234.134",
+            "D/E sostenibile: 1,0",
+            "Capacità teorica: €234.134"
+          ]
+        }
+      ],
+      "conclusion": "La stima Leanus di €180.000 appare prudente e conservativa, basata sui flussi di cassa. Data l'eccellente struttura finanziaria, eventuali decisioni di indebitamento dovrebbero essere valutate solo per opportunità strategiche di crescita."
+    },
+    "kpiCrisi": {
+      "title": "4.8 KPI della Crisi d'Impresa (CCII)",
+      "description": "Analisi degli indicatori previsti dal Codice della Crisi d'Impresa:",
+      "indicators": [
+        {
+          "name": "Oneri Finanziari/Ricavi",
+          "sector": "Servizi",
+          "threshold": "> 3,0%",
+          "value": "0,14%",
+          "evaluation": "Rispettato",
+          "evalType": "success"
+        },
+        {
+          "name": "Patrimonio Netto/Debiti Totali",
+          "sector": "Servizi",
+          "threshold": "< 7,6%",
+          "value": "41,69%",
+          "evaluation": "Rispettato",
+          "evalType": "success"
+        },
+        {
+          "name": "Attività Breve/Passività Breve",
+          "sector": "Servizi",
+          "threshold": "< 93,7%",
+          "value": "152,9%",
+          "evaluation": "Rispettato",
+          "evalType": "success"
+        },
+        {
+          "name": "Cash Flow/Totale Attivo",
+          "sector": "Servizi",
+          "threshold": "< 0,5%",
+          "value": "7,45%",
+          "evaluation": "Rispettato",
+          "evalType": "success"
+        },
+        {
+          "name": "Debiti Prev/Trib/Attivo",
+          "sector": "Servizi",
+          "threshold": "> 4,9%",
+          "value": "2,86%",
+          "evaluation": "Rispettato",
+          "evalType": "success"
+        }
+      ],
+      "analysis": {
+        "title": "Analisi KPI CCII",
+        "text": "L'azienda non presenta alcun \"fondato indizio\" dello stato di crisi secondo la normativa vigente. Tutti gli indicatori si posizionano ampiamente all'interno dei parametri di sicurezza."
+      }
+    },
+    "raccomandazioni": {
+      "title": "4.9 Raccomandazioni per la Strategia Finanziaria",
+      "strengths": [
+        {
+          "value": "€0",
+          "label": "Debiti Finanziari"
+        },
+        {
+          "value": "€56.9K",
+          "label": "Cash Surplus"
+        },
+        {
+          "value": "8,604",
+          "label": "DSCR"
+        },
+        {
+          "value": "100%",
+          "label": "Conformità CCII"
+        }
+      ],
+      "improvements": [
+        {
+          "value": "262gg",
+          "label": "DSO Elevato"
+        },
+        {
+          "value": "+1,64%",
+          "label": "Crescita Ricavi"
+        },
+        {
+          "value": "119gg",
+          "label": "Ciclo Circolante"
+        },
+        {
+          "value": "€180K",
+          "label": "Leva Inutilizzata"
+        }
+      ],
+      "timeline": [
+        {
+          "phase": "IMMEDIATO",
+          "title": "Gestione Tesoreria",
+          "value": "€40.000",
+          "description": "Liquidità ottimizzabile",
+          "impact": "Rendimento target: 3-4%<br>+€1.200-1.600/anno",
+          "color": "primary"
+        },
+        {
+          "phase": "6-12 MESI",
+          "title": "Capitale Circolante",
+          "value": "€230.000",
+          "description": "Liquidità liberabile",
+          "impact": "DSO target: 180gg<br>ROI: 2-3% costi impliciti",
+          "color": "warning"
+        },
+        {
+          "phase": "12-24 MESI",
+          "title": "Leva Strategica",
+          "value": "€180.000",
+          "description": "Capacità utilizzabile",
+          "impact": "ROI target: >15%<br>Costo capitale: 4,5-5,5%",
+          "color": "success"
+        }
+      ],
+      "competitiveAdvantages": [
+        {
+          "title": "Flessibilità Decisionale",
+          "description": "Reazione rapida alle opportunità senza vincoli finanziari"
+        },
+        {
+          "title": "Potere Negoziale",
+          "description": "Condizioni favorevoli grazie alla solidità finanziaria"
+        },
+        {
+          "title": "Resilienza Sistemica",
+          "description": "Immunità a shock di liquidità e variazioni tassi"
+        },
+        {
+          "title": "Attrattività M&A",
+          "description": "Profilo ideale per partner strategici e investitori"
+        }
+      ],
+      "finalConclusion": "RELIVE COMMUNICATION presenta un'architettura finanziaria di eccellenza che costituisce una solida piattaforma per la crescita futura. La combinazione di solidità patrimoniale, liquidità strutturale e capacità di generazione cassa posiziona l'azienda in una situazione privilegiata per implementare strategie di crescita ambiziose, mantenendo al contempo un profilo di rischio contenuto e sostenibile nel lungo termine."
+    }
+  },
+  "charts": {
+    "debtSustainability": {
+      "id": "debtSustainabilityChart",
+      "type": "radar",
+      "title": "Evoluzione Indicatori",
+      "data": {
+        "labels": ["PFN/EBITDA", "Leva (D/E)", "EBITDA/OF", "OF/Ricavi", "DSCR", "CFO/Ricavi"],
+        "datasets": [
+          {
+            "label": "2022",
+            "data": [95, 85, 90, 95, 90, 70],
+            "color": "secondary"
+          },
+          {
+            "label": "2023",
+            "data": [90, 80, 85, 90, 85, 40],
+            "color": "warning"
+          },
+          {
+            "label": "2024",
+            "data": [95, 100, 95, 95, 95, 85],
+            "color": "success"
+          }
+        ]
+      }
+    }
+  }
+}
