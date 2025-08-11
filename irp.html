@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dettaglio IRP - SCAN360</title>
+    <link rel="stylesheet" href="irp.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon" id="companyLogo"></div>
+                <div class="logo-text">SCAN360 Report</div>
+            </div>
+            <div class="header-info" id="headerInfo"></div>
+        </div>
+    </header>
+    
+    <button class="mobile-menu-btn" id="mobileMenuToggle">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+    
+    <div class="main-container">
+        <nav class="sidebar" id="sidebar">
+            <div id="navigationMenu"></div>
+        </nav>
+        
+        <main class="content" id="content">
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h1 class="page-title">Indice di Rischio Ponderato (IRP) - Dettaglio</h1>
+                    <p class="page-subtitle">Analisi approfondita delle componenti e metodologia di calcolo dell'IRP</p>
+                </div>
+                
+                <!-- Section 7: DETTAGLIO IRP -->
+                <div class="section-header">
+                    <svg class="section-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                    <h2>7. DETTAGLIO INDICE DI RISCHIO PONDERATO</h2>
+                </div>
+                
+                <!-- 7.1 Valutazione Complessiva -->
+                <div id="irpOverviewSection"></div>
+                
+                <!-- 7.2 Sintesi Calcolo IRP -->
+                <div id="irpCalculationSection"></div>
+                
+                <!-- 7.3 Dettaglio Componenti -->
+                <h3 class="subsection-header mt-4">7.3 Dettaglio Componenti IRP</h3>
+                <div id="componentsDetailSection"></div>
+                
+                <!-- 7.4 Valutazione Finale e Raccomandazioni -->
+                <div id="finalEvaluationSection"></div>
+                
+            </div>
+        </main>
+    </div>
+    
+    <!-- IRP Application JavaScript -->
+    <script>
+        class IRPApp {
+            constructor() {
+                this.data = null;
+            }
+            
+            async init() {
+                try {
+                    // Load data from JSON
+                    const response = await fetch('irp-data.json');
+                    this.data = await response.json();
+                    
+                    // Setup mobile menu
+                    this.setupMobileMenu();
+                    
+                    // Render all components
+                    this.renderHeader();
+                    this.renderNavigation();
+                    this.renderIRPOverview();
+                    this.renderCalculation();
+                    this.renderComponentDetails();
+                    this.renderFinalEvaluation();
+                    
+                    // Initialize interactive elements
+                    this.initializeMarkers();
+                } catch (error) {
+                    console.error('Error loading data:', error);
+                    this.showError(error);
+                }
+            }
+            
+            setupMobileMenu() {
+                const mobileToggle = document.getElementById('mobileMenuToggle');
+                const sidebar = document.getElementById('sidebar');
+                
+                mobileToggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                });
+                
+                // Close menu when clicking nav items on mobile
+                document.addEventListener('click', (e) => {
+                    if (e.target.closest('.nav-item') && window.innerWidth <= 1200) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+                
+                // Handle resize
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 1200) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+            }
+            
+            renderHeader() {
+                const logo = document.getElementById('companyLogo');
+                const headerInfo = document.getElementById('headerInfo');
+                
+                logo.textContent = this.data.company.shortName;
+                headerInfo.innerHTML = `
+                    <span>${this.data.company.name}</span>
+                    <span>•</span>
+                    <span>Report: ${this.data.company.reportType}</span>
+                    <span>•</span>
+                    <span>${this.data.company.lastUpdate}</span>
+                `;
+            }
+            
+            renderNavigation() {
+                const nav = document.getElementById('navigationMenu');
+                let html = '';
+                
+                this.data.navigation.forEach(section => {
+                    html += `
+                        <div class="nav-section">
+                            <div class="nav-title">${section.title}</div>
+                            ${section.items.map(item => `
+                                <a class="nav-item ${item.active ? 'active' : ''}" href="${item.href}">
+                                    <span class="nav-icon">${this.getIcon(item.icon)}</span>
+                                    <span>${item.label}</span>
+                                </a>
+                            `).join('')}
+                        </div>
+                    `;
+                });
+                
+                nav.innerHTML = html;
+            }
+            
+            renderIRPOverview() {
+                const section = document.getElementById('irpOverviewSection');
+                const irp = this.data.irpScore;
+                
+                section.innerHTML = `
+                    <div class="irp-visual-section">
+                        <h3 class="subsection-header text-center">Valutazione Complessiva del Rischio</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;" class="irp-grid">
+                            <div class="irp-score-container">
+                                <div class="irp-score-circle">
+                                    <span class="irp-score-value">${irp.value.toFixed(2).replace('.', ',')}</span>
+                                    <span class="irp-score-max">/ ${irp.maxValue}</span>
+                                </div>
+                                <div class="irp-category-text">${irp.categoryText}</div>
+                                <span class="score-badge ${irp.categoryColor}">Categoria ${irp.category}</span>
+                            </div>
+                            
+                            <div>
+                                <h4 style="color: #00d9ff; margin-bottom: 16px;">Posizionamento sulla Scala di Rischio</h4>
+                                <div class="irp-gradient-bar">
+                                    <div class="irp-marker" style="left: ${irp.scalePosition}%;" title="IRP: ${irp.value}"></div>
+                                </div>
+                                <div class="irp-scale-labels">
+                                    <span>0 (Alto)</span>
+                                    <span>25</span>
+                                    <span>50</span>
+                                    <span>75</span>
+                                    <span>100 (Basso)</span>
+                                </div>
+                                <p class="small mt-3" style="color: #8b95a2;">${irp.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderCalculation() {
+                const section = document.getElementById('irpCalculationSection');
+                const calc = this.data.irpCalculation;
+                
+                section.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="subsection-header">${calc.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>${calc.description}</p>
+                            
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Componente</th>
+                                            <th class="text-end">Valore Originale</th>
+                                            <th class="text-end">Punteggio Normalizzato</th>
+                                            <th class="text-end">Peso</th>
+                                            <th class="text-end">Punteggio Ponderato</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${calc.components.map(comp => `
+                                            <tr>
+                                                <td>${comp.isBold ? '<strong>' + comp.name + '</strong>' : comp.name}</td>
+                                                <td class="text-end">${comp.originalValue}</td>
+                                                <td class="text-end text-${comp.status}">${comp.normalizedScore.toFixed(2).replace('.', ',')}</td>
+                                                <td class="text-end">${comp.weight}%</td>
+                                                <td class="text-end fw-bold">${comp.weightedScore.toFixed(2).replace('.', ',')}</td>
+                                            </tr>
+                                        `).join('')}
+                                        <tr class="total-row">
+                                            <td><strong>Indice di Rischio Ponderato (IRP)</strong></td>
+                                            <td class="text-end">-</td>
+                                            <td class="text-end">-</td>
+                                            <td class="text-end">100%</td>
+                                            <td class="text-end" style="font-size: 20px;">${calc.totalScore.toFixed(2).replace('.', ',')}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderComponentDetails() {
+                const section = document.getElementById('componentsDetailSection');
+                const details = this.data.componentDetails;
+                
+                section.innerHTML = `
+                    <div class="grid grid-2">
+                        ${this.renderPrimaryComponent(details.primaryComponent)}
+                        ${this.renderLeanusScore(details.leanusScore)}
+                        ${this.renderRatingMCC(details.ratingMCC)}
+                        ${this.renderZScore(details.zScoreAltman)}
+                    </div>
+                `;
+            }
+            
+            renderPrimaryComponent(component) {
+                return `
+                    <div class="component-card">
+                        <div class="component-header">
+                            <h4 class="component-title">
+                                ${component.title}
+                                <span class="score-badge ${component.statusType}">${component.score.toFixed(2).replace('.', ',')} - ${component.status}</span>
+                            </h4>
+                        </div>
+                        <div class="component-body">
+                            <p class="small mb-3">${component.description}</p>
+                            
+                            <table class="data-table small">
+                                <thead>
+                                    <tr>
+                                        <th>Indicatore</th>
+                                        <th class="text-end">Valore</th>
+                                        <th class="text-end">Punteggio</th>
+                                        <th class="text-end">Peso</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${component.indicators.map(ind => `
+                                        <tr>
+                                            <td>${ind.name}</td>
+                                            <td class="text-end">${ind.value}</td>
+                                            <td class="text-end text-${ind.status}">${ind.score.toFixed(2).replace('.', ',')}</td>
+                                            <td class="text-end">${ind.weight}%</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderLeanusScore(component) {
+                const position = `calc(50% + (${component.originalScore} / 80 * 100%))`;
+                const color = this.getLeanusColor(component.originalScore);
+                
+                return `
+                    <div class="component-card">
+                        <div class="component-header">
+                            <h4 class="component-title">
+                                ${component.title}
+                                <span class="score-badge ${component.statusType}">${component.score.toFixed(2).replace('.', ',')} - ${component.status}</span>
+                            </h4>
+                        </div>
+                        <div class="component-body">
+                            <p class="small mb-2">Score Originale: <strong>${component.originalScore.toFixed(2).replace('.', ',')} ("${component.classification}")</strong></p>
+                            
+                            <p class="small fw-bold mb-2">Posizionamento Scala Leanus (${component.scaleMin}/${component.scaleMax})</p>
+                            <div class="leanus-scale-container">
+                                <div class="leanus-scale">
+                                    <div class="leanus-marker" style="left: ${position}; background: ${color};">
+                                        <span class="leanus-marker-label" style="left: ${position};">${component.originalScore.toFixed(2).replace('.', ',')}</span>
+                                    </div>
+                                </div>
+                                <div class="leanus-scale-labels">
+                                    <span>${component.scaleMin}</span>
+                                    <span>0</span>
+                                    <span>+${component.scaleMax}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="alert-box alert-${component.statusType} mt-3">
+                                <p class="mb-0 small"><strong>Classificazione "${component.classification.toUpperCase()}":</strong> ${component.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderRatingMCC(component) {
+                return `
+                    <div class="component-card">
+                        <div class="component-header">
+                            <h4 class="component-title">
+                                ${component.title}
+                                <span class="score-badge ${component.statusType}">${component.score.toFixed(2).replace('.', ',')} - ${component.status}</span>
+                            </h4>
+                        </div>
+                        <div class="component-body">
+                            <p class="small">Probabilità di Default: <strong>${component.probabilityDefault.toFixed(2).replace('.', ',')}%</strong></p>
+                            <p class="small">MCC: <strong>FASCIA "${component.fascia}"</strong></p>
+                            <p class="small">Conversione Score: ${component.formula}</p>
+                            
+                            <div class="alert-box alert-${component.statusType} mt-3">
+                                <p class="mb-0 small">${component.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderZScore(component) {
+                return `
+                    <div class="component-card">
+                        <div class="component-header">
+                            <h4 class="component-title">
+                                ${component.title}
+                                <span class="score-badge ${component.statusType}">${component.score.toFixed(2).replace('.', ',')} - ${component.status}</span>
+                            </h4>
+                        </div>
+                        <div class="component-body">
+                            <p class="small">Z-Score Originale: <strong>${component.originalScore.toFixed(2).replace('.', ',')}</strong> (${component.zone})</p>
+                            
+                            <p class="small fw-bold mb-2">Posizionamento Z-Score</p>
+                            <div class="zscore-container">
+                                <div class="zscore-bar">
+                                    <div class="zscore-segment danger"></div>
+                                    <div class="zscore-segment warning"></div>
+                                    <div class="zscore-segment success"></div>
+                                </div>
+                                <div class="zscore-marker" style="left: ${component.scalePosition}%;">
+                                    <span class="zscore-value-label" style="left: ${component.scalePosition}%;">${component.originalScore.toFixed(2).replace('.', ',')}</span>
+                                </div>
+                                <div class="zscore-labels">
+                                    <span>0</span>
+                                    <span>${component.thresholds.danger.toFixed(2).replace('.', ',')}</span>
+                                    <span>${component.thresholds.warning.toFixed(2).replace('.', ',')}</span>
+                                    <span>${component.thresholds.safe}+</span>
+                                </div>
+                            </div>
+                            
+                            <div class="alert-box alert-${component.statusType} mt-3">
+                                <p class="mb-0 small">${component.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderFinalEvaluation() {
+                const section = document.getElementById('finalEvaluationSection');
+                const evaluation = this.data.finalEvaluation;
+                
+                section.innerHTML = `
+                    <div class="card summary-card">
+                        <div class="card-header">
+                            <h3 class="subsection-header">${evaluation.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <h4 style="color: #00d9ff; margin-bottom: 16px;">${evaluation.interpretation.title}</h4>
+                            <p>${evaluation.interpretation.description}</p>
+                            
+                            <div class="grid grid-2 mt-4">
+                                <div class="alert-box alert-success">
+                                    <h5 style="font-size: 16px; margin-bottom: 12px;">
+                                        ${this.getIcon('check-circle')}
+                                        Punti di Forza IRP
+                                    </h5>
+                                    <ul class="small mb-0" style="padding-left: 20px;">
+                                        ${evaluation.strengths.map(s => `<li>${s}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                
+                                <div class="alert-box alert-danger">
+                                    <h5 style="font-size: 16px; margin-bottom: 12px;">
+                                        ${this.getIcon('warning-circle')}
+                                        Aree di Criticità IRP
+                                    </h5>
+                                    <ul class="small mb-0" style="padding-left: 20px;">
+                                        ${evaluation.weaknesses.map(w => `<li>${w}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h4 style="color: #00d9ff; margin-top: 32px; margin-bottom: 16px;">Raccomandazioni Operative per Miglioramento IRP</h4>
+                            <ol style="padding-left: 20px;">
+                                ${evaluation.recommendations.map((rec, idx) => `
+                                    <li class="${idx === evaluation.recommendations.length - 1 ? 'mb-0' : 'mb-2'}">
+                                        <strong>${rec.action}:</strong> ${rec.description} <em>${rec.impact}</em>
+                                    </li>
+                                `).join('')}
+                            </ol>
+                            
+                            <div class="alert-box alert-warning mt-4">
+                                <p class="mb-0"><strong>Obiettivo strategico:</strong> ${evaluation.strategicObjective}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            initializeMarkers() {
+                // Set Leanus marker color based on position
+                const leanusScore = this.data.componentDetails.leanusScore.originalScore;
+                const leanusMarkers = document.querySelectorAll('.leanus-marker');
+                leanusMarkers.forEach(marker => {
+                    marker.style.background = this.getLeanusColor(leanusScore);
+                });
+            }
+            
+            getLeanusColor(score) {
+                if (score < -13.33) return '#ef4444'; // Red
+                if (score < 13.33) return '#f59e0b'; // Orange
+                return '#22c55e'; // Green
+            }
+            
+            getIcon(iconName) {
+                const icons = {
+                    'dashboard': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>',
+                    'document': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>',
+                    'currency': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>',
+                    'balance': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"></path><path d="M4 21V7l8-4v18"></path><path d="M12 21V3l8 4v14"></path></svg>',
+                    'bank': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>',
+                    'cycle': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline></svg>',
+                    'warning': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path></svg>',
+                    'shield': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>',
+                    'check-circle': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 8px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>',
+                    'warning-circle': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 8px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>'
+                };
+                
+                return icons[iconName] || '';
+            }
+            
+            showError(error) {
+                const content = document.getElementById('content');
+                content.innerHTML = `
+                    <div class="content-wrapper">
+                        <div class="alert-box alert-warning">
+                            <h4>Errore caricamento dati</h4>
+                            <p>Impossibile caricare irp-data.json. Assicurati che il file sia nella stessa cartella.</p>
+                            <p>Errore: ${error.message}</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        // Initialize app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const app = new IRPApp();
+            app.init();
+        });
+    </script>
+</body>
+</html>
