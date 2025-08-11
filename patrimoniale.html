@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisi Patrimoniale - SCAN360</title>
+    <link rel="stylesheet" href="patrimoniale.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon" id="companyLogo"></div>
+                <div class="logo-text">SCAN360 Report</div>
+            </div>
+            <div class="header-info" id="headerInfo"></div>
+        </div>
+    </header>
+    
+    <button class="mobile-menu-btn" id="mobileMenuToggle">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+    
+    <div class="main-container">
+        <nav class="sidebar" id="sidebar">
+            <div id="navigationMenu"></div>
+        </nav>
+        
+        <main class="content" id="content">
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h1 class="page-title">Analisi Patrimoniale</h1>
+                    <p class="page-subtitle">Analisi dettagliata della struttura patrimoniale e della solidità finanziaria</p>
+                </div>
+                
+                <!-- Section 3: ANALISI PATRIMONIALE -->
+                <div class="section-header">
+                    <svg class="section-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 21h18"></path>
+                        <path d="M4 21V7l8-4v18"></path>
+                        <path d="M12 21V3l8 4v14"></path>
+                    </svg>
+                    <h2>3. ANALISI PATRIMONIALE</h2>
+                </div>
+                
+                <!-- Dynamic content sections -->
+                <div id="overviewSection"></div>
+                <div id="balanceSheetSection"></div>
+                <div id="investmentStructureSection"></div>
+                <div id="fundingStructureSection"></div>
+                <div id="pfnSection"></div>
+                <div id="solidityIndicesSection"></div>
+                <div id="improvementsSection"></div>
+                <div id="conclusionsSection"></div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Patrimoniale Application JavaScript -->
+    <script>
+        class PatrimonialeApp {
+            constructor() {
+                this.data = null;
+                this.charts = {};
+                this.chartColors = {
+                    primary: '#00d9ff',
+                    secondary: '#5a67d8',
+                    success: '#22c55e',
+                    warning: '#f59e0b',
+                    danger: '#ef4444',
+                    info: '#00d9ff',
+                    light: '#c1c9d2',
+                    dark: '#1e3a47'
+                };
+                this.gridColor = 'rgba(193, 201, 210, 0.1)';
+                this.fontColor = '#c1c9d2';
+            }
+            
+            async init() {
+                try {
+                    // Load data from JSON
+                    const response = await fetch('patrimoniale-data.json');
+                    this.data = await response.json();
+                    
+                    // Initialize Chart.js defaults
+                    this.setupChartDefaults();
+                    
+                    // Setup mobile menu
+                    this.setupMobileMenu();
+                    
+                    // Render all components
+                    this.renderHeader();
+                    this.renderNavigation();
+                    this.renderSections();
+                    
+                    // Initialize charts after DOM is ready
+                    setTimeout(() => this.initializeCharts(), 100);
+                } catch (error) {
+                    console.error('Error loading data:', error);
+                    this.showError(error);
+                }
+            }
+            
+            setupChartDefaults() {
+                Chart.defaults.color = this.fontColor;
+                Chart.defaults.borderColor = this.gridColor;
+                Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif';
+                Chart.defaults.font.size = window.innerWidth < 768 ? 10 : 12;
+                
+                window.addEventListener('resize', () => {
+                    Chart.defaults.font.size = window.innerWidth < 768 ? 10 : 12;
+                });
+            }
+            
+            setupMobileMenu() {
+                const mobileToggle = document.getElementById('mobileMenuToggle');
+                const sidebar = document.getElementById('sidebar');
+                
+                mobileToggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                });
+                
+                document.addEventListener('click', (e) => {
+                    if (e.target.closest('.nav-item') && window.innerWidth <= 1200) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+                
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 1200) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+            }
+            
+            renderHeader() {
+                const logo = document.getElementById('companyLogo');
+                const headerInfo = document.getElementById('headerInfo');
+                
+                logo.textContent = this.data.company.shortName;
+                headerInfo.innerHTML = `
+                    <span>${this.data.company.name}</span>
+                    <span>•</span>
+                    <span>Report: ${this.data.company.reportType}</span>
+                    <span>•</span>
+                    <span>${this.data.company.lastUpdate}</span>
+                `;
+            }
+            
+            renderNavigation() {
+                const nav = document.getElementById('navigationMenu');
+                let html = '';
+                
+                this.data.navigation.forEach(section => {
+                    html += `
+                        <div class="nav-section">
+                            <div class="nav-title">${section.title}</div>
+                            ${section.items.map(item => `
+                                <a class="nav-item ${item.active ? 'active' : ''}" href="${item.href}">
+                                    <span class="nav-icon">${this.getIcon(item.icon)}</span>
+                                    <span>${item.label}</span>
+                                </a>
+                            `).join('')}
+                        </div>
+                    `;
+                });
+                
+                nav.innerHTML = html;
+            }
+            
+            renderSections() {
+                this.renderOverview();
+                this.renderBalanceSheet();
+                this.renderInvestmentStructure();
+                this.renderFundingStructure();
+                this.renderPFN();
+                this.renderSolidityIndices();
+                this.renderImprovements();
+                this.renderConclusions();
+            }
+            
+            renderOverview() {
+                const section = this.data.sections.overview;
+                const container = document.getElementById('overviewSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="subsection-header">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>${section.description}</p>
+                            
+                            <!-- Grafici Composizione -->
+                            <div class="row mt-4">
+                                <div class="col-lg-6 mb-3 mb-lg-0">
+                                    <h6 class="text-center small">${this.data.charts.assetsComposition.title}</h6>
+                                    <div class="chart-container">
+                                        <canvas id="assetsChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h6 class="text-center small">${this.data.charts.liabilitiesComposition.title}</h6>
+                                    <div class="chart-container">
+                                        <canvas id="liabilitiesChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h6 class="mt-4">${section.trends.title}</h6>
+                            <p class="small">${section.trends.description}</p>
+                            <ul class="small">
+                                ${section.trends.points.map(point => `
+                                    <li><strong>${point.label}</strong>: ${point.description}</li>
+                                `).join('')}
+                            </ul>
+                            <p class="small">${section.trends.conclusion}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderBalanceSheet() {
+                const section = this.data.sections.balanceSheet;
+                const container = document.getElementById('balanceSheetSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="subsection-header">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                ${this.createBalanceSheetTable(section.data)}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            createBalanceSheetTable(data) {
+                let html = `
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Stato Patrimoniale (€)</th>
+                                ${data.years.map(year => `
+                                    <th class="text-end">${year}</th>
+                                    <th class="text-end">%</th>
+                                `).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                // Assets section
+                data.assets.forEach(row => {
+                    if (row.isSectionHeader) {
+                        html += `
+                            <tr class="fw-bold">
+                                <td>${row.label}</td>
+                                <td class="text-end"></td>
+                                <td class="text-end"></td>
+                                <td class="text-end"></td>
+                                <td class="text-end"></td>
+                                <td class="text-end"></td>
+                                <td class="text-end"></td>
+                            </tr>
+                        `;
+                    } else {
+                        const rowClass = row.isTotalRow ? 'table-primary fw-bold' : '';
+                        html += `
+                            <tr class="${rowClass}">
+                                <td>${row.label}</td>
+                                ${row.values.map((value, i) => `
+                                    <td class="text-end">${this.formatNumber(value)}</td>
+                                    <td class="text-end">${row.percentages[i].toFixed(1)}%</td>
+                                `).join('')}
+                            </tr>
+                        `;
+                    }
+                });
+                
+                html += '</tbody><tbody>';
+                
+                // Liabilities section
+                data.liabilities.forEach(row => {
+                    if (row.isSectionHeader) {
+                        html += `
+                            <tr class="fw-bold">
+                                <td>${row.label}</td>
+                                <td class="text-end"></td>
+                                <td class="text-end"></td>
+                                <td class="text-end"></td>
+                                <td class="text-end"></td>
+                                <td class="text-end"></td>
+                                <td class="text-end"></td>
+                            </tr>
+                        `;
+                    } else {
+                        const rowClass = row.isTotalRow ? 'table-primary fw-bold' : '';
+                        html += `
+                            <tr class="${rowClass}">
+                                <td>${row.label}</td>
+                                ${row.values.map((value, i) => `
+                                    <td class="text-end">${this.formatNumber(value)}</td>
+                                    <td class="text-end">${row.percentages[i].toFixed(1)}%</td>
+                                `).join('')}
+                            </tr>
+                        `;
+                    }
+                });
+                
+                html += `
+                        </tbody>
+                    </table>
+                `;
+                
+                return html;
+            }
+            
+            renderInvestmentStructure() {
+                const section = this.data.sections.investmentStructure;
+                const container = document.getElementById('investmentStructureSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="subsection-header">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="mt-1">${section.composition.title}</h6>
+                            <p class="small">${section.composition.description}</p>
+                            <ul class="small">
+                                ${section.composition.points.map(point => `
+                                    <li><strong>${point.label}</strong>: ${point.value}</li>
+                                `).join('')}
+                            </ul>
+                            
+                            <p class="small">${section.fixedAssets.description}</p>
+                            <ul class="small">
+                                ${section.fixedAssets.breakdown.map(item => `
+                                    <li>${item.type}: €${this.formatNumber(item.value)} (${item.percentage}% del totale immobilizzazioni)</li>
+                                `).join('')}
+                            </ul>
+                            
+                            <h6 class="mt-3">${section.rotations.title}</h6>
+                            <p class="small">${section.rotations.description}</p>
+                            
+                            <div class="row mt-4">
+                                <div class="col-lg-7 mb-3 mb-lg-0">
+                                    <h6 class="text-center small">${this.data.charts.investmentsStructure.title}</h6>
+                                    <div class="chart-container chart-large">
+                                        <canvas id="investmentsStructureChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <h6 class="mt-1">Analisi Attivo Circolante:</h6>
+                                    <ul class="small list-unstyled">
+                                        ${section.currentAssets.map(item => `
+                                            <li class="mb-2">
+                                                <span class="icon-circle icon-circle-sm bg-icon-${item.iconColor} me-2">
+                                                    ${this.getSmallIcon(item.icon)}
+                                                </span>
+                                                <strong>${item.label}:</strong> ${item.description}
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderFundingStructure() {
+                const section = this.data.sections.fundingStructure;
+                const container = document.getElementById('fundingStructureSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="subsection-header">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="mt-1">${section.composition.title}</h6>
+                            <p class="small">${section.composition.description}</p>
+                            <ul class="small">
+                                ${section.composition.points.map(point => `
+                                    <li><strong>${point.label}</strong>: ${point.value}</li>
+                                `).join('')}
+                            </ul>
+                            <p class="small">${section.composition.equityGrowth}</p>
+                            
+                            <h6 class="mt-3">${section.quality.title}</h6>
+                            <p class="small">${section.quality.description}</p>
+                            <ul class="small">
+                                ${section.quality.points.map(point => `
+                                    <li><strong>${point.label}</strong>: ${point.value}</li>
+                                `).join('')}
+                            </ul>
+                            
+                            <div class="row">
+                                <div class="col-lg-6 mb-3 mb-lg-0">
+                                    <h6 class="text-center small">${this.data.charts.equityComposition.title}</h6>
+                                    <div class="chart-container">
+                                        <canvas id="equityCompositionChart"></canvas>
+                                    </div>
+                                    <h6 class="mt-3">${section.equityAnalysis.title}</h6>
+                                    <ul class="small list-unstyled">
+                                        ${section.equityAnalysis.points.map(point => `
+                                            <li>
+                                                <i class="fas fa-${point.icon} text-${point.type} me-1"></i>
+                                                <strong>${point.text}</strong>
+                                                ${point.badge ? `<span class="status-badge bg-${point.type}">${point.badge}</span>` : ''}
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h6 class="text-center small">${this.data.charts.financialDebt.title}</h6>
+                                    <div class="chart-container">
+                                        <canvas id="financialDebtChart"></canvas>
+                                    </div>
+                                    <h6 class="mt-3">${section.debtAnalysis.title}</h6>
+                                    <ul class="small list-unstyled">
+                                        ${section.debtAnalysis.points.map(point => `
+                                            <li>
+                                                <i class="fas fa-${point.icon} text-${point.type} me-1"></i>
+                                                <strong>${point.text}</strong>
+                                                ${point.badge ? `<span class="status-badge bg-${point.type}">${point.badge}</span>` : ''}
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            renderPFN() {
+                const section = this.data.sections.pfn;
+                const container = document.getElementById('pfnSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="subsection-header">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="mt-1">${section.analysis.title}</h6>
+                            <p class="small">${section.analysis.description}</p>
+                            
+                            <div class="row">
+                                <div class="col-lg-7 mb-3 mb-lg-0">
+                                    <h6 class="mt-1">${section.table.title}</h6>
+                                    <div class="table-responsive">
+                                        ${this.createPFNTable(section.table.data)}
+                                    </div>
+                                    
+                                    <h6 class="mt-4">${section.ratioAnalysis.title}</h6>
+                                    <p class="small">${section.ratioAnalysis.description}</p>
+                                    <ul class="small">
+                                        ${section.ratioAnalysis.points.map(point => `<li>${point}</li>`).join('')}
+                                    </ul>
+                                    <p class="small">${section.ratioAnalysis.conclusion}</p>
+                                    
+                                    <h6 class="mt-3">${section.debtCost.title}</h6>
+                                    <p class="small">${section.debtCost.description}</p>
+                                </div>
+                                <div class="col-lg-5">
+                                    <h6 class="text-center small">${this.data.charts.pfnTrend.title}</h6>
+                                    <div class="chart-container">
+                                        <canvas id="pfnTrendChart"></canvas>
+                                    </div>
+                                    <h6 class="mt-3">Analisi PFN (RELIVE COMMUNICATION):</h6>
+                                    <ul class="small list-unstyled">
+                                        ${section.highlights.map(item => `
+                                            <li>
+                                                <i class="fas fa-${item.icon} text-${item.type} me-1"></i>
+                                                <strong>${item.text}</strong>
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            createPFNTable(data) {
+                const years = ['31/12/2022', '31/12/2023', '31/12/2024'];
+                
+                return `
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Componenti PFN (€)</th>
+                                ${years.map(year => `<th class="text-end">${year}</th>`).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.map(row => {
+                                const rowClass = row.isTotalRow ? 'fw-bold' : '';
+                                return `
+                                    <tr class="${rowClass}">
+                                        <td>${row.component}</td>
+                                        ${row.values.map(value => `
+                                            <td class="text-end">${value < 0 ? '(' + this.formatNumber(Math.abs(value)) + ')' : this.formatNumber(value)}</td>
+                                        `).join('')}
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                `;
+            }
+            
+            renderSolidityIndices() {
+                const section = this.data.sections.solidityIndices;
+                const container = document.getElementById('solidityIndicesSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="subsection-header">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                ${this.createSolidityTable(section.data)}
+                            </div>
+                            
+                            <h6 class="mt-3">${section.interpretation.title}</h6>
+                            <div class="row mt-3 small">
+                                ${section.interpretation.items.map(item => `
+                                    <div class="col-md-6">
+                                        <i class="fas fa-check text-success me-1"></i>
+                                        <strong>${item.label}:</strong> ${item.description}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            createSolidityTable(data) {
+                const years = ['31/12/2022', '31/12/2023', '31/12/2024'];
+                
+                return `
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Indice</th>
+                                <th>Formula</th>
+                                ${years.map(year => `<th class="text-end">${year}</th>`).join('')}
+                                <th>Valutazione</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.map(row => `
+                                <tr>
+                                    <td>${row.index}</td>
+                                    <td>${row.formula}</td>
+                                    ${row.values.map(value => `<td class="text-end">${value}</td>`).join('')}
+                                    <td><span class="status-badge bg-${row.evalType}">${row.evaluation}</span></td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+            }
+            
+            renderImprovements() {
+                const section = this.data.sections.improvements;
+                const container = document.getElementById('improvementsSection');
+                
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="subsection-header">${section.title}</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                ${this.createImprovementsTable(section.data)}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            createImprovementsTable(data) {
+                return `
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Area</th>
+                                <th>Situazione attuale</th>
+                                <th>Azione suggerita</th>
+                                <th>Effetti previsti</th>
+                                <th>Impatto quantitativo/costo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.map(row => `
+                                <tr>
+                                    <td><strong>${row.area}</strong></td>
+                                    <td>${row.currentSituation}</td>
+                                    <td>${row.suggestedAction}</td>
+                                    <td>${row.expectedEffects}</td>
+                                    <td>${row.quantitativeImpact}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+            }
+            
+            renderConclusions() {
+                const section = this.data.sections.conclusions;
+                const container = document.getElementById('conclusionsSection');
+                
+                container.innerHTML = `
+                    <div class="card summary-card">
+                        <div class="summary-header">
+                            <div class="summary-icon">
+                                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#00d9ff" stroke-width="2">
+                                    <path d="M9 11l3 3L22 4"></path>
+                                    <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
+                                </svg>
+                            </div>
+                            <h3 class="summary-title">Conclusioni sull'Analisi Patrimoniale</h3>
+                            <p class="summary-subtitle">Valutazione complessiva della struttura patrimoniale</p>
+                        </div>
+                        
+                        <div class="key-points">
+                            <h4 style="font-size: 18px; color: #00d9ff; margin-bottom: 20px;">
+                                Punti Chiave dell'Analisi
+                            </h4>
+                            
+                            <div class="key-points-grid">
+                                ${section.keyPoints.map(point => `
+                                    <div class="key-point-item" style="background: rgba(${point.type === 'success' ? '34, 197, 94' : '245, 158, 11'}, 0.1); border: 1px solid rgba(${point.type === 'success' ? '34, 197, 94' : '245, 158, 11'}, 0.2);">
+                                        <div style="display: flex; align-items: start; gap: 12px;">
+                                            <span class="key-point-number" style="background: rgba(${point.type === 'success' ? '34, 197, 94' : '245, 158, 11'}, 0.2); color: ${point.type === 'success' ? '#22c55e' : '#f59e0b'};">
+                                                ${point.number}
+                                            </span>
+                                            <div>
+                                                <h5 style="font-size: 14px; font-weight: 600; color: ${point.type === 'success' ? '#22c55e' : '#f59e0b'}; margin-bottom: 4px;">
+                                                    ${point.title}
+                                                </h5>
+                                                <p style="font-size: 13px; margin: 0;">${point.description}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="key-points">
+                            <h4 style="font-size: 18px; color: #00d9ff; margin-bottom: 20px;">
+                                Priorità Strategiche
+                            </h4>
+                            
+                            <div class="priority-list">
+                                ${section.strategicPriorities.map(priority => `
+                                    <div class="priority-item">
+                                        <span class="priority-number">${priority.number}</span>
+                                        <div class="priority-content">
+                                            <h5>${priority.title}</h5>
+                                            <p>${priority.description}</p>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="final-judgment">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" style="margin-bottom: 16px;">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                <path d="M2 17l10 5 10-5"></path>
+                                <path d="M2 12l10 5 10-5"></path>
+                            </svg>
+                            <h4 style="font-size: 20px; color: #22c55e; margin-bottom: 12px;">Giudizio Finale</h4>
+                            <p style="font-size: 15px; line-height: 1.6; max-width: 800px; margin: 0 auto;">
+                                ${section.finalJudgment}
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            initializeCharts() {
+                // 1. Assets Composition Chart
+                this.createDoughnutChart('assetsChart', this.data.charts.assetsComposition);
+                
+                // 2. Liabilities Composition Chart
+                this.createDoughnutChart('liabilitiesChart', this.data.charts.liabilitiesComposition);
+                
+                // 3. Investments Structure Chart
+                this.createStackedBarChart('investmentsStructureChart', this.data.charts.investmentsStructure);
+                
+                // 4. Equity Composition Chart
+                this.createStackedPercentageChart('equityCompositionChart', this.data.charts.equityComposition);
+                
+                // 5. Financial Debt Chart
+                this.createMixedChart('financialDebtChart', this.data.charts.financialDebt);
+                
+                // 6. PFN Trend Chart
+                this.createLineChart('pfnTrendChart', this.data.charts.pfnTrend);
+            }
+            
+            createDoughnutChart(canvasId, chartData) {
+                const ctx = document.getElementById(canvasId)?.getContext('2d');
+                if (!ctx) return;
+                
+                const colors = [
+                    this.chartColors.primary,
+                    this.chartColors.success,
+                    this.chartColors.secondary,
+                    this.chartColors.warning,
+                    this.chartColors.danger
+                ];
+                
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: chartData.data.labels,
+                        datasets: [{
+                            data: chartData.data.values,
+                            backgroundColor: colors,
+                            borderWidth: 2,
+                            borderColor: '#0e1e25'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 10,
+                                    usePointStyle: true,
+                                    font: { size: 11 }
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: (context) => {
+                                        return context.label + ': ' + context.parsed + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            createStackedBarChart(canvasId, chartData) {
+                const ctx = document.getElementById(canvasId)?.getContext('2d');
+                if (!ctx) return;
+                
+                const colors = [
+                    this.chartColors.primary,
+                    this.chartColors.success,
+                    this.chartColors.secondary,
+                    this.chartColors.warning,
+                    this.chartColors.info
+                ];
+                
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.data.labels,
+                        datasets: chartData.data.datasets.map((dataset, i) => ({
+                            label: dataset.label,
+                            data: dataset.values,
+                            backgroundColor: colors[i]
+                        }))
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                stacked: true,
+                                grid: { display: false }
+                            },
+                            y: {
+                                stacked: true,
+                                title: {
+                                    display: true,
+                                    text: 'Importi in €000',
+                                    font: { size: 11 }
+                                },
+                                grid: { color: this.gridColor }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 10,
+                                    usePointStyle: true,
+                                    font: { size: 11 }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            createStackedPercentageChart(canvasId, chartData) {
+                const ctx = document.getElementById(canvasId)?.getContext('2d');
+                if (!ctx) return;
+                
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.data.labels,
+                        datasets: chartData.data.datasets.map(dataset => ({
+                            label: dataset.label,
+                            data: dataset.values,
+                            backgroundColor: dataset.label.includes('Patrimonio') ? this.chartColors.success : this.chartColors.danger,
+                            borderRadius: 4
+                        }))
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                stacked: true,
+                                grid: { display: false }
+                            },
+                            y: {
+                                stacked: true,
+                                max: 100,
+                                ticks: {
+                                    callback: (value) => value + '%'
+                                },
+                                grid: { color: this.gridColor }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 10,
+                                    usePointStyle: true,
+                                    font: { size: 11 }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            createMixedChart(canvasId, chartData) {
+                const ctx = document.getElementById(canvasId)?.getContext('2d');
+                if (!ctx) return;
+                
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.data.labels,
+                        datasets: chartData.data.datasets.map(dataset => ({
+                            label: dataset.label,
+                            data: dataset.values,
+                            type: dataset.type || 'bar',
+                            backgroundColor: dataset.type === 'line' ? 'transparent' : 
+                                dataset.label.includes('Debiti') ? this.chartColors.danger : this.chartColors.secondary,
+                            borderColor: dataset.type === 'line' ? this.chartColors.success : undefined,
+                            borderWidth: dataset.type === 'line' ? 2 : undefined,
+                            yAxisID: dataset.type === 'line' ? 'y1' : 'y',
+                            pointBackgroundColor: dataset.type === 'line' ? this.chartColors.success : undefined,
+                            fill: false
+                        }))
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                grid: { display: false }
+                            },
+                            y: {
+                                grid: { color: this.gridColor },
+                                ticks: {
+                                    callback: (value) => value + 'K'
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Valori in €000',
+                                    font: { size: 10 }
+                                }
+                            },
+                            y1: {
+                                position: 'right',
+                                grid: { drawOnChartArea: false },
+                                ticks: {
+                                    callback: (value) => value.toFixed(2) + 'x'
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Rapporto D/E',
+                                    font: { size: 10 }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 10,
+                                    usePointStyle: true,
+                                    font: { size: 11 }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            createLineChart(canvasId, chartData) {
+                const ctx = document.getElementById(canvasId)?.getContext('2d');
+                if (!ctx) return;
+                
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: chartData.data.labels,
+                        datasets: chartData.data.datasets.map((dataset, i) => ({
+                            label: dataset.label,
+                            data: dataset.values,
+                            borderColor: i === 0 ? this.chartColors.primary : this.chartColors.danger,
+                            backgroundColor: i === 0 ? 'rgba(0, 217, 255, 0.1)' : 'transparent',
+                            borderWidth: i === 0 ? 3 : 2,
+                            borderDash: i === 1 ? [5, 5] : [],
+                            fill: i === 0,
+                            tension: 0.4,
+                            pointRadius: i === 0 ? 6 : 0,
+                            pointBackgroundColor: this.chartColors.primary,
+                            pointBorderColor: '#0e1e25',
+                            pointBorderWidth: 2
+                        }))
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 10,
+                                    usePointStyle: true,
+                                    font: { size: 11 }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'PFN (€000)',
+                                    font: { size: 11 }
+                                },
+                                grid: { color: this.gridColor },
+                                ticks: {
+                                    callback: (value) => value + 'K'
+                                }
+                            },
+                            x: {
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Utility methods
+            formatNumber(value) {
+                return value.toLocaleString('it-IT');
+            }
+            
+            getIcon(iconName) {
+                const icons = {
+                    'dashboard': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>',
+                    'document': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>',
+                    'currency': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>',
+                    'building': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"></path><path d="M4 21V7l8-4v18"></path><path d="M12 21V3l8 4v14"></path></svg>',
+                    'bank': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>',
+                    'cycle': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline></svg>',
+                    'warning': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path></svg>',
+                    'shield': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>'
+                };
+                return icons[iconName] || '';
+            }
+            
+            getSmallIcon(iconName) {
+                const icons = {
+                    'coins': '€',
+                    'invoice': '📄',
+                    'boxes': '📦',
+                    'sync': '🔄'
+                };
+                return icons[iconName] || '';
+            }
+            
+            showError(error) {
+                const content = document.getElementById('content');
+                content.innerHTML = `
+                    <div class="content-wrapper">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 style="color: #f59e0b;">Errore caricamento dati</h4>
+                                <p>Impossibile caricare patrimoniale-data.json. Assicurati che il file sia nella stessa cartella.</p>
+                                <p>Errore: ${error.message}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        // Initialize app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const app = new PatrimonialeApp();
+            app.init();
+        });
+    </script>
+</body>
+</html>
